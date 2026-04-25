@@ -1,0 +1,88 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Register New Voter";
+    int programId = ViewBag.ProgramId ?? 0;
+    var program = ViewBag.Program as AmarTools.Voting.Models.VotingProgram;
+}
+
+<div class="page-header">
+    <div>
+        <div class="page-title">Register New Voter</div>
+        <div class="page-subtitle">
+            @if (program != null)
+            {
+                <span>@program.ProgramName</span>
+            }
+            else
+            {
+                @:Add a voter who can participate in this program
+            }
+        </div>
+    </div>
+    <a asp-action="ManageVoters" asp-route-programId="@programId" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Back to Voters
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">
+        <i class="bi bi-check-circle-fill"></i>
+        <span>@TempData["Success"]</span>
+        <button class="alert-close">&times;</button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        <span>@TempData["Error"]</span>
+        <button class="alert-close">&times;</button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="RegisterVoter" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="programId" value="@programId" />
+
+            <div class="form-group">
+                <label class="form-label">Full Name <span class="req">*</span></label>
+                <input name="name" class="form-control" required maxlength="150"
+                       placeholder="Enter voter's full name" />
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email Address <span class="req">*</span></label>
+                <input name="email" type="email" class="form-control" required maxlength="200"
+                       placeholder="voter@example.com" autocomplete="email" />
+                <div class="form-hint">
+                    This email will be required when the voter wants to cast their vote.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">
+                    Member / Student / Employee ID
+                    <span style="color:var(--ink-3);">(optional)</span>
+                </label>
+                <input name="memberId" class="form-control" maxlength="100"
+                       placeholder="e.g. STU2026001 or EMP-04567" />
+            </div>
+
+            <div class="action-group mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-person-plus"></i> Register Voter
+                </button>
+                <a asp-action="ManageVoters" asp-route-programId="@programId"
+                   class="btn btn-secondary btn-lg">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

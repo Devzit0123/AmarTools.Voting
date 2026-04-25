@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — AmarTools Voting</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f0f2f8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-brand {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .auth-brand-name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0f1117;
+            letter-spacing: -0.5px;
+        }
+
+            .auth-brand-name span {
+                color: #3b5bdb;
+            }
+
+        .auth-brand-sub {
+            font-size: 12px;
+            color: #9ba1b0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container py-5">
+        <div class="auth-brand">
+            <div class="auth-brand-name">Amar<span>Tools</span></div>
+            <div class="auth-brand-sub">Voting Platform</div>
+        </div>
+
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

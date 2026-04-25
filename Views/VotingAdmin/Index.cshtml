@@ -1,0 +1,133 @@
+﻿@model IEnumerable<AmarTools.Voting.Models.VotingProgram>
+
+@{
+    ViewData["Title"] = "Admin Dashboard";
+    var programs = Model?.ToList() ?? new List<AmarTools.Voting.Models.VotingProgram>();
+    var totalPrograms = programs.Count;
+    var activePrograms = programs.Count(p => p.IsActive);
+    var totalVotes = programs.Sum(p => p.TotalVotes);
+    var totalVoters = programs.Sum(p => p.Voters?.Count ?? 0);
+
+    var startTimes = ViewBag.ProgramStartTimes as Dictionary<int, DateTime> ?? new();
+    var endTimes = ViewBag.ProgramEndTimes as Dictionary<int, DateTime> ?? new();
+}
+
+<div class="page-header d-flex justify-content-between align-items-center mb-5 mt-4">
+    <div>
+        <h1 class="page-title fw-bold text-primary">Admin Dashboard</h1>
+        <p class="text-muted mb-0">Overview of all voting programs in the system</p>
+    </div>
+    <div>
+        <a asp-controller="VotingAdmin" asp-action="Create" class="btn btn-primary btn-lg shadow-sm">
+            <i class="bi bi-plus-lg"></i> Create New Program
+        </a>
+    </div>
+</div>
+
+<div class="row g-3 mb-5">
+    <div class="col-md-3">
+        <div class="card h-100 shadow-sm text-center border-0 bg-primary text-white rounded-3">
+            <div class="card-body py-4">
+                <div class="small mb-2 fw-bold text-uppercase opacity-75">Total Programs</div>
+                <h2 class="mb-0 display-5 fw-bold">@totalPrograms</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 shadow-sm text-center border-0 bg-success text-white rounded-3">
+            <div class="card-body py-4">
+                <div class="small mb-2 fw-bold text-uppercase opacity-75">Active Now</div>
+                <h2 class="mb-0 display-5 fw-bold">@activePrograms</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 shadow-sm text-center border-0 bg-warning text-dark rounded-3">
+            <div class="card-body py-4">
+                <div class="small mb-2 fw-bold text-uppercase opacity-75">Total Votes</div>
+                <h2 class="mb-0 display-5 fw-bold">@totalVotes</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card h-100 shadow-sm text-center border-0 bg-info text-white rounded-3">
+            <div class="card-body py-4">
+                <div class="small mb-2 fw-bold text-uppercase opacity-75">Registered Voters</div>
+                <h2 class="mb-0 display-5 fw-bold">@totalVoters</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (!programs.Any())
+{
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body text-center py-5">
+            <i class="bi bi-ballot display-1 text-muted mb-4 opacity-50"></i>
+            <h4 class="mb-3 fw-bold">No voting programs yet</h4>
+            <p class="text-muted mb-4">Create the first program to get started.</p>
+            <a asp-controller="VotingAdmin" asp-action="Create" class="btn btn-primary btn-lg px-4 shadow-sm">
+                <i class="bi bi-plus-lg"></i> Create First Program
+            </a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4 py-3">Program Name</th>
+                        <th class="py-3">Period (Local Time)</th>
+                        <th class="text-center py-3">Candidates</th>
+                        <th class="text-center py-3">Votes Cast</th>
+                        <th class="text-center py-3">Registered Voters</th>
+                        <th class="text-center py-3">Status</th>
+                        <th class="text-end pe-4 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in programs)
+                    {
+                        var start = startTimes.GetValueOrDefault(p.Id, p.StartTime);
+                        var end = endTimes.GetValueOrDefault(p.Id, p.EndTime);
+
+                        string statusClass = p.IsActive ? "bg-success" : p.HasEnded ? "bg-secondary" : "bg-info";
+                        string statusText = p.IsActive ? "Active" : p.HasEnded ? "Ended" : "Upcoming";
+
+                        <tr>
+                            <td class="ps-4">
+                                <strong class="text-dark">@p.ProgramName</strong>
+                                @if (!string.IsNullOrWhiteSpace(p.Description))
+                                {
+                                    <div class="text-muted small mt-1 text-truncate" style="max-width: 250px;">@p.Description</div>
+                                }
+                            </td>
+                            <td class="small text-muted">
+                                @start.ToString("MMM dd, HH:mm")<br>
+                                <span class="text-black-50">to</span><br>
+                                @end.ToString("MMM dd, HH:mm")
+                            </td>
+                            <td class="text-center fw-medium">@p.CandidateCount</td>
+                            <td class="text-center fw-medium">@p.TotalVotes</td>
+                            <td class="text-center fw-medium">@(p.Voters?.Count ?? 0)</td>
+                            <td class="text-center">
+                                <span class="badge @statusClass rounded-pill px-3 py-2">@statusText</span>
+                            </td>
+                            <td class="text-end pe-4">
+                                <a asp-controller="VotingAdmin" asp-action="ManageCandidates" asp-route-programId="@p.Id"
+                                   class="btn btn-sm btn-outline-primary me-1">Candidates</a>
+                                <a asp-controller="VotingAdmin" asp-action="ManageVoters" asp-route-programId="@p.Id"
+                                   class="btn btn-sm btn-outline-info me-1">Voters</a>
+                                <a asp-controller="VotingAdmin" asp-action="Results" asp-route-id="@p.Id"
+                                   class="btn btn-sm btn-outline-success">Results</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}

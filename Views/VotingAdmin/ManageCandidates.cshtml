@@ -1,0 +1,342 @@
+﻿@model IEnumerable<AmarTools.Voting.Models.Candidate>
+
+@{
+    ViewData["Title"] = "Manage Candidates";
+    var program = ViewBag.Program as AmarTools.Voting.Models.VotingProgram;
+    if (program == null)
+    {
+        <div class="alert alert-danger"><i class="bi bi-exclamation-circle-fill"></i> Program not found.</div>
+        return;
+    }
+
+    var startLocal = ViewBag.StartTimeLocal as DateTime?;
+    var endLocal = ViewBag.EndTimeLocal as DateTime?;
+    var candidates = Model.ToList();
+    var controllerName = ViewContext.RouteData.Values["controller"]?.ToString() ?? "VotingAdmin";
+    var backAction = controllerName == "ProgramOwner" ? "MyPrograms" : "Index";
+    var backText = controllerName == "ProgramOwner" ? "My Programs" : "Dashboard";
+}
+
+<style>
+    .section-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+    }
+
+    .section-sub {
+        color: #9ba1b0;
+        font-size: 14px;
+        margin-top: 2px;
+    }
+
+    .panel {
+        background: #fff;
+        border: 1px solid #e4e6ef;
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .panel-head {
+        padding: 16px 20px;
+        border-bottom: 1px solid #e4e6ef;
+        font-weight: 600;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: #fafbfc;
+    }
+
+    .cand-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .cand-table th {
+            text-align: left;
+            padding: 12px 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #9ba1b0;
+            background: #fafbfc;
+            border-bottom: 1px solid #e4e6ef;
+        }
+
+        .cand-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #f0f2f5;
+            vertical-align: middle;
+        }
+
+        .cand-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .cand-table tbody tr:hover td {
+            background: #fafbfe;
+        }
+
+    .cand-photo {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid #e4e6ef;
+    }
+
+    .cand-photo-placeholder {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: #eef2ff;
+        border: 1px solid #e4e6ef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6366f1;
+        font-size: 18px;
+    }
+
+    .form-group {
+        margin-bottom: 14px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 5px;
+        display: block;
+    }
+
+    .req {
+        color: #e03131;
+    }
+
+    .form-hint {
+        font-size: 12px;
+        color: #9ba1b0;
+        margin-top: 4px;
+    }
+
+    .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 10px;
+        border-radius: 99px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .badge-active {
+        background: #d3f9d8;
+        color: #1e6b30;
+    }
+
+    .badge-ended {
+        background: #e9ecef;
+        color: #495057;
+    }
+
+    .badge-upcoming {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .empty-state {
+        padding: 60px 20px;
+        text-align: center;
+        color: #9ba1b0;
+    }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+</style>
+
+<!-- Header -->
+<div class="section-header">
+    <div>
+        <div class="section-title">Manage Candidates</div>
+        <div class="section-sub d-flex align-items-center gap-2 flex-wrap">
+            <span>@program.ProgramName</span>
+            <span style="opacity:.3;">|</span>
+            @if (program.IsActive)
+            {
+                <span class="status-badge badge-active"><i class="bi bi-circle-fill" style="font-size:7px;"></i> Active</span>
+            }
+            else if (program.HasEnded)
+            {
+                <span class="status-badge badge-ended"><i class="bi bi-check-circle" style="font-size:10px;"></i> Ended</span>
+            }
+            else
+            {
+                <span class="status-badge badge-upcoming"><i class="bi bi-clock" style="font-size:10px;"></i> Upcoming</span>
+            }
+            <span style="font-size:12px;">@candidates.Count candidate(s) · @program.TotalVotes vote(s)</span>
+        </div>
+    </div>
+    <div class="d-flex gap-2 flex-wrap">
+        <a asp-action="ManageVoters" asp-route-programId="@program.Id" class="btn btn-outline-info btn-sm">
+            <i class="bi bi-people me-1"></i> Voters
+        </a>
+        <a asp-controller="@controllerName" asp-action="@backAction" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-arrow-left me-1"></i> @backText
+        </a>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-3">
+        <i class="bi bi-check-circle-fill me-2"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show mb-3">
+        <i class="bi bi-exclamation-circle-fill me-2"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="row g-4 align-items-start">
+
+    <!-- Candidates list -->
+    <div class="col-lg-7 col-xl-8">
+        <div class="panel">
+            <div class="panel-head">
+                <i class="bi bi-person-badge text-primary"></i>
+                Candidates (@candidates.Count)
+            </div>
+            @if (!candidates.Any())
+            {
+                <div class="empty-state">
+                    <i class="bi bi-person-plus-fill"></i>
+                    <div class="fw-semibold mb-1">No candidates yet</div>
+                    <div class="small">Use the form on the right to add the first candidate.</div>
+                </div>
+            }
+            else
+            {
+                <table class="cand-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Candidate</th>
+                            <th>Code</th>
+                            <th style="text-align:right;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                        }
+                        @foreach (var c in candidates)
+                        {
+                            <tr>
+                                <td style="color:#9ba1b0;font-size:12px;width:40px;">@i</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3">
+                                        @if (!string.IsNullOrEmpty(c.ImageUrl))
+                                        {
+                                            <img class="cand-photo" src="@c.ImageUrl" alt="@c.Name"
+                                                 onerror="this.style.display='none'" />
+                                        }
+                                        else
+                                        {
+                                            <div class="cand-photo-placeholder"><i class="bi bi-person-fill"></i></div>
+                                        }
+                                        <div>
+                                            <div class="fw-semibold">@c.Name</div>
+                                            @if (!string.IsNullOrEmpty(c.Description))
+                                            {
+                                                <div class="small text-muted" style="max-width:250px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">@c.Description</div>
+                                            }
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><code class="small">@c.CandidateCode</code></td>
+                                <td style="text-align:right;">
+                                    <form asp-action="DeleteCandidate" asp-route-id="@c.Id" method="post" style="display:inline;"
+                                          onsubmit="return confirm('Delete @Html.Raw(c.Name.Replace("'", "\\'"))? This cannot be undone.');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="programId" value="@program.Id" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <!-- Add candidate form + program info -->
+    <div class="col-lg-5 col-xl-4">
+        <div class="panel mb-3">
+            <div class="panel-head"><i class="bi bi-plus-circle text-primary"></i> Add Candidate</div>
+            <div class="p-4">
+                <form asp-action="AddCandidate" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="programId" value="@program.Id" />
+
+                    <div class="form-group">
+                        <label class="form-label">Full Name <span class="req">*</span></label>
+                        <input name="name" class="form-control" required maxlength="150" placeholder="e.g. Jane Smith" />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Candidate Code <span class="req">*</span></label>
+                        <input name="candidateCode" class="form-control" required maxlength="50" placeholder="C001 / A / Party-01" />
+                        <div class="form-hint">Must be unique within this program.</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Short Description <span class="text-muted fw-normal">(optional)</span></label>
+                        <textarea name="description" class="form-control" rows="2" maxlength="500"
+                                  placeholder="e.g. Faculty of Engineering, Year 3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Photo URL <span class="text-muted fw-normal">(optional)</span></label>
+                        <input name="imageUrl" class="form-control" maxlength="500" placeholder="https://… or /images/photo.jpg" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mt-1">
+                        <i class="bi bi-person-plus me-1"></i> Add Candidate
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-head"><i class="bi bi-clock text-primary"></i> Program Period</div>
+            <div class="p-3 small">
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                    <span class="text-muted">Start</span>
+                    <span class="fw-semibold">@(startLocal?.ToString("MMM d, HH:mm") ?? "—")</span>
+                </div>
+                <div class="d-flex justify-content-between py-2">
+                    <span class="text-muted">End</span>
+                    <span class="fw-semibold">@(endLocal?.ToString("MMM d, HH:mm") ?? "—")</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

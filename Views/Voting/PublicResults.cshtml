@@ -1,0 +1,284 @@
+﻿@model AmarTools.Voting.Models.VotingProgram
+
+@{
+    ViewData["Title"] = (Model?.ProgramName ?? "Voting Program") + " — Live Results";
+    Layout = "/Views/Shared/_PublicLayout.cshtml";
+    var results = ViewBag.Results as List<AmarTools.Voting.Models.CandidateResultViewModel> ?? new();
+    var totalVotes = (int?)(ViewBag.TotalVotes) ?? 0;
+    var chainValid = (bool?)(ViewBag.BlockchainValid) ?? false;
+    var startLocal = (DateTime?)ViewBag.StartTimeLocal;
+    var endLocal = (DateTime?)ViewBag.EndTimeLocal;
+    var nowLocal = (DateTime?)ViewBag.NowLocal;
+    var resultsList = results;
+}
+
+<style>
+    .pr-hero {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #1e3a5f 100%);
+        color: #fff;
+        padding: 48px 0 56px;
+        margin-bottom: -24px;
+    }
+
+    .pr-card {
+        background: #fff;
+        border-radius: 16px;
+        border: 1px solid #e4e6ef;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+
+    .cand-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 20px;
+        border-bottom: 1px solid #f0f2f5;
+        transition: background 0.15s;
+    }
+
+        .cand-row:last-child {
+            border-bottom: none;
+        }
+
+        .cand-row:hover {
+            background: #fafbfe;
+        }
+
+    .cand-rank {
+        width: 36px;
+        text-align: center;
+        font-size: 18px;
+        flex-shrink: 0;
+    }
+
+    .cand-photo {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e4e6ef;
+        flex-shrink: 0;
+    }
+
+    .cand-photo-placeholder {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: #eef2ff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #6366f1;
+        font-size: 22px;
+        border: 2px solid #e4e6ef;
+        flex-shrink: 0;
+    }
+
+    .vote-bar-wrap {
+        flex: 1;
+    }
+
+    .vote-bar-bg {
+        height: 8px;
+        background: #e9ecef;
+        border-radius: 99px;
+        overflow: hidden;
+        margin-top: 6px;
+    }
+
+    .vote-bar-fill {
+        height: 100%;
+        border-radius: 99px;
+        transition: width 1s cubic-bezier(.4,0,.2,1);
+    }
+
+    .stat-tile {
+        background: #fff;
+        border: 1px solid #e4e6ef;
+        border-radius: 14px;
+        padding: 20px 24px;
+        text-align: center;
+    }
+
+        .stat-tile .num {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .stat-tile .lbl {
+            font-size: 12px;
+            color: #9ba1b0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+</style>
+
+<!-- Hero -->
+<div class="pr-hero">
+    <div class="container">
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+            <div>
+                <div class="small mb-2 opacity-75">
+                    <i class="bi bi-broadcast-pin me-1"></i> Live Results
+                </div>
+                <h1 class="fw-bold mb-2" style="font-family:'Fraunces',serif;font-size:clamp(22px,5vw,38px);">
+                    @(Model?.ProgramName ?? "Voting Program")
+                </h1>
+                @if (!string.IsNullOrWhiteSpace(Model?.Description))
+                {
+                    <p class="mb-0 opacity-75">@Model.Description</p>
+                }
+            </div>
+            @if (Model?.IsActive == true)
+            {
+                <span class="badge bg-success fs-6 px-3 py-2 mt-2">
+                    <i class="bi bi-circle-fill me-1" style="font-size:8px;"></i> Active
+                </span>
+            }
+            else if (Model?.HasEnded == true)
+            {
+                <span class="badge bg-secondary fs-6 px-3 py-2 mt-2">
+                    <i class="bi bi-check-circle me-1"></i> Ended
+                </span>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="container py-5">
+
+    <!-- Stats row -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="stat-tile">
+                <div class="num text-primary">@totalVotes</div>
+                <div class="lbl">Votes Cast</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-tile">
+                <div class="num text-dark">@(Model?.CandidateCount ?? 0)</div>
+                <div class="lbl">Candidates</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-tile">
+                <div class="num" style="font-size:20px;margin-top:4px;">
+                    @if (chainValid)
+                    {
+                        <span class="text-success"><i class="bi bi-shield-check-fill"></i></span>
+                    }
+                    else
+                    {
+                        <span class="text-danger"><i class="bi bi-shield-x-fill"></i></span>
+                    }
+                </div>
+                <div class="lbl">Blockchain</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="stat-tile">
+                <div class="num" style="font-size:14px;font-weight:600;color:#3b5bdb;margin-top:4px;">
+                    @(endLocal?.ToString("MMM dd, HH:mm") ?? "—")
+                </div>
+                <div class="lbl">Ends</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results card -->
+    <div class="pr-card mb-4">
+        <div class="px-4 py-3 border-bottom d-flex align-items-center justify-content-between">
+            <h5 class="fw-bold mb-0">Candidate Results</h5>
+            <span class="small text-muted">Updated live</span>
+        </div>
+
+        @if (!resultsList.Any())
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-bar-chart fs-1 text-muted opacity-50"></i>
+                <p class="text-muted mt-3 mb-0">No votes have been cast yet.</p>
+            </div>
+        }
+        else
+        {
+            int rank = 1;
+            @foreach (var r in resultsList)
+            {
+                double pct = totalVotes > 0 ? Math.Round((double)r.VoteCount / totalVotes * 100, 1) : 0;
+                bool isFirst = rank == 1 && r.VoteCount > 0;
+                string barClr = isFirst ? "#3b5bdb" : "#adb5bd";
+
+                <div class="cand-row" style="@(isFirst ? "background:linear-gradient(90deg,#eef2ff,#fff);" : "")">
+                    <div class="cand-rank">
+                        @if (isFirst)
+                        {
+                            <i class="bi bi-trophy-fill" style="color:#f08c00;font-size:22px;"></i>
+                        }
+                        else
+                        {
+                            <span class="text-muted fw-600">@rank</span>
+                        }
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(r.Candidate.ImageUrl))
+                    {
+                        <img class="cand-photo" src="@r.Candidate.ImageUrl" alt="@r.Candidate.Name"
+                             onerror="this.style.display='none'" />
+                    }
+                    else
+                    {
+                        <div class="cand-photo-placeholder"><i class="bi bi-person-fill"></i></div>
+                    }
+
+                    <div class="vote-bar-wrap">
+                        <div class="d-flex justify-content-between align-items-baseline">
+                            <div>
+                                <span class="fw-semibold">@r.Candidate.Name</span>
+                                <span class="text-muted small ms-2">@r.Candidate.CandidateCode</span>
+                            </div>
+                            <span class="fw-bold text-primary">@r.VoteCount <span class="text-muted fw-normal small">(@pct%)</span></span>
+                        </div>
+                        <div class="vote-bar-bg">
+                            <div class="vote-bar-fill" style="width:@pct%;background:@barClr;"></div>
+                        </div>
+                    </div>
+                </div>
+                rank++;
+            }
+        }
+    </div>
+
+    <!-- Transparency info -->
+    <div class="pr-card">
+        <div class="px-4 py-3 border-bottom">
+            <h6 class="fw-bold mb-0"><i class="bi bi-shield-check me-2 text-primary"></i>Transparency &amp; Integrity</h6>
+        </div>
+        <div class="px-4 py-3 small text-muted">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <strong class="text-dark">Voting Period</strong><br>
+                    @(startLocal?.ToString("MMM dd, yyyy HH:mm") ?? "—") → @(endLocal?.ToString("MMM dd, yyyy HH:mm") ?? "—")
+                </div>
+                <div class="col-md-6">
+                    <strong class="text-dark">Blockchain Integrity</strong><br>
+                    @if (chainValid)
+                    {
+                        <span class="text-success"><i class="bi bi-shield-check-fill me-1"></i>All vote records are intact and tamper-proof.</span>
+                    }
+                    else
+                    {
+                        <span class="text-danger"><i class="bi bi-shield-x-fill me-1"></i>Chain integrity issue detected. Contact the organizer.</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <a asp-controller="Voting" asp-action="Vote" asp-route-id="@Model?.Id" class="btn btn-primary btn-lg px-5">
+            <i class="bi bi-arrow-left me-2"></i> Back to Voting Page
+        </a>
+    </div>
+</div>

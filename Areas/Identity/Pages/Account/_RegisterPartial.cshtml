@@ -1,0 +1,33 @@
+﻿@model AmarTools.Voting.Areas.Identity.Pages.Account.RegisterModel
+
+<form method="post" asp-page="/Account/Register">
+    @Html.AntiForgeryToken()
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input asp-for="Input.FullName" class="form-control" />
+        <span asp-validation-for="Input.FullName" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input asp-for="Input.Email" class="form-control" />
+        <span asp-validation-for="Input.Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input asp-for="Input.Password" type="password" class="form-control" />
+        <span asp-validation-for="Input.Password" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Confirm Password</label>
+        <input asp-for="Input.ConfirmPassword" type="password" class="form-control" />
+        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Register</button>
+</form>

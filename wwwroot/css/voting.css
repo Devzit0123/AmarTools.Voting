@@ -1,0 +1,136 @@
+/* wwwroot/css/voting.css */
+
+/* === General Voting Pages === */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1, h2, h3, h4 {
+    font-weight: 600;
+}
+
+/* === Countdown Timer === */
+#countdown-container {
+    background-color: #e7f3ff;
+    border-color: #b3d4fc;
+}
+
+#countdown {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+}
+
+/* === Candidate Cards (Vote.cshtml) === */
+.candidate-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+    .candidate-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .candidate-card .card-img-top {
+        object-fit: cover;
+        height: 220px;
+    }
+
+    .candidate-card .card-body {
+        padding: 1.5rem;
+    }
+
+    .candidate-card .btn-vote {
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.2s;
+    }
+
+        .candidate-card .btn-vote:hover {
+            transform: scale(1.05);
+        }
+
+/* === Thank You Page === */
+.thank-you-icon {
+    font-size: 8rem;
+    color: #28a745;
+}
+
+.thank-you-card {
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* === Results Page (Progress bars & Table) === */
+.progress {
+    height: 24px;
+    border-radius: 12px;
+    background-color: #e9ecef;
+}
+
+.progress-bar {
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.table-results th {
+    background-color: #343a40;
+    color: white;
+}
+
+.table-results td {
+    vertical-align: middle;
+}
+
+/* === Admin Dashboard Table === */
+.table-admin th {
+    background-color: #495057;
+    color: white;
+}
+
+.table-admin .badge {
+    font-size: 0.85rem;
+    padding: 0.5em 0.9em;
+}
+
+/* === Responsive Adjustments === */
+@media (max-width: 992px) {
+    .candidate-card .card-img-top {
+        height: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    #countdown {
+        font-size: 1.8rem !important;
+    }
+
+    .thank-you-icon {
+        font-size: 6rem;
+    }
+
+    .progress {
+        height: 20px;
+    }
+}
+
+/* === Utility Classes === */
+.text-vote-success {
+    color: #28a745;
+}
+
+.text-vote-warning {
+    color: #fd7e14;
+}
+
+.shadow-hover:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}

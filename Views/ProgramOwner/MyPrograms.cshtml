@@ -1,0 +1,214 @@
+﻿@model IEnumerable<AmarTools.Voting.Models.VotingProgram>
+
+@{
+    ViewData["Title"] = "My Programs";
+    var programs = Model?.ToList() ?? new();
+    var userName = ViewBag.OwnerName as string ?? User.Identity?.Name ?? "there";
+    var firstName = userName.Split(' ', '@')[0];
+}
+
+<style>
+    .prog-card {
+        background: #fff;
+        border-radius: 14px;
+        border: 1px solid var(--border, #e4e6ef);
+        overflow: hidden;
+        transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+        .prog-card:hover {
+            box-shadow: 0 8px 32px rgba(59,91,219,0.1);
+            transform: translateY(-2px);
+        }
+
+    .prog-card-header {
+        padding: 20px 20px 12px;
+    }
+
+    .prog-card-footer {
+        padding: 12px 20px;
+        background: #f9fafc;
+        border-top: 1px solid var(--border, #e4e6ef);
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .prog-status-active {
+        background: #d3f9d8;
+        color: #1e6b30;
+    }
+
+    .prog-status-ended {
+        background: #e9ecef;
+        color: #495057;
+    }
+
+    .prog-status-upcoming {
+        background: #dbeafe;
+        color: #1d4ed8;
+    }
+
+    .prog-status-draft {
+        background: #fff3cd;
+        color: #7d5c00;
+    }
+
+    .stat-pill {
+        font-size: 12px;
+        color: #6c757d;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .empty-hero {
+        background: linear-gradient(135deg, #eef2ff 0%, #f0fdf4 100%);
+        border: 2px dashed #c7d2fe;
+        border-radius: 20px;
+        padding: 60px 40px;
+        text-align: center;
+    }
+
+    .summary-bar {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 16px;
+        margin-bottom: 32px;
+    }
+
+    .summary-item {
+        background: #fff;
+        border: 1px solid var(--border, #e4e6ef);
+        border-radius: 12px;
+        padding: 18px 20px;
+        text-align: center;
+    }
+
+        .summary-item .num {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .summary-item .lbl {
+            font-size: 12px;
+            color: #9ba1b0;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-top: 2px;
+        }
+</style>
+
+<!-- Greeting Header -->
+<div class="d-flex justify-content-between align-items-start mb-5">
+    <div>
+        <h1 class="fw-bold mb-1" style="font-family:'Fraunces',serif;font-size:clamp(22px,4vw,32px);">
+            Welcome back, <span style="color:var(--accent,#3b5bdb);">@firstName</span> 👋
+        </h1>
+        <p class="text-muted mb-0">Here are all the voting programs you've created.</p>
+    </div>
+    <a asp-controller="ProgramOwner" asp-action="Create" class="btn btn-primary btn-lg px-4 shadow-sm">
+        <i class="bi bi-plus-lg me-1"></i> New Program
+    </a>
+</div>
+
+<!-- Summary Bar -->
+@{
+    var total = programs.Count;
+    var active = programs.Count(p => p.IsActive);
+    var ended = programs.Count(p => p.HasEnded);
+    var totalVotes = programs.Sum(p => p.TotalVotes);
+}
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="num text-primary">@total</div>
+        <div class="lbl">Total Programs</div>
+    </div>
+    <div class="summary-item">
+        <div class="num" style="color:#2f9e44;">@active</div>
+        <div class="lbl">Active Now</div>
+    </div>
+    <div class="summary-item">
+        <div class="num text-secondary">@ended</div>
+        <div class="lbl">Ended</div>
+    </div>
+    <div class="summary-item">
+        <div class="num" style="color:#f08c00;">@totalVotes</div>
+        <div class="lbl">Total Votes</div>
+    </div>
+</div>
+
+@if (!programs.Any())
+{
+    <div class="empty-hero">
+        <i class="bi bi-ballot" style="font-size:4rem;color:#a5b4fc;"></i>
+        <h3 class="fw-bold mt-4 mb-2">No programs yet</h3>
+        <p class="text-muted mb-4">Create your first voting program — for elections, events, polls, and more.</p>
+        <a asp-controller="ProgramOwner" asp-action="Create" class="btn btn-primary btn-lg px-5">
+            <i class="bi bi-plus-lg me-1"></i> Create First Program
+        </a>
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var p in programs)
+        {
+            string statusCss, statusText;
+            if (!p.IsPublished) { statusCss = "prog-status-draft"; statusText = "Draft"; }
+            else if (p.IsActive) { statusCss = "prog-status-active"; statusText = "Active"; }
+            else if (p.HasEnded) { statusCss = "prog-status-ended"; statusText = "Ended"; }
+            else { statusCss = "prog-status-upcoming"; statusText = "Upcoming"; }
+
+            <div class="col-md-6 col-xl-4">
+                <div class="prog-card h-100">
+                    <div class="prog-card-header">
+                        <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                            <h5 class="fw-bold mb-0" style="line-height:1.3;">@p.ProgramName</h5>
+                            <span class="badge @statusCss rounded-pill px-3 py-2 flex-shrink-0" style="font-size:11px;">@statusText</span>
+                        </div>
+                        @if (!string.IsNullOrWhiteSpace(p.Description))
+                        {
+                            <p class="text-muted small mb-3" style="overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">@p.Description</p>
+                        }
+                        <div class="d-flex gap-3 flex-wrap mt-2">
+                            <span class="stat-pill"><i class="bi bi-person-badge"></i> @p.CandidateCount candidates</span>
+                            <span class="stat-pill"><i class="bi bi-check-square"></i> @p.TotalVotes votes</span>
+                            <span class="stat-pill"><i class="bi bi-people"></i> @(p.Voters?.Count ?? 0) voters</span>
+                        </div>
+                        <div class="mt-2 small text-muted">
+                            <i class="bi bi-calendar3 me-1"></i>
+                            @p.StartTime.ToLocalTime().ToString("MMM dd") – @p.EndTime.ToLocalTime().ToString("MMM dd, yyyy")
+                        </div>
+                    </div>
+                    <div class="prog-card-footer">
+                        <a asp-controller="ProgramOwner" asp-action="Edit" asp-route-id="@p.Id"
+                           class="btn btn-sm btn-outline-secondary" title="Edit">
+                            <i class="bi bi-pencil"></i> Edit
+                        </a>
+                        <a asp-controller="ProgramOwner" asp-action="ManageCandidates" asp-route-programId="@p.Id"
+                           class="btn btn-sm btn-outline-secondary" title="Candidates">
+                            <i class="bi bi-person-badge"></i> Candidates
+                        </a>
+                        <a asp-controller="ProgramOwner" asp-action="ManageVoters" asp-route-programId="@p.Id"
+                           class="btn btn-sm btn-outline-secondary" title="Voters">
+                            <i class="bi bi-people"></i> Voters
+                        </a>
+                        <a asp-controller="ProgramOwner" asp-action="Results" asp-route-id="@p.Id"
+                           class="btn btn-sm btn-outline-success" title="Results">
+                            <i class="bi bi-bar-chart"></i> Results
+                        </a>
+                        @if (p.IsPublished)
+                        {
+                            <a asp-controller="Voting" asp-action="Vote" asp-route-id="@p.Id"
+                               class="btn btn-sm btn-primary ms-auto" target="_blank" title="Open Voting Page">
+                                <i class="bi bi-box-arrow-up-right"></i> Vote Link
+                            </a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

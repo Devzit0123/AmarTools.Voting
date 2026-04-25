@@ -1,0 +1,165 @@
+﻿@model AmarTools.Voting.Models.VotingProgram
+
+@{
+    ViewData["Title"] = "Results";
+    var results = ViewBag.Results as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
+    var totalVotes = (int?)(ViewBag.TotalVotes) ?? 0;
+    var chainValid = (bool?)(ViewBag.BlockchainValid) ?? false;
+    var startLocal = (DateTime?)ViewBag.StartTimeLocal;
+    var endLocal = (DateTime?)ViewBag.EndTimeLocal;
+    var resultsList = results.ToList();
+    var winner = resultsList.FirstOrDefault();
+}
+
+<div class="page-header">
+    <div>
+        <div class="page-title">Results</div>
+        <div class="page-subtitle">@(Model?.ProgramName ?? "Voting Program")</div>
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Dashboard
+    </a>
+</div>
+
+<!-- Summary stats -->
+<div class="stat-grid" style="margin-bottom:24px;">
+    <div class="stat-card">
+        <div class="stat-label">Total Votes</div>
+        <div class="stat-value">@totalVotes</div>
+        <div class="stat-sub">Votes cast</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Candidates</div>
+        <div class="stat-value">@(Model?.CandidateCount ?? 0)</div>
+        <div class="stat-sub">Participated</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Status</div>
+        <div class="stat-value" style="font-size:20px;margin-top:4px;">
+            @if (Model?.IsActive == true)
+            {
+                <span class="badge bg-success">Active</span>
+            }
+            else if (Model?.HasEnded == true)
+            {
+                <span class="badge bg-secondary">Ended</span>
+            }
+            else
+            {
+                <span class="badge bg-info">Upcoming</span>
+            }
+        </div>
+        <div class="stat-sub">Program status</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-label">Blockchain</div>
+        <div class="stat-value" style="font-size:20px;margin-top:4px;">
+            @if (chainValid)
+            {
+                <span class="badge bg-success"><i class="bi bi-shield-check"></i> Valid</span>
+            }
+            else
+            {
+                <span class="badge bg-danger"><i class="bi bi-shield-x"></i> Invalid</span>
+            }
+        </div>
+        <div class="stat-sub">Chain integrity</div>
+    </div>
+</div>
+
+<!-- Results Content -->
+<div style="display:grid;grid-template-columns:1fr 280px;gap:24px;align-items:start;">
+    <div class="card">
+        @if (!resultsList.Any())
+        {
+            <div class="empty-state text-center py-5">
+                <i class="bi bi-bar-chart fs-1 text-muted"></i>
+                <h5>No results yet</h5>
+            </div>
+        }
+        else
+        {
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Candidate</th>
+                        <th>Votes</th>
+                        <th>Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int rank = 1;
+                    }
+                    @foreach (var r in resultsList)
+                    {
+                        double pct = totalVotes > 0 ? Math.Round((double)r.VoteCount / totalVotes * 100, 1) : 0;
+                        bool isFirst = rank == 1 && r.VoteCount > 0;
+
+                        <tr style="@(isFirst ? "background:var(--accent-lt);" : "")">
+                            <td style="width:48px;">
+                                @if (isFirst)
+                                {
+                                    <span style="color:var(--accent);font-size:18px;"><i class="bi bi-trophy-fill"></i></span>
+                                }
+                                else
+                                {
+                                    <span style="color:var(--ink-3);font-weight:500;">@rank</span>
+                                }
+                            </td>
+                            <td>
+                                <div style="display:flex;align-items:center;gap:10px;">
+                                    @if (!string.IsNullOrEmpty(r.Candidate?.ImageUrl))
+                                    {
+                                        <img src="@r.Candidate.ImageUrl" alt="@r.Candidate.Name"
+                                             style="width:36px;height:36px;object-fit:cover;border-radius:50%;border:1px solid var(--border);" />
+                                    }
+                                    <div>
+                                        <strong>@(r.Candidate?.Name ?? "Unknown")</strong><br />
+                                        <small class="text-muted">@(r.Candidate?.CandidateCode ?? "")</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><strong>@r.VoteCount</strong></td>
+                            <td>
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <div style="flex:1;background:#e9ecef;border-radius:4px;height:8px;">
+                                        <div style="width:@pct%;background:@(isFirst ? "#3b5bdb" : "#6c757d");height:100%;border-radius:4px;"></div>
+                                    </div>
+                                    <span style="font-size:13px;min-width:45px;">@pct%</span>
+                                </div>
+                            </td>
+                        </tr>
+                        rank++;
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    <!-- Sidebar -->
+    <div>
+        <div class="card mb-3">
+            <div class="card-header">Program Period</div>
+            <div class="card-body small">
+                <strong>Start:</strong> @(startLocal?.ToString("MMM d, yyyy HH:mm") ?? "—")<br />
+                <strong>End:</strong> @(endLocal?.ToString("MMM d, yyyy HH:mm") ?? "—")
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Blockchain Audit</div>
+            <div class="card-body small">
+                @if (chainValid)
+                {
+                    <span class="text-success"><i class="bi bi-shield-check"></i> Chain is valid and tamper-proof</span>
+                }
+                else
+                {
+                    <span class="text-danger"><i class="bi bi-shield-x"></i> Chain integrity issue detected</span>
+                }
+            </div>
+        </div>
+    </div>
+</div>

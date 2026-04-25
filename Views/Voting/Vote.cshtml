@@ -1,0 +1,289 @@
+﻿@model AmarTools.Voting.Models.VotingProgram
+
+@{
+    ViewData["Title"] = Model?.ProgramName ?? "Vote Now";
+    Layout = "/Views/Shared/_PublicLayout.cshtml";
+    var remaining = ViewBag.RemainingTime as TimeSpan?;
+    var candidates = ViewBag.Candidates as List<AmarTools.Voting.Models.Candidate> ?? new();
+    var isRegisteredVoter = ViewBag.IsRegisteredVoter as bool? ?? false;
+    var startLocal = ViewBag.StartTimeLocal as DateTime?;
+    var endLocal = ViewBag.EndTimeLocal as DateTime?;
+}
+
+<style>
+    .vote-hero {
+        background: linear-gradient(135deg, #1e1b4b 0%, #312e81 60%, #1e3a5f 100%);
+        color: #fff;
+        padding: 40px 0 52px;
+        margin-bottom: -24px;
+    }
+
+    .cand-card {
+        background: #fff;
+        border: 2px solid #e4e6ef;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .cand-card:hover {
+            border-color: #3b5bdb;
+            box-shadow: 0 8px 32px rgba(59,91,219,0.15);
+            transform: translateY(-3px);
+        }
+
+    .cand-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .cand-img-placeholder {
+        height: 200px;
+        background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 4rem;
+        color: #a5b4fc;
+    }
+
+    .cand-body {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .timer-box {
+        background: rgba(255,255,255,0.1);
+        border: 1px solid rgba(255,255,255,0.2);
+        border-radius: 12px;
+        padding: 12px 24px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .info-pill {
+        background: rgba(255,255,255,0.12);
+        border-radius: 99px;
+        padding: 6px 14px;
+        font-size: 13px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+</style>
+
+<!-- Hero -->
+<div class="vote-hero">
+    <div class="container">
+        <div class="d-flex align-items-start justify-content-between flex-wrap gap-3">
+            <div>
+                <h1 class="fw-bold mb-2" style="font-family:'Fraunces',serif;font-size:clamp(20px,5vw,36px);">
+                    @(Model?.ProgramName ?? "Voting Program")
+                </h1>
+                @if (!string.IsNullOrWhiteSpace(Model?.Description))
+                {
+                    <p class="mb-3 opacity-75">@Model.Description</p>
+                }
+                <div class="d-flex gap-2 flex-wrap">
+                    <span class="info-pill">
+                        <i class="bi bi-calendar3"></i>
+                        @(startLocal?.ToString("MMM dd, HH:mm") ?? "—") → @(endLocal?.ToString("MMM dd, HH:mm yyyy") ?? "—")
+                    </span>
+                    <span class="info-pill">
+                        <i class="bi bi-person-badge"></i> @candidates.Count candidates
+                    </span>
+                </div>
+            </div>
+            <a asp-controller="Voting" asp-action="PublicResults" asp-route-id="@Model?.Id"
+               class="btn btn-light btn-sm px-3 mt-1">
+                <i class="bi bi-bar-chart-fill me-1"></i> Live Results
+            </a>
+        </div>
+
+        @if (remaining.HasValue && remaining.Value > TimeSpan.Zero)
+        {
+            <div class="mt-4">
+                <div class="small mb-1 opacity-60">Time remaining</div>
+                <div class="timer-box">
+                    <i class="bi bi-hourglass-split opacity-60" style="font-size:18px;"></i>
+                    <span id="countdown">
+                        @remaining.Value.ToString(remaining.Value.Days > 0 ? @"dd\.hh\:mm\:ss" : @"hh\:mm\:ss")
+                    </span>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="container py-5">
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+            <i class="bi bi-exclamation-circle-fill me-2"></i>@TempData["Error"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (!isRegisteredVoter && User.Identity?.IsAuthenticated == true)
+    {
+        <div class="alert alert-info d-flex align-items-center gap-3 mb-4" role="alert">
+            <i class="bi bi-info-circle-fill fs-4"></i>
+            <div>
+                <strong>You are viewing this program as a guest.</strong>
+                You are not registered as a voter. Only the program owner can register voters.
+                If you believe this is an error, please contact the organizer.
+            </div>
+        </div>
+    }
+
+    @if (!User.Identity?.IsAuthenticated ?? true)
+    {
+        <div class="alert alert-info d-flex align-items-center gap-3 mb-4" role="alert">
+            <i class="bi bi-info-circle-fill fs-4"></i>
+            <div>
+                <strong>Sign in to participate.</strong>
+                You must be a registered voter and signed in to cast a vote.
+                <a asp-area="Identity" asp-page="/Account/Login"
+                   asp-route-returnUrl="@Url.Action("Vote", "Voting", new { id = Model?.Id })"
+                   class="btn btn-sm btn-primary ms-2">Sign In</a>
+            </div>
+        </div>
+    }
+
+    <!-- Candidates Grid -->
+    @if (candidates.Count > 0)
+    {
+        <h4 class="fw-bold mb-4 text-center">
+            @if (isRegisteredVoter)
+            {
+                <span>Select your candidate to cast your vote</span>
+            }
+            else
+            {
+                <span>Candidates</span>
+            }
+        </h4>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var candidate in candidates)
+            {
+                <div class="col">
+                    <div class="cand-card">
+                        @if (!string.IsNullOrWhiteSpace(candidate.ImageUrl))
+                        {
+                            <img src="@candidate.ImageUrl" class="cand-img" alt="@candidate.Name" loading="lazy"
+                                 onerror="this.parentElement.querySelector('.cand-img-placeholder')?.style.setProperty('display','flex'); this.remove();" />
+                        }
+                        <div class="cand-img-placeholder" @(string.IsNullOrWhiteSpace(candidate.ImageUrl) ? "" : "style='display:none'")>
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+
+                        <div class="cand-body">
+                            <div class="mb-1">
+                                <span class="badge bg-light text-muted border" style="font-size:11px;">@candidate.CandidateCode</span>
+                            </div>
+                            <h5 class="fw-bold mb-2">@candidate.Name</h5>
+                            @if (!string.IsNullOrWhiteSpace(candidate.Description))
+                            {
+                                <p class="text-muted small flex-grow-1 mb-3">@candidate.Description</p>
+                            }
+                            else
+                            {
+                                <div class="flex-grow-1"></div>
+                            }
+
+                            <div class="mt-auto">
+                                @if (isRegisteredVoter)
+                                {
+                                    <form asp-action="CastVote" method="post">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="programId" value="@Model?.Id" />
+                                        <input type="hidden" name="candidateId" value="@candidate.Id" />
+                                        <button type="submit" class="btn btn-primary w-100"
+                                                onclick="return confirm('Vote for @candidate.Name? This cannot be undone.');">
+                                            <i class="bi bi-check-circle-fill me-2"></i>Vote for @candidate.Name
+                                        </button>
+                                    </form>
+                                }
+                                else if (User.Identity?.IsAuthenticated == true)
+                                {
+                                    <button class="btn btn-outline-secondary w-100" disabled>
+                                        <i class="bi bi-lock me-2"></i>Not registered to vote
+                                    </button>
+                                }
+                                else
+                                {
+                                    <a asp-area="Identity" asp-page="/Account/Login"
+                                       asp-route-returnUrl="@Url.Action("Vote", "Voting", new { id = Model?.Id })"
+                                       class="btn btn-outline-primary w-100">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Sign in to Vote
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5">
+            <i class="bi bi-exclamation-triangle-fill text-warning fs-1 mb-3 d-block"></i>
+            <h4>No candidates yet</h4>
+            <p class="text-muted">This program has no candidates added yet.</p>
+        </div>
+    }
+
+    <!-- Public transparency link -->
+    <div class="text-center mt-5 pt-3 border-top">
+        <p class="text-muted small mb-2">
+            <i class="bi bi-shield-check-fill me-1 text-primary"></i>
+            Votes are tamper-proof via blockchain verification.
+        </p>
+        <a asp-controller="Voting" asp-action="PublicResults" asp-route-id="@Model?.Id"
+           class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-bar-chart me-1"></i> View Live Results &amp; Transparency
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    @if (remaining.HasValue && remaining.Value > TimeSpan.Zero)
+    {
+        <script>
+            (function () {
+                let s = @remaining.Value.TotalSeconds;
+                function tick() {
+                    if (s <= 0) {
+                        document.getElementById('countdown').textContent = 'Voting ended';
+                        return;
+                    }
+                    const d = Math.floor(s / 86400);
+                    let r = s % 86400;
+                    const h = Math.floor(r / 3600); r %= 3600;
+                    const m = Math.floor(r / 60);
+                    const sec = r % 60;
+                    const pad = n => String(n).padStart(2, '0');
+                    document.getElementById('countdown').textContent =
+                        d > 0 ? `${pad(d)}.${pad(h)}:${pad(m)}:${pad(sec)}` : `${pad(h)}:${pad(m)}:${pad(sec)}`;
+                    s--;
+                    setTimeout(tick, 1000);
+                }
+                tick();
+            })();
+        </script>
+    }
+}

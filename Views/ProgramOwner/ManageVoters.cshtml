@@ -1,0 +1,130 @@
+﻿@model IEnumerable<AmarTools.Voting.Models.Voter>
+
+@{
+    ViewData["Title"] = "Manage Voters";
+    var program = ViewBag.Program as AmarTools.Voting.Models.VotingProgram;
+    var controllerName = ViewContext.RouteData.Values["controller"]?.ToString() ?? "ProgramOwner";
+    var backAction = controllerName == "VotingAdmin" ? "Index" : "MyPrograms";
+    var backText = controllerName == "VotingAdmin" ? "Back to Dashboard" : "Back to My Programs";
+}
+
+<div class="page-header">
+    <div>
+        <div class="page-title">Manage Voters</div>
+        <div class="page-subtitle">@(program?.ProgramName ?? "Voting Program")</div>
+    </div>
+    <a asp-controller="@controllerName" asp-action="@backAction" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> @backText
+    </a>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill"></i> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-circle-fill"></i> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card">
+    <div class="card-body">
+
+        <!-- Register New Voter Form -->
+        <h5 class="mb-4 fw-semibold">Register New Voter</h5>
+        <form asp-action="RegisterVoter" asp-controller="@controllerName" method="post" class="row g-3 mb-5">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="programId" value="@program?.Id" />
+
+            <div class="col-md-4">
+                <label class="form-label">Full Name <span class="text-danger">*</span></label>
+                <input name="name" class="form-control" placeholder="Enter full name" required />
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Email Address <span class="text-danger">*</span></label>
+                <input name="email" type="email" class="form-control" placeholder="voter@example.com" required />
+            </div>
+            <div class="col-md-3">
+                <label class="form-label">Member ID <span class="text-muted">(optional)</span></label>
+                <input name="memberId" class="form-control" placeholder="e.g. STU2026001" />
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-person-plus"></i>
+                </button>
+            </div>
+        </form>
+
+        <!-- Voters List -->
+        <h5 class="mb-3 fw-semibold">Registered Voters (@Model.Count())</h5>
+
+        @if (!Model.Any())
+        {
+            <div class="alert alert-info text-center py-5">
+                <i class="bi bi-people display-4 text-muted mb-3"></i>
+                <h6>No voters registered yet</h6>
+                <p class="mb-0">Use the form above to add the first voter.</p>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Member ID</th>
+                            <th>Registered</th>
+                            <th>Status</th>
+                            <th class="text-end">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var voter in Model)
+                        {
+                            <tr>
+                                <td><strong>@voter.Name</strong></td>
+                                <td>@voter.Email</td>
+                                <td><span class="mono">@(voter.MemberId ?? "—")</span></td>
+                                <td>@voter.RegisteredAt.ToString("MMM dd, yyyy")</td>
+                                <td>
+                                    @if (voter.HasVoted)
+                                    {
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle"></i> Voted
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-x-circle"></i> Not Voted
+                                        </span>
+                                    }
+                                </td>
+                                <td class="text-end">
+                                    <form asp-action="RemoveVoter" asp-controller="@controllerName" method="post" style="display:inline;"
+                                          onsubmit="return confirm('Remove this voter? This action cannot be undone.');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="voterId" value="@voter.Id" />
+                                        <input type="hidden" name="programId" value="@program?.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="bi bi-trash"></i> Remove
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
