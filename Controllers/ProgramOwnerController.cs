@@ -1,9 +1,10 @@
-﻿using AmarTools.Voting.Data;
+using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using AmarTools.Voting.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmarTools.Voting.Controllers
@@ -15,23 +16,26 @@ namespace AmarTools.Voting.Controllers
         IBlockchainService blockchainService,
         UserManager<ApplicationUser> userManager) : Controller
     {
-        private const string CreateProgramView = "~/Views/Shared/CreateProgram.cshtml";
+        private const string CreateProgramView    = "~/Views/Shared/CreateProgram.cshtml";
         private const string ManageCandidatesView = "~/Views/VotingAdmin/ManageCandidates.cshtml";
-        private const string ManageVotersView = "~/Views/ProgramOwner/ManageVoters.cshtml";
-        private const string ResultsView = "~/Views/VotingAdmin/Results.cshtml";
+        private const string ManageVotersView     = "~/Views/ProgramOwner/ManageVoters.cshtml";
+        private const string ResultsView          = "~/Views/VotingAdmin/Results.cshtml";
 
-        private readonly VotingDbContext _context = context;
-        private readonly IVotingService _votingService = votingService;
-        private readonly IBlockchainService _blockchainService = blockchainService;
-        private readonly UserManager<ApplicationUser> _userManager = userManager;
+        private readonly VotingDbContext             _context           = context;
+        private readonly IVotingService              _votingService     = votingService;
+        private readonly IBlockchainService          _blockchainService = blockchainService;
+        private readonly UserManager<ApplicationUser> _userManager      = userManager;
 
         private static DateTime ToLocal(DateTime utc) =>
             DateTime.SpecifyKind(utc, DateTimeKind.Utc).ToLocalTime();
 
-        // ── My Programs ───────────────────────────────────────────────────────
+        private string? CurrentUserId =>
+            User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+        // ── My Programs ────────────────────────────────────────────────────────
         public async Task<IActionResult> MyPrograms()
         {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userId = CurrentUserId;
             if (string.IsNullOrEmpty(userId)) return Unauthorized();
 
             var user = await _userManager.FindByIdAsync(userId);
@@ -43,26 +47,27 @@ namespace AmarTools.Voting.Controllers
                 .Include(p => p.Voters)
                 .Where(p => p.OwnerId == userId)
                 .OrderByDescending(p => p.CreatedAt)
+                .AsNoTracking()
                 .ToListAsync();
 
             return View(programs);
         }
 
-        // ── Create Program ────────────────────────────────────────────────────
+        // ── Create Program ─────────────────────────────────────────────────────
         [HttpGet]
         public IActionResult Create()
         {
             var localNow = ToLocal(DateTime.UtcNow);
-            var model = new VotingProgram
+            return View(CreateProgramView, new VotingProgram
             {
                 StartTime = localNow,
-                EndTime = localNow.AddHours(1)
-            };
-            return View(CreateProgramView, model);
+                EndTime   = localNow.AddHours(1)
+            });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
         public async Task<IActionResult> Create(VotingProgram model)
         {
             PrepareProgramModelForValidation();
@@ -86,25 +91,29 @@ namespace AmarTools.Voting.Controllers
             return RedirectToAction(nameof(MyPrograms));
         }
 
-        // ── Edit Program ──────────────────────────────────────────────────────
+        // ── Edit Program ───────────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var program = await _context.VotingPrograms.FindAsync(id);
+            // FIX: Use AsNoTracking to avoid tracked-entity mutation (same fix as Admin)
+            var program = await _context.VotingPrograms
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (program is null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
             program.StartTime = ToLocal(program.StartTime);
-            program.EndTime = ToLocal(program.EndTime);
+            program.EndTime   = ToLocal(program.EndTime);
 
             return View(CreateProgramView, program);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
         public async Task<IActionResult> Edit(int id, VotingProgram model)
         {
             if (id != model.Id) return NotFound();
@@ -130,27 +139,29 @@ namespace AmarTools.Voting.Controllers
             return RedirectToAction(nameof(MyPrograms));
         }
 
-        // ── Manage Candidates ─────────────────────────────────────────────────
+        // ── Manage Candidates ──────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> ManageCandidates(int programId)
         {
             var program = await _votingService.GetProgramWithCandidatesAsync(programId);
             if (program is null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
-            ViewBag.Program = program;
+            ViewBag.Program       = program;
             ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
+            ViewBag.EndTimeLocal   = ToLocal(program.EndTime);
 
             return View(ManageCandidatesView, program.Candidates);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddCandidate(int programId, string name, string candidateCode, string? imageUrl, string? description)
+        [EnableRateLimiting("admin")]
+        public async Task<IActionResult> AddCandidate(
+            int programId, string name, string candidateCode,
+            string? imageUrl, string? description)
         {
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(candidateCode))
             {
@@ -161,8 +172,7 @@ namespace AmarTools.Voting.Controllers
             var program = await _context.VotingPrograms.FindAsync(programId);
             if (program is null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
             bool codeExists = await _context.Candidates
@@ -178,7 +188,8 @@ namespace AmarTools.Voting.Controllers
             if (!string.IsNullOrWhiteSpace(imageUrl))
             {
                 imageUrl = imageUrl.Trim();
-                bool validUrl = Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) && (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
+                bool validUrl   = Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) &&
+                                  (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
                 bool relativeOk = imageUrl.StartsWith('/');
 
                 if (!validUrl && !relativeOk)
@@ -186,17 +197,18 @@ namespace AmarTools.Voting.Controllers
                     TempData["Error"] = "Please enter a valid image URL.";
                     return RedirectToAction(nameof(ManageCandidates), new { programId });
                 }
+
                 safeImageUrl = imageUrl;
             }
 
             var candidate = new Candidate
             {
-                Name = name.Trim(),
+                Name          = name.Trim(),
                 CandidateCode = candidateCode.Trim(),
-                Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim(),
-                ImageUrl = safeImageUrl,
-                ProgramId = programId,
-                CreatedAt = DateTime.UtcNow
+                Description   = string.IsNullOrWhiteSpace(description) ? null : description.Trim(),
+                ImageUrl      = safeImageUrl,
+                ProgramId     = programId,
+                CreatedAt     = DateTime.UtcNow,
             };
 
             try
@@ -216,16 +228,16 @@ namespace AmarTools.Voting.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
         public async Task<IActionResult> DeleteCandidate(int id, int programId)
         {
             var candidate = await _context.Candidates.FindAsync(id);
             if (candidate is null) return NotFound();
 
             var program = await _context.VotingPrograms.FindAsync(programId);
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-            if (program == null || (program.OwnerId != userId && !User.IsInRole("Admin")))
+            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
                 return Forbid();
+
             if (candidate.ProgramId != programId) return Forbid();
 
             try
@@ -243,59 +255,47 @@ namespace AmarTools.Voting.Controllers
             return RedirectToAction(nameof(ManageCandidates), new { programId });
         }
 
-        // ── Results ───────────────────────────────────────────────────────────
+        
         [HttpGet]
         public async Task<IActionResult> Results(int id)
         {
             var program = await _votingService.GetProgramWithCandidatesAsync(id);
             if (program is null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
-            var voteGroups = await _context.Votes
-                .Where(v => v.ProgramId == id)
-                .GroupBy(v => v.CandidateId)
-                .Select(g => new { CandidateId = g.Key, VoteCount = g.Count() })
-                .ToListAsync();
+            var results    = await _votingService.GetResultsAsync(id);
+            var totalVotes = results.Sum(r => r.VoteCount);
 
-            var results = program.Candidates
-                .Select(c => new
-                {
-                    Candidate = c,
-                    VoteCount = voteGroups.FirstOrDefault(g => g.CandidateId == c.Id)?.VoteCount ?? 0
-                })
-                .OrderByDescending(r => r.VoteCount)
-                .ToList();
-
-            ViewBag.Results = results;
-            ViewBag.TotalVotes = voteGroups.Sum(g => g.VoteCount);
+            ViewBag.Results         = results;
+            ViewBag.TotalVotes      = totalVotes;
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
-            ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
-            ViewBag.NowLocal = ToLocal(DateTime.UtcNow);
+            ViewBag.StartTimeLocal  = ToLocal(program.StartTime);
+            ViewBag.EndTimeLocal    = ToLocal(program.EndTime);
+            ViewBag.NowLocal        = ToLocal(DateTime.UtcNow);
 
             return View(ResultsView, program);
         }
 
-        // ── Manage Voters ─────────────────────────────────────────────────────
+        // ── Manage Voters ──────────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> ManageVoters(int programId)
         {
             var program = await _context.VotingPrograms
                 .Include(p => p.Owner)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == programId);
 
             if (program == null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
             var voters = await _context.Voters
                 .Where(v => v.ProgramId == programId)
                 .OrderBy(v => v.Name)
+                .AsNoTracking()
                 .ToListAsync();
 
             ViewBag.Program = program;
@@ -308,97 +308,58 @@ namespace AmarTools.Voting.Controllers
             var program = await _context.VotingPrograms.FindAsync(programId);
             if (program == null) return NotFound();
 
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (program.OwnerId != userId && !User.IsInRole("Admin"))
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
             ViewBag.ProgramId = programId;
-            ViewBag.Program = program;
-
+            ViewBag.Program   = program;
             return View("~/Views/VotingAdmin/RegisterVoter.cshtml");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
         public async Task<IActionResult> RegisterVoter(int programId, string name, string email, string? memberId)
         {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            // Ownership check first
             var program = await _context.VotingPrograms.FindAsync(programId);
-
-            if (program == null || (program.OwnerId != userId && !User.IsInRole("Admin")))
+            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
                 return Forbid();
 
-            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email))
+            
+            var (success, error) = await _votingService.RegisterVoterByEmailAsync(
+                programId, name, email, memberId, registrationSource: "owner");
+
+            if (!success)
             {
-                TempData["Error"] = "Name and Email are required.";
+                TempData["Error"] = error;
                 return RedirectToAction(nameof(ManageVoters), new { programId });
             }
 
-            email = email.Trim().ToLower();
-
-            bool exists = await _context.Voters
-                .AnyAsync(v => v.ProgramId == programId && v.Email == email);
-
-            if (exists)
-            {
-                TempData["Error"] = "This email is already registered for this program.";
-                return RedirectToAction(nameof(ManageVoters), new { programId });
-            }
-
-            var voter = new Voter
-            {
-                Name = name.Trim(),
-                Email = email,
-                MemberId = string.IsNullOrWhiteSpace(memberId) ? null : memberId.Trim(),
-                ProgramId = programId,
-                UserId = (await _userManager.FindByEmailAsync(email))?.Id,
-                RegisteredAt = DateTime.UtcNow,
-                RegistrationSource = "owner"
-            };
-
-            try
-            {
-                _context.Voters.Add(voter);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                TempData["Error"] = "Voter could not be registered. Please verify the details and try again.";
-                return RedirectToAction(nameof(ManageVoters), new { programId });
-            }
-
-            TempData["Success"] = $"Voter '{name}' ({email}) registered successfully.";
+            TempData["Success"] = $"Voter '{name?.Trim()}' ({email?.Trim()}) registered successfully.";
             return RedirectToAction(nameof(ManageVoters), new { programId });
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
         public async Task<IActionResult> RemoveVoter(int voterId, int programId)
         {
-            var voter = await _context.Voters.FindAsync(voterId);
-            if (voter == null || voter.ProgramId != programId) return NotFound();
-
+            // Ownership check
             var program = await _context.VotingPrograms.FindAsync(programId);
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-            if (program == null || (program.OwnerId != userId && !User.IsInRole("Admin")))
+            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
                 return Forbid();
 
-            try
-            {
-                _context.Voters.Remove(voter);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                TempData["Error"] = "Voter could not be removed right now.";
-                return RedirectToAction(nameof(ManageVoters), new { programId });
-            }
+            // FIX: delegates to service (same as Admin controller)
+            var (success, error) = await _votingService.RemoveVoterAsync(voterId, programId);
 
-            TempData["Success"] = "Voter removed successfully.";
+            TempData[success ? "Success" : "Error"] =
+                success ? "Voter removed successfully." : error;
+
             return RedirectToAction(nameof(ManageVoters), new { programId });
         }
 
+        // ── Shared helpers ─────────────────────────────────────────────────────
         private void PrepareProgramModelForValidation()
         {
             ModelState.Remove(nameof(VotingProgram.OwnerId));
