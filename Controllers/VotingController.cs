@@ -1,10 +1,11 @@
-﻿using AmarTools.Voting.Data;
+using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using AmarTools.Voting.Services;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authorization;
 using AmarTools.Voting.Services.Background;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.EntityFrameworkCore;
 
 namespace AmarTools.Voting.Controllers
 {
@@ -14,10 +15,10 @@ namespace AmarTools.Voting.Controllers
         IBlockchainService blockchainService,
         IVoteBlockQueue voteBlockQueue) : Controller
     {
-        private readonly VotingDbContext _context = context;
-        private readonly IVotingService _votingService = votingService;
-        private readonly IBlockchainService _blockchainService = blockchainService;
-        private readonly IVoteBlockQueue _voteBlockQueue = voteBlockQueue;
+        private readonly VotingDbContext          _context           = context;
+        private readonly IVotingService           _votingService     = votingService;
+        private readonly IBlockchainService       _blockchainService = blockchainService;
+        private readonly IVoteBlockQueue          _voteBlockQueue    = voteBlockQueue;
 
         // ── Public voting page ────────────────────────────────────────────────
         [HttpGet]
@@ -29,8 +30,8 @@ namespace AmarTools.Voting.Controllers
             var now = DateTime.UtcNow;
 
             ViewBag.StartTimeLocal = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.EndTimeLocal = DateTime.SpecifyKind(program.EndTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.NowLocal = DateTime.SpecifyKind(now, DateTimeKind.Utc).ToLocalTime();
+            ViewBag.EndTimeLocal   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc).ToLocalTime();
+            ViewBag.NowLocal       = DateTime.SpecifyKind(now,               DateTimeKind.Utc).ToLocalTime();
 
             if (!program.IsPublished || now < program.StartTime || now > program.EndTime)
             {
@@ -38,9 +39,9 @@ namespace AmarTools.Voting.Controllers
                 return View("Closed", program);
             }
 
-            ViewBag.RemainingTime = (program.EndTime > now) ? (TimeSpan?)(program.EndTime - now) : null;
-            ViewBag.Candidates = program.Candidates.OrderBy(c => c.Name).ToList();
-            ViewBag.Program = program;
+            ViewBag.RemainingTime = program.EndTime > now ? (TimeSpan?)(program.EndTime - now) : null;
+            ViewBag.Candidates    = program.Candidates.OrderBy(c => c.Name).ToList();
+            ViewBag.Program       = program;
 
             if (User.Identity?.IsAuthenticated == true)
             {
@@ -63,40 +64,29 @@ namespace AmarTools.Voting.Controllers
             var program = await _votingService.GetProgramWithCandidatesAsync(id);
             if (program == null || !program.IsPublished) return NotFound();
 
-            var voteGroups = await _context.Votes
-                .Where(v => v.ProgramId == id)
-                .GroupBy(v => v.CandidateId)
-                .Select(g => new { CandidateId = g.Key, VoteCount = g.Count() })
-                .ToListAsync();
+            var results    = await _votingService.GetResultsAsync(id);
+            var totalVotes = results.Sum(r => r.VoteCount);
 
-            var results = program.Candidates
-                .Select(c => new AmarTools.Voting.Models.CandidateResultViewModel
-                {
-                    Candidate = c,
-                    VoteCount = voteGroups.FirstOrDefault(g => g.CandidateId == c.Id)?.VoteCount ?? 0
-                })
-                .OrderByDescending(r => r.VoteCount)
-                .ToList();
-
-            ViewBag.Results = results;
-            ViewBag.TotalVotes = voteGroups.Sum(g => g.VoteCount);
+            ViewBag.Results        = results;
+            ViewBag.TotalVotes     = totalVotes;
             ViewBag.StartTimeLocal = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.EndTimeLocal = DateTime.SpecifyKind(program.EndTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.NowLocal = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc).ToLocalTime();
+            ViewBag.EndTimeLocal   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc).ToLocalTime();
+            ViewBag.NowLocal       = DateTime.SpecifyKind(DateTime.UtcNow,   DateTimeKind.Utc).ToLocalTime();
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
 
             return View("PublicResults", program);
         }
 
         // ── Search endpoint (JSON) ────────────────────────────────────────────
+        // FIX: rate-limited to 30 requests/min per IP
         [HttpGet]
+        [EnableRateLimiting("search")]
         public async Task<IActionResult> Search(string q)
         {
             if (string.IsNullOrWhiteSpace(q))
                 return Json(Array.Empty<object>());
 
             q = q.Trim();
-
             var now = DateTime.UtcNow;
 
             var programs = await _context.VotingPrograms
@@ -108,9 +98,9 @@ namespace AmarTools.Voting.Controllers
                 .Select(p => new
                 {
                     p.Id,
-                    name = p.ProgramName,
-                    status = p.IsPublished && now >= p.StartTime && now <= p.EndTime ? "Active" :
-                                   now > p.EndTime ? "Ended" : "Upcoming",
+                    name   = p.ProgramName,
+                    status = p.IsPublished && now >= p.StartTime && now <= p.EndTime ? "Active"
+                           : now > p.EndTime ? "Ended" : "Upcoming",
                     candidateCount = p.Candidates.Count()
                 })
                 .ToListAsync();
@@ -119,9 +109,11 @@ namespace AmarTools.Voting.Controllers
         }
 
         // ── Self-join ─────────────────────────────────────────────────────────
+        // FIX: rate-limited to 10 requests/min per IP
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        [EnableRateLimiting("voting")]
         public async Task<IActionResult> Join(int programId)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -150,12 +142,12 @@ namespace AmarTools.Voting.Controllers
 
             var voter = new Voter
             {
-                Name = user?.FullName?.Trim() ?? user?.UserName ?? "Anonymous Voter",
-                Email = user?.Email,
-                ProgramId = programId,
-                UserId = userId,
-                RegisteredAt = DateTime.UtcNow,
-                RegistrationSource = "self"
+                Name               = user?.FullName?.Trim() ?? user?.UserName ?? "Anonymous Voter",
+                Email              = user?.Email,
+                ProgramId          = programId,
+                UserId             = userId,
+                RegisteredAt       = DateTime.UtcNow,
+                RegistrationSource = "self",
             };
 
             try
@@ -174,9 +166,11 @@ namespace AmarTools.Voting.Controllers
         }
 
         // ── Cast Vote ─────────────────────────────────────────────────────────
+        // FIX: rate-limited to 10 requests/min per IP
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
+        [EnableRateLimiting("voting")]
         public async Task<IActionResult> CastVote(int programId, int candidateId)
         {
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
@@ -216,36 +210,40 @@ namespace AmarTools.Voting.Controllers
 
             try
             {
-                await using var transaction = await _context.Database.BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
+                await using var transaction = await _context.Database
+                    .BeginTransactionAsync(System.Data.IsolationLevel.Serializable);
 
                 var vote = new Vote
                 {
-                    ProgramId = programId,
+                    ProgramId   = programId,
                     CandidateId = candidateId,
-                    VoterId = voter.Id,
-                    VotedAt = DateTime.UtcNow,
-                    VoteSource = "web",
-                    IpAddress = HttpContext.Connection.RemoteIpAddress?.ToString(),
-                    UserAgent = Request.Headers.UserAgent.ToString()
+                    VoterId     = voter.Id,
+                    VotedAt     = DateTime.UtcNow,
+                    VoteSource  = "web",
+                    IpAddress   = HttpContext.Connection.RemoteIpAddress?.ToString(),
+                    UserAgent   = Request.Headers.UserAgent.ToString(),
                 };
 
                 _context.Votes.Add(vote);
-
                 voter.HasVoted = true;
-                voter.VotedAt = DateTime.UtcNow;
+                voter.VotedAt  = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
                 await transaction.CommitAsync();
 
-                try { await _voteBlockQueue.EnqueueAsync(vote.Id); }
-                catch (Exception)
+                
+                bool queued = _voteBlockQueue.TryEnqueue(vote.Id);
+                if (!queued)
                 {
-                    TempData["Warning"] = "Vote saved, but blockchain block creation encountered an issue. Admin has been notified.";
+                    TempData["Warning"] =
+                        "Your vote was recorded, but the blockchain block could not be " +
+                        "queued right now due to high load. The integrity record will " +
+                        "be created shortly.";
                 }
 
-                TempData["Success"] = "Your vote has been recorded successfully!";
+                TempData["Success"]     = "Your vote has been recorded successfully!";
                 TempData["ProgramName"] = program.ProgramName;
-                TempData["ProgramId"] = programId;
+                TempData["ProgramId"]   = programId;
 
                 return RedirectToAction(nameof(ThankYou));
             }
@@ -260,7 +258,8 @@ namespace AmarTools.Voting.Controllers
                 }
                 catch { }
 
-                if (uniqueViolation || inner?.Message?.Contains("unique constraint", StringComparison.OrdinalIgnoreCase) == true)
+                if (uniqueViolation ||
+                    inner?.Message?.Contains("unique constraint", StringComparison.OrdinalIgnoreCase) == true)
                 {
                     TempData["Error"] = "You have already cast your vote in this program.";
                     return RedirectToAction(nameof(Vote), new { id = programId });
@@ -276,10 +275,7 @@ namespace AmarTools.Voting.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult ThankYou() => View();
-
-        [HttpGet]
-        public IActionResult Closed() => View();
+        [HttpGet] public IActionResult ThankYou() => View();
+        [HttpGet] public IActionResult Closed()   => View();
     }
 }
