@@ -4,3 +4,13 @@ obj/
 *.user
 *.suo
 *.log
+
+
+appsettings.json
+appsettings.Production.json
+appsettings.Staging.json
+
+
+appsettings.Development.local.json
+
+secrets.json
