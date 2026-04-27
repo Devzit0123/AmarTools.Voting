@@ -5,7 +5,8 @@ namespace AmarTools.Voting.Services.Background
 {
     public interface IVoteBlockQueue
     {
-        ValueTask EnqueueAsync(int voteId);
+        
+        bool TryEnqueue(int voteId);
         ValueTask<int> DequeueAsync(CancellationToken cancellationToken);
     }
 }
