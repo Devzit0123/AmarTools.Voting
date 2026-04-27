@@ -1,31 +1,52 @@
-using System.Threading.Channels;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace AmarTools.Voting.Services.Background
 {
     public class VoteBlockQueue : IVoteBlockQueue
     {
-        private readonly Channel<int> _queue;
+        private readonly Channel<int>           _queue;
+        private readonly ILogger<VoteBlockQueue> _logger;
 
-        public VoteBlockQueue(int capacity = 1000)
+        public VoteBlockQueue(ILogger<VoteBlockQueue> logger, int capacity = 1000)
         {
+            _logger = logger;
+
+            
             var options = new BoundedChannelOptions(capacity)
             {
-                FullMode = BoundedChannelFullMode.Wait
+                FullMode      = BoundedChannelFullMode.DropWrite,
+                SingleReader  = true,   
+                SingleWriter  = false,  
             };
+
             _queue = Channel.CreateBounded<int>(options);
         }
 
-        public async ValueTask EnqueueAsync(int voteId)
+        /// <inheritdoc/>
+        public bool TryEnqueue(int voteId)
         {
-            await _queue.Writer.WriteAsync(voteId);
+            bool written = _queue.Writer.TryWrite(voteId);
+
+            if (!written)
+            {
+                
+                _logger.LogWarning(
+                    "Blockchain queue is full (capacity reached). " +
+                    "Vote {VoteId} was not enqueued. " +
+                    "The blockchain block will be missing until a sweep is run.",
+                    voteId);
+            }
+
+            return written;
         }
 
+        /// <inheritdoc/>
         public async ValueTask<int> DequeueAsync(CancellationToken cancellationToken)
         {
-            var item = await _queue.Reader.ReadAsync(cancellationToken);
-            return item;
+            return await _queue.Reader.ReadAsync(cancellationToken);
         }
     }
 }
