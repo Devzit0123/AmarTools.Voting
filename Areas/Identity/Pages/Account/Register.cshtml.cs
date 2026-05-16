@@ -74,7 +74,8 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
             {
                 UserName = email,
                 Email = email,
-                FullName = Input.FullName.Trim()
+                FullName = Input.FullName.Trim(),
+                EmailConfirmed = true
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
