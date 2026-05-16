@@ -1,4 +1,4 @@
-﻿using AmarTools.Voting.Data;
+using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
