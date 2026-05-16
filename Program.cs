@@ -42,38 +42,35 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 // ── Cookie Configuration ───────────────────────────────────────────────────
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath       = "/Identity/Account/Login";
-    options.LogoutPath      = "/Identity/Account/Logout";
+    options.LoginPath        = "/Identity/Account/Login";
+    options.LogoutPath       = "/Identity/Account/Logout";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
 builder.Services.AddRateLimiter(options =>
 {
-    // Public search: 30 requests per minute per IP
     options.AddFixedWindowLimiter("search", opt =>
     {
-        opt.PermitLimit              = 30;
-        opt.Window                   = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder     = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit               = 5;
+        opt.PermitLimit          = 30;
+        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit           = 5;
     });
 
-   
     options.AddFixedWindowLimiter("voting", opt =>
     {
-        opt.PermitLimit              = 10;
-        opt.Window                   = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder     = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit               = 2;
+        opt.PermitLimit          = 10;
+        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit           = 2;
     });
 
-    // Admin write operations: 60 requests per minute per IP
     options.AddFixedWindowLimiter("admin", opt =>
     {
-        opt.PermitLimit              = 60;
-        opt.Window                   = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder     = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit               = 10;
+        opt.PermitLimit          = 60;
+        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        opt.QueueLimit           = 10;
     });
 
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -89,12 +86,11 @@ builder.Services.AddHostedService<BlockchainBackgroundService>();
 
 var app = builder.Build();
 
-// ── Development: Migrate + Seed Admin ─────────────────────────────────────
-if (app.Environment.IsDevelopment())
+// ── Migrate + Seed Admin (runs in all environments including Production) ───
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
-    var services   = scope.ServiceProvider;
-    var db         = services.GetRequiredService<VotingDbContext>();
+    var services = scope.ServiceProvider;
+    var db       = services.GetRequiredService<VotingDbContext>();
     await db.Database.MigrateAsync();
     await SeedAdminUser(services, app.Configuration);
 }
@@ -110,10 +106,10 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); // Railway handles HTTPS at proxy level
 app.UseStaticFiles();
 app.UseRouting();
-app.UseRateLimiter();   // FIX: must come after UseRouting, before UseAuthorization
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -131,7 +127,6 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var logger      = services.GetRequiredService<ILogger<Program>>();
 
-    // Read from config (dotnet user-secrets or env vars)
     var adminEmail    = config["Seed:AdminEmail"];
     var adminPassword = config["Seed:AdminPassword"];
 
@@ -143,14 +138,12 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
         return;
     }
 
-    // Ensure roles exist
     foreach (var role in new[] { "Admin", "ProgramOwner" })
     {
         if (!await roleManager.RoleExistsAsync(role))
             await roleManager.CreateAsync(new IdentityRole(role));
     }
 
-    // Create admin user if not already present
     var admin = await userManager.FindByEmailAsync(adminEmail);
     if (admin == null)
     {
