@@ -10,326 +10,338 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/design-system.css" rel="stylesheet" asp-append-version="true">
 
     <style>
-        :root {
-            --ink: #0f1117;
-            --ink-2: #3a3d4a;
-            --ink-3: #9ba1b0;
-            --border: #e4e6ef;
-            --surface: #f7f8fc;
-            --accent: #3b5bdb;
-            --accent-hover: #2f4abf;
-            --accent-lt: #eef2ff;
-            --sidebar-w: 260px;
-            --success: #2f9e44;
-            --danger: #e03131;
-            --warning: #f08c00;
-        }
-
-        *, *::before, *::after {
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'DM Sans', sans-serif;
-            background: var(--surface);
-            min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
-            color: var(--ink);
-        }
-
-        /* ── Sidebar ─────────────────────────────── */
-        .sidebar {
-            width: var(--sidebar-w);
-            background: var(--ink);
-            min-height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            color: #fff;
-            transition: transform 0.3s ease;
-            z-index: 1040;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebar-brand {
-            padding: 28px 24px 20px;
-            border-bottom: 1px solid rgba(255,255,255,0.07);
-        }
-
-        .brand-text {
-            font-family: 'Fraunces', serif;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: #fff;
-        }
-
-        .brand-sub {
-            font-size: 10px;
-            opacity: 0.5;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            padding: 8px 0;
-            overflow-y: auto;
-        }
-
-        .nav-section-label {
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #555c70;
-            padding: 16px 24px 6px;
-            font-weight: 600;
-        }
-
-        .nav-item-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 11px 24px;
-            color: #8b92a5;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            transition: all 0.15s ease;
-            border-left: 3px solid transparent;
-        }
-
-            .nav-item-link:hover {
-                color: #fff;
-                background: rgba(255,255,255,0.04);
-                border-left-color: rgba(255,255,255,0.2);
+            :root {
+                /* Legacy names kept so the rest of this file (and other views)
+                           don't need a rewrite — but every value now points at the one
+                           shared palette in design-system.css, so there's a single
+                           source of truth for color across the whole app. */
+                --ink: var(--color-gray-900);
+                --ink-2: var(--color-gray-800);
+                --ink-3: var(--color-gray-400);
+                --border: var(--color-border);
+                --surface: var(--color-surface);
+                --accent: var(--color-primary-500);
+                --accent-hover: var(--color-primary-600);
+                --accent-lt: var(--color-primary-50);
+                --sidebar-w: 264px;
+                --success: var(--color-success-600);
+                --danger: var(--color-danger-600);
+                --warning: var(--color-warning-600);
             }
 
-            .nav-item-link.active {
-                color: #fff;
-                background: rgba(59,91,219,0.15);
-                border-left-color: var(--accent);
+            *, *::before, *::after {
+                box-sizing: border-box;
             }
 
-            .nav-item-link i {
-                font-size: 16px;
-                width: 20px;
-                text-align: center;
-            }
-
-        .sidebar-footer {
-            padding: 16px 24px;
-            border-top: 1px solid rgba(255,255,255,0.07);
-        }
-
-        /* ── Main wrap ───────────────────────────── */
-        .main-wrap {
-            margin-left: var(--sidebar-w);
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            width: calc(100% - var(--sidebar-w));
-            transition: margin-left 0.3s ease, width 0.3s ease;
-            min-height: 100vh;
-        }
-
-        /* ── Topbar ──────────────────────────────── */
-        .topbar {
-            background: #fff;
-            border-bottom: 1px solid var(--border);
-            padding: 0 28px;
-            height: 68px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        }
-
-        .topbar-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--ink);
-        }
-
-        /* ── Greeting chip ───────────────────────── */
-        .greeting-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--accent-lt);
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            padding: 5px 12px;
-            border-radius: 99px;
-        }
-
-        /* ── Page content ────────────────────────── */
-        .page-content {
-            padding: 32px;
-            flex: 1;
-        }
-
-        /* ── Alerts ──────────────────────────────── */
-        .alert {
-            border-radius: 10px;
-            border: none;
-            font-size: 14px;
-        }
-
-        .alert-success {
-            background: #d3f9d8;
-            color: #1e6b30;
-        }
-
-        .alert-danger {
-            background: #ffe3e3;
-            color: #a61e1e;
-        }
-
-        .alert-info {
-            background: var(--accent-lt);
-            color: var(--accent);
-        }
-
-        .alert-warning {
-            background: #fff3cd;
-            color: #7d5c00;
-        }
-
-        /* ── User avatar button ──────────────────── */
-        .user-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 99px;
-            padding: 6px 14px 6px 8px;
-            cursor: pointer;
-            transition: all 0.15s;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--ink-2);
-        }
-
-            .user-btn:hover {
-                background: var(--border);
-            }
-
-        .user-avatar {
-            width: 30px;
-            height: 30px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        /* ── Published link bar ──────────────────── */
-        #published-link-bar {
-            background: #ebf5ff;
-            border-bottom: 1px solid #b6d9f7;
-            padding: 10px 28px;
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        /* ── Search overlay ──────────────────────── */
-        .search-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 2000;
-            background: rgba(15,17,23,0.6);
-            backdrop-filter: blur(4px);
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 80px;
-        }
-
-            .search-overlay.open {
+            body {
+                font-family: 'DM Sans', sans-serif;
+                background: var(--surface);
+                min-height: 100vh;
                 display: flex;
-            }
-
-        .search-box {
-            background: #fff;
-            border-radius: 16px;
-            padding: 24px;
-            width: 100%;
-            max-width: 520px;
-            box-shadow: 0 24px 64px rgba(0,0,0,0.2);
-        }
-
-            .search-box h5 {
-                font-weight: 700;
-                margin-bottom: 16px;
-            }
-
-        .search-result-item {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 14px 16px;
-            margin-top: 10px;
-            text-decoration: none;
-            color: var(--ink);
-            display: block;
-            transition: all 0.15s;
-        }
-
-            .search-result-item:hover {
-                background: var(--accent-lt);
-                border-color: var(--accent);
+                overflow-x: hidden;
                 color: var(--ink);
             }
 
-        /* ── Responsive ──────────────────────────── */
-        @@media (max-width: 991.98px) {
+            /* ── Sidebar ─────────────────────────────── */
             .sidebar {
-                transform: translateX(-100%);
+                width: var(--sidebar-w);
+                background: var(--ink);
+                min-height: 100vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                color: #fff;
+                transition: transform 0.3s ease;
+                z-index: 1040;
+                display: flex;
+                flex-direction: column;
             }
 
-                .sidebar.show {
-                    transform: translateX(0);
+            .sidebar-brand {
+                padding: 28px 24px 20px;
+                border-bottom: 1px solid rgba(255,255,255,0.07);
+            }
+
+            .brand-text {
+                font-family: 'Fraunces', serif;
+                font-size: 22px;
+                font-weight: 600;
+                letter-spacing: -0.5px;
+                color: #fff;
+            }
+
+            .brand-sub {
+                font-size: 10px;
+                opacity: 0.5;
+                letter-spacing: 1.5px;
+                text-transform: uppercase;
+                margin-top: 4px;
+            }
+
+            .sidebar-nav {
+                flex: 1;
+                padding: 8px 0;
+                overflow-y: auto;
+            }
+
+            .nav-section-label {
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 1.5px;
+                color: #555c70;
+                padding: 16px 24px 6px;
+                font-weight: 600;
+            }
+
+            .nav-item-link {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 24px;
+                margin: 1px 0;
+                color: #8b92a5;
+                text-decoration: none;
+                font-weight: var(--fw-medium, 500);
+                font-size: 14px;
+                transition: color var(--transition-fast, 120ms ease), background-color var(--transition-fast, 120ms ease), border-color var(--transition-fast, 120ms ease);
+                border-left: 3px solid transparent;
+            }
+
+                .nav-item-link:hover {
+                    color: #fff;
+                    background: rgba(255,255,255,0.05);
+                    border-left-color: rgba(255,255,255,0.25);
                 }
 
+                .nav-item-link.active {
+                    color: #fff;
+                    font-weight: var(--fw-semibold, 600);
+                    background: rgba(59,91,219,0.18);
+                    border-left-color: var(--accent);
+                }
+
+                .nav-item-link i {
+                    font-size: 16px;
+                    width: 20px;
+                    text-align: center;
+                    flex-shrink: 0;
+                }
+
+                .nav-item-link.active i {
+                    color: #a5b4fc;
+                }
+
+            .sidebar-footer {
+                padding: 16px 24px;
+                border-top: 1px solid rgba(255,255,255,0.07);
+            }
+
+            /* ── Main wrap ───────────────────────────── */
             .main-wrap {
-                margin-left: 0;
-                width: 100%;
+                margin-left: var(--sidebar-w);
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                width: calc(100% - var(--sidebar-w));
+                transition: margin-left 0.3s ease, width 0.3s ease;
+                min-height: 100vh;
             }
 
+            /* ── Topbar ──────────────────────────────── */
+            .topbar {
+                background: #fff;
+                border-bottom: 1px solid var(--border);
+                padding: 0 28px;
+                height: 68px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                position: sticky;
+                top: 0;
+                z-index: 50;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+            }
+
+            .topbar-title {
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--ink);
+            }
+
+            /* ── Greeting chip ───────────────────────── */
+            .greeting-chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--accent-lt);
+                color: var(--accent);
+                font-size: 13px;
+                font-weight: 600;
+                padding: 5px 12px;
+                border-radius: 99px;
+            }
+
+            /* ── Page content ────────────────────────── */
             .page-content {
-                padding: 20px;
+                padding: 32px;
+                flex: 1;
             }
-        }
 
-        /* ── Sidebar overlay on mobile ───────────── */
-        .sidebar-backdrop {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 1039;
-        }
+            /* ── Alerts ──────────────────────────────── */
+            .alert {
+                border-radius: 10px;
+                border: none;
+                font-size: 14px;
+            }
 
-            .sidebar-backdrop.show {
+            .alert-success {
+                background: #d3f9d8;
+                color: #1e6b30;
+            }
+
+            .alert-danger {
+                background: #ffe3e3;
+                color: #a61e1e;
+            }
+
+            .alert-info {
+                background: var(--accent-lt);
+                color: var(--accent);
+            }
+
+            .alert-warning {
+                background: #fff3cd;
+                color: #7d5c00;
+            }
+
+            /* ── User avatar button ──────────────────── */
+            .user-btn {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                border-radius: 99px;
+                padding: 6px 14px 6px 8px;
+                cursor: pointer;
+                transition: all 0.15s;
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--ink-2);
+            }
+
+                .user-btn:hover {
+                    background: var(--border);
+                }
+
+            .user-avatar {
+                width: 30px;
+                height: 30px;
+                background: var(--accent);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 12px;
+                font-weight: 700;
+            }
+
+            /* ── Published link bar ──────────────────── */
+            #published-link-bar {
+                background: #ebf5ff;
+                border-bottom: 1px solid #b6d9f7;
+                padding: 10px 28px;
+                font-size: 13px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            /* ── Search overlay ──────────────────────── */
+            .search-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                z-index: 2000;
+                background: rgba(15,17,23,0.6);
+                backdrop-filter: blur(4px);
+                align-items: flex-start;
+                justify-content: center;
+                padding-top: 80px;
+            }
+
+                .search-overlay.open {
+                    display: flex;
+                }
+
+            .search-box {
+                background: #fff;
+                border-radius: 16px;
+                padding: 24px;
+                width: 100%;
+                max-width: 520px;
+                box-shadow: 0 24px 64px rgba(0,0,0,0.2);
+            }
+
+                .search-box h5 {
+                    font-weight: 700;
+                    margin-bottom: 16px;
+                }
+
+            .search-result-item {
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 14px 16px;
+                margin-top: 10px;
+                text-decoration: none;
+                color: var(--ink);
                 display: block;
+                transition: all 0.15s;
             }
+
+                .search-result-item:hover {
+                    background: var(--accent-lt);
+                    border-color: var(--accent);
+                    color: var(--ink);
+                }
+
+            /* ── Responsive ──────────────────────────── */
+            @@media (max-width: 991.98px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                }
+
+                    .sidebar.show {
+                        transform: translateX(0);
+                    }
+
+                .main-wrap {
+                    margin-left: 0;
+                    width: 100%;
+                }
+
+                .page-content {
+                    padding: 20px;
+                }
+            }
+
+            /* ── Sidebar overlay on mobile ───────────── */
+            .sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.4);
+                z-index: 1039;
+            }
+
+                .sidebar-backdrop.show {
+                    display: block;
+                }
     </style>
 </head>
 <body>
@@ -513,101 +525,101 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ── Greeting ──────────────────────────────────────────────────────
-        (function () {
-            const h = new Date().getHours();
-            const greet = h < 12 ? '☀️ Good morning' : h < 17 ? '🌤️ Good afternoon' : '🌙 Good evening';
-            const el = document.getElementById('greetingText');
-            if (el) el.textContent = greet;
-            const chip = document.getElementById('greetingChip');
-            if (chip) {
-                const icon = chip.querySelector('i');
-                if (icon) icon.className = h < 12 ? 'bi bi-sunrise-fill' : h < 17 ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
-            }
-        })();
+            // ── Greeting ──────────────────────────────────────────────────────
+            (function() {
+                const h = new Date().getHours();
+                const greet = h < 12 ? '☀️ Good morning' : h < 17 ? '🌤️ Good afternoon' : '🌙 Good evening';
+                const el = document.getElementById('greetingText');
+                if (el) el.textContent = greet;
+                const chip = document.getElementById('greetingChip');
+                if (chip) {
+                    const icon = chip.querySelector('i');
+                    if (icon) icon.className = h < 12 ? 'bi bi-sunrise-fill' : h < 17 ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+                }
+            })();
 
-        // ── Sidebar toggle ────────────────────────────────────────────────
-        const sidebar = document.getElementById('sidebar');
-        const backdrop = document.getElementById('sidebarBackdrop');
-        document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-            sidebar.classList.toggle('show');
-            backdrop.classList.toggle('show');
-        });
-        backdrop?.addEventListener('click', function () {
-            sidebar.classList.remove('show');
-            backdrop.classList.remove('show');
-        });
+            // ── Sidebar toggle ────────────────────────────────────────────────
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            document.getElementById('sidebarToggle')?.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+                backdrop.classList.toggle('show');
+            });
+            backdrop?.addEventListener('click', function() {
+                sidebar.classList.remove('show');
+                backdrop.classList.remove('show');
+            });
 
-        // ── Copy published link ───────────────────────────────────────────
-        function copyPubLink(btn) {
-            const text = document.getElementById('pubLinkCode')?.textContent?.trim();
-            if (text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    const orig = btn.innerHTML;
-                    btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
-                    setTimeout(() => btn.innerHTML = orig, 2000);
-                });
-            }
-        }
-
-        // ── Search overlay ────────────────────────────────────────────────
-        function openSearch() {
-            document.getElementById('searchOverlay').classList.add('open');
-            setTimeout(() => document.getElementById('programSearchInput')?.focus(), 100);
-        }
-        function closeSearch() {
-            document.getElementById('searchOverlay').classList.remove('open');
-            document.getElementById('searchResults').innerHTML = '';
-            document.getElementById('programSearchInput').value = '';
-        }
-        function closeSearchIfOutside(e) {
-            if (e.target.id === 'searchOverlay') closeSearch();
-        }
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closeSearch();
-        });
-
-        document.getElementById('programSearchInput')?.addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') doSearch();
-        });
-
-        function doSearch() {
-            const val = document.getElementById('programSearchInput').value.trim();
-            const resultsEl = document.getElementById('searchResults');
-
-            // If it's a URL-like path or number, redirect directly
-            const idMatch = val.match(/(?:Vote\/|\/|^)(\d+)$/);
-            if (idMatch) {
-                window.location.href = '/Voting/Vote/' + idMatch[1];
-                return;
+            // ── Copy published link ───────────────────────────────────────────
+            function copyPubLink(btn) {
+                const text = document.getElementById('pubLinkCode')?.textContent?.trim();
+                if (text) {
+                    navigator.clipboard.writeText(text).then(() => {
+                        const orig = btn.innerHTML;
+                        btn.innerHTML = '<i class="bi bi-check-lg"></i> Copied!';
+                        setTimeout(() => btn.innerHTML = orig, 2000);
+                    });
+                }
             }
 
-            if (!val) {
-                resultsEl.innerHTML = '<div class="text-muted small">Please enter a program link or name.</div>';
-                return;
+            // ── Search overlay ────────────────────────────────────────────────
+            function openSearch() {
+                document.getElementById('searchOverlay').classList.add('open');
+                setTimeout(() => document.getElementById('programSearchInput')?.focus(), 100);
+            }
+            function closeSearch() {
+                document.getElementById('searchOverlay').classList.remove('open');
+                document.getElementById('searchResults').innerHTML = '';
+                document.getElementById('programSearchInput').value = '';
+            }
+            function closeSearchIfOutside(e) {
+                if (e.target.id === 'searchOverlay') closeSearch();
             }
 
-            resultsEl.innerHTML = '<div class="text-muted small"><i class="bi bi-hourglass-split me-1"></i>Searching…</div>';
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') closeSearch();
+            });
 
-            fetch('/Voting/Search?q=' + encodeURIComponent(val))
-                .then(r => r.json())
-                .then(data => {
-                    if (!data || data.length === 0) {
-                        resultsEl.innerHTML = '<div class="alert alert-warning small py-2">No active programs found matching that name.</div>';
-                        return;
-                    }
-                    resultsEl.innerHTML = data.map(p =>
-                        `<a href="/Voting/Vote/${p.id}" class="search-result-item">
-                            <div class="fw-semibold">${p.name}</div>
-                            <div class="small text-muted">${p.status} · ${p.candidateCount} candidates</div>
-                        </a>`
-                    ).join('');
-                })
-                .catch(() => {
-                    resultsEl.innerHTML = '<div class="alert alert-danger small py-2">Search failed. Try entering the voting link directly.</div>';
-                });
-        }
+            document.getElementById('programSearchInput')?.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') doSearch();
+            });
+
+            function doSearch() {
+                const val = document.getElementById('programSearchInput').value.trim();
+                const resultsEl = document.getElementById('searchResults');
+
+                // If it's a URL-like path or number, redirect directly
+                const idMatch = val.match(/(?:Vote\/|\/|^)(\d+)$/);
+                if (idMatch) {
+                    window.location.href = '/Voting/Vote/' + idMatch[1];
+                    return;
+                }
+
+                if (!val) {
+                    resultsEl.innerHTML = '<div class="text-muted small">Please enter a program link or name.</div>';
+                    return;
+                }
+
+                resultsEl.innerHTML = '<div class="text-muted small"><i class="bi bi-hourglass-split me-1"></i>Searching…</div>';
+
+                fetch('/Voting/Search?q=' + encodeURIComponent(val))
+                    .then(r => r.json())
+                    .then(data => {
+                        if (!data || data.length === 0) {
+                            resultsEl.innerHTML = '<div class="alert alert-warning small py-2">No active programs found matching that name.</div>';
+                            return;
+                        }
+                        resultsEl.innerHTML = data.map(p =>
+                            `<a href="/Voting/Vote/${p.id}" class="search-result-item">
+                                        <div class="fw-semibold">${p.name}</div>
+                                        <div class="small text-muted">${p.status} · ${p.candidateCount} candidates</div>
+                                    </a>`
+                        ).join('');
+                    })
+                    .catch(() => {
+                        resultsEl.innerHTML = '<div class="alert alert-danger small py-2">Search failed. Try entering the voting link directly.</div>';
+                    });
+            }
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

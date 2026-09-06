@@ -9,6 +9,26 @@
     var endLocal = (DateTime?)ViewBag.EndTimeLocal;
     var resultsList = results.ToList();
     var winner = resultsList.FirstOrDefault();
+
+    // This view is shared by VotingAdminController (has an "Index" dashboard
+    // action) and ProgramOwnerController (its dashboard action is "MyPrograms")
+    // — resolve the back link against whichever controller actually served
+    // the page instead of hardcoding one, or the other route 404s.
+    var controllerName = ViewContext.RouteData.Values["controller"]?.ToString() ?? "VotingAdmin";
+    var backAction = controllerName == "ProgramOwner" ? "MyPrograms" : "Index";
+    var backText = controllerName == "ProgramOwner" ? "My Programs" : "Dashboard";
+
+    // Chart data — plain lists so System.Text.Json can serialize them cleanly
+    // (the raw rows are `dynamic`, which doesn't serialize on its own).
+    var chartLabels = new List<string>();
+    var chartVotes = new List<int>();
+    foreach (var r in resultsList)
+    {
+        string cname = (string?)(r.Candidate?.Name) ?? "Unknown";
+        int cvotes = (int)r.VoteCount;
+        chartLabels.Add(cname);
+        chartVotes.Add(cvotes);
+    }
 }
 
 <div class="page-header">
@@ -16,8 +36,8 @@
         <div class="page-title">Results</div>
         <div class="page-subtitle">@(Model?.ProgramName ?? "Voting Program")</div>
     </div>
-    <a asp-action="Index" class="btn btn-secondary">
-        <i class="bi bi-arrow-left"></i> Dashboard
+    <a asp-controller="@controllerName" asp-action="@backAction" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> @backText
     </a>
 </div>
 
@@ -64,6 +84,24 @@
             }
         </div>
         <div class="stat-sub">Chain integrity</div>
+    </div>
+</div>
+
+<!-- Candidate Standings Chart -->
+<div class="card mb-3">
+    <div class="card-header">Candidate Standings</div>
+    <div class="card-body">
+        @if (!resultsList.Any())
+        {
+            <div class="empty-state text-center py-4">
+                <i class="bi bi-bar-chart fs-1 text-muted"></i>
+                <p class="text-muted mb-0">No results to chart yet</p>
+            </div>
+        }
+        else
+        {
+            <canvas id="standingsChart" height="@(Math.Max(80, resultsList.Count * 46))"></canvas>
+        }
     </div>
 </div>
 
@@ -122,14 +160,7 @@
                                 </div>
                             </td>
                             <td><strong>@r.VoteCount</strong></td>
-                            <td>
-                                <div style="display:flex;align-items:center;gap:8px;">
-                                    <div style="flex:1;background:#e9ecef;border-radius:4px;height:8px;">
-                                        <div style="width:@pct%;background:@(isFirst ? "#3b5bdb" : "#6c757d");height:100%;border-radius:4px;"></div>
-                                    </div>
-                                    <span style="font-size:13px;min-width:45px;">@pct%</span>
-                                </div>
-                            </td>
+                            <td>@pct%</td>
                         </tr>
                         rank++;
                     }
@@ -163,3 +194,60 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script>
+        (function() {
+            const canvas = document.getElementById('standingsChart');
+            if (!canvas) return;
+
+            const labels = @Json.Serialize(chartLabels);
+            const votes = @Json.Serialize(chartVotes);
+            const total = @totalVotes;
+            const maxVotes = votes.length ? Math.max(...votes) : 0;
+            const colors = votes.map(v => (v === maxVotes && v > 0) ? '#3b5bdb' : '#adb5bd');
+
+            new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Votes',
+                        data: votes,
+                        backgroundColor: colors,
+                        borderRadius: 6,
+                        maxBarThickness: 34
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const v = context.parsed.x;
+                                    const pct = total > 0 ? ((v / total) * 100).toFixed(1) : '0.0';
+                                    return v + ' votes (' + pct + '%)';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            ticks: { precision: 0 },
+                            grid: { color: '#eef0f6' }
+                        },
+                        y: {
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+}

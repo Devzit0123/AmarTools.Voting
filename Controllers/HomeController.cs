@@ -31,26 +31,11 @@ namespace AmarTools.Voting.Controllers
                 return RedirectToAction("Index", "VotingAdmin");
             }
 
-            // ── For Program Owners (and other authenticated users) ─────────────────
+            // ── Program Owners (and other authenticated users) go to their
+            //    one real dashboard — no separate duplicate view to keep in sync. ──
             if (User.Identity?.IsAuthenticated == true)
             {
-                var user = await _userManager.GetUserAsync(User);
-                if (user != null)
-                {
-                    var programs = await _context.VotingPrograms
-                        .Include(p => p.Candidates)
-                        .Include(p => p.Votes)
-                        .Include(p => p.Voters)
-                        .Where(p => p.OwnerId == user.Id)
-                        .OrderByDescending(p => p.CreatedAt)
-                        .ToListAsync();
-
-                    // Dictionaries required by the view for time formatting
-                    ViewBag.ProgramStartTimes = programs.ToDictionary(p => p.Id, p => ToLocal(p.StartTime));
-                    ViewBag.ProgramEndTimes = programs.ToDictionary(p => p.Id, p => ToLocal(p.EndTime));
-
-                    return View(programs);
-                }
+                return RedirectToAction("MyPrograms", "ProgramOwner");
             }
 
             // ── Not logged in → Show Landing Page ─────────────────────────────────

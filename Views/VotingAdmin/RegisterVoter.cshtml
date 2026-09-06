@@ -24,23 +24,6 @@
     </a>
 </div>
 
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">
-        <i class="bi bi-check-circle-fill"></i>
-        <span>@TempData["Success"]</span>
-        <button class="alert-close">&times;</button>
-    </div>
-}
-
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">
-        <i class="bi bi-exclamation-circle-fill"></i>
-        <span>@TempData["Error"]</span>
-        <button class="alert-close">&times;</button>
-    </div>
-}
 
 <div class="card">
     <div class="card-body">

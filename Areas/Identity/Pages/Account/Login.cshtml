@@ -6,50 +6,175 @@
     Layout = "/Views/Shared/_AuthLayout.cshtml";
 }
 
-<div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-5 col-xl-4">
-        <div class="card shadow-sm border-0 rounded-3 mb-5">
-            <div class="card-body p-5">
-                <div class="text-center mb-4">
-                    <i class="bi bi-shield-lock-fill" style="font-size: 3.5rem; color: #3b5bdb;"></i>
-                    <h2 class="mt-3 fw-bold">Sign In</h2>
-                    <p class="text-muted">Access your voting dashboard</p>
+<style>
+    .auth-card {
+        border: 2px solid var(--color-border);
+        box-shadow: var(--shadow-lg);
+        transition: all var(--transition-base);
+    }
+
+    .auth-card:hover {
+        border-color: var(--color-primary-200);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .auth-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%);
+        border-radius: var(--radius-lg);
+        font-size: 2.5rem;
+        color: var(--color-primary-600);
+        margin-bottom: var(--spacing-4);
+    }
+
+    .auth-title {
+        font-family: var(--font-family-display);
+        font-size: var(--font-size-3xl);
+        font-weight: 700;
+        color: var(--color-text-primary);
+        margin-bottom: var(--spacing-2);
+    }
+
+    .auth-subtitle {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-8);
+        font-size: var(--font-size-base);
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-6);
+    }
+
+    .form-label {
+        display: block;
+        margin-bottom: var(--spacing-2);
+        font-weight: 700;
+        font-size: var(--font-size-sm);
+        color: var(--color-text-primary);
+        letter-spacing: 0.3px;
+    }
+
+    .form-control {
+        background-color: var(--color-surface);
+        border: 2px solid var(--color-border);
+        color: var(--color-text-primary);
+        transition: all var(--transition-base);
+        font-size: var(--font-size-base);
+    }
+
+    .form-control::placeholder {
+        color: var(--color-text-tertiary);
+    }
+
+    .form-control:focus {
+        border-color: var(--color-primary-600);
+        box-shadow: 0 0 0 4px rgba(59, 91, 219, 0.12);
+        background-color: var(--color-surface);
+    }
+
+    .form-control.is-invalid {
+        border-color: var(--color-danger-500);
+    }
+
+    .form-control.is-invalid:focus {
+        box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+    }
+
+    .auth-footer {
+        text-align: center;
+        margin-top: var(--spacing-6);
+        padding-top: var(--spacing-6);
+        border-top: 1px solid var(--color-border);
+    }
+
+    .auth-footer-text {
+        color: var(--color-text-secondary);
+        margin-bottom: var(--spacing-3);
+    }
+
+    .auth-footer a {
+        font-weight: 700;
+        color: var(--color-primary-600);
+        transition: color var(--transition-base);
+    }
+
+    .auth-footer a:hover {
+        color: var(--color-primary-700);
+    }
+</style>
+
+<div class="row justify-content-center align-items-center min-vh-100 py-5">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-5 col-xl-4">
+        <div class="card auth-card border-0 rounded-xl">
+            <div class="card-body p-8">
+                <div class="text-center mb-6">
+                    <div class="auth-icon">
+                        <i class="bi bi-shield-lock-fill"></i>
+                    </div>
+                    <h1 class="auth-title">Welcome Back</h1>
+                    <p class="auth-subtitle">Sign in to your voting dashboard</p>
                 </div>
 
                 <form id="account" method="post" asp-route-returnUrl="@Model.ReturnUrl">
 
-                    <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 px-3 small" role="alert"></div>
-
-                    <div class="mb-3">
-                        <label asp-for="Input.Email" class="form-label fw-semibold">Email Address</label>
-                        <input asp-for="Input.Email" class="form-control form-control-lg"
-                               autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                        <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger d-flex align-items-start gap-3 mb-6 border-0" role="alert">
+                        <i class="bi bi-exclamation-circle-fill fs-5 flex-shrink-0"></i>
+                        <div>
+                            <strong>Unable to sign in</strong>
+                            <div class="small mt-1">Please check your email and password and try again.</div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label asp-for="Input.Password" class="form-label fw-semibold">Password</label>
-                        <input asp-for="Input.Password" class="form-control form-control-lg"
-                               autocomplete="current-password" aria-required="true" placeholder="••••••••" />
-                        <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                    <div class="form-group">
+                        <label asp-for="Input.Email" class="form-label">
+                            <i class="bi bi-envelope-at me-1"></i> Email Address
+                        </label>
+                        <input asp-for="Input.Email" 
+                               class="form-control form-control-lg"
+                               autocomplete="username" 
+                               aria-required="true" 
+                               placeholder="name@example.com" />
+                        <span asp-validation-for="Input.Email" class="text-danger small mt-2 d-block"></span>
                     </div>
 
-                    <div class="form-check mb-4">
-                        <input asp-for="Input.RememberMe" class="form-check-input" />
-                        <label asp-for="Input.RememberMe" class="form-check-label text-muted">
-                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    <div class="form-group">
+                        <label asp-for="Input.Password" class="form-label">
+                            <i class="bi bi-key me-1"></i> Password
+                        </label>
+                        <input asp-for="Input.Password" 
+                               class="form-control form-control-lg"
+                               autocomplete="current-password" 
+                               aria-required="true" 
+                               placeholder="••••••••" />
+                        <span asp-validation-for="Input.Password" class="text-danger small mt-2 d-block"></span>
+                    </div>
+
+                    <div class="form-check mb-6">
+                        <input asp-for="Input.RememberMe" class="form-check-input" id="rememberMe" />
+                        <label asp-for="Input.RememberMe" class="form-check-label" for="rememberMe">
+                            Keep me signed in on this device
                         </label>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold">Sign In</button>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-base">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> Sign In
+                    </button>
                 </form>
 
-                <div class="text-center mt-4 text-muted">
-                    Don't have an account?
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Don't have an account?
+                    </p>
                     <a asp-area="Identity"
                        asp-page="/Account/Register"
                        asp-route-returnUrl="@Model.ReturnUrl"
-                       class="text-decoration-none fw-semibold">Register here</a>
+                       class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-person-plus-fill me-1"></i> Create Account
+                    </a>
                 </div>
 
             </div>

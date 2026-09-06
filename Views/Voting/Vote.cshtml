@@ -117,7 +117,7 @@
                 <div class="small mb-1 opacity-60">Time remaining</div>
                 <div class="timer-box">
                     <i class="bi bi-hourglass-split opacity-60" style="font-size:18px;"></i>
-                    <span id="countdown">
+                    <span id="countdown" aria-live="polite" aria-atomic="true">
                         @remaining.Value.ToString(remaining.Value.Days > 0 ? @"dd\.hh\:mm\:ss" : @"hh\:mm\:ss")
                     </span>
                 </div>
@@ -128,13 +128,6 @@
 
 <div class="container py-5">
 
-    @if (TempData["Error"] != null)
-    {
-        <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
-            <i class="bi bi-exclamation-circle-fill me-2"></i>@TempData["Error"]
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-    }
 
     @if (!isRegisteredVoter && User.Identity?.IsAuthenticated == true)
     {
@@ -264,7 +257,7 @@
     @if (remaining.HasValue && remaining.Value > TimeSpan.Zero)
     {
         <script>
-            (function () {
+            (function() {
                 let s = @remaining.Value.TotalSeconds;
                 function tick() {
                     if (s <= 0) {

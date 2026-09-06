@@ -16,15 +16,15 @@ namespace AmarTools.Voting.Controllers
         IBlockchainService blockchainService,
         UserManager<ApplicationUser> userManager) : Controller
     {
-        private const string CreateProgramView    = "~/Views/Shared/CreateProgram.cshtml";
+        private const string CreateProgramView = "~/Views/Shared/CreateProgram.cshtml";
         private const string ManageCandidatesView = "~/Views/VotingAdmin/ManageCandidates.cshtml";
-        private const string ManageVotersView     = "~/Views/ProgramOwner/ManageVoters.cshtml";
-        private const string ResultsView          = "~/Views/VotingAdmin/Results.cshtml";
+        private const string ManageVotersView = "~/Views/ProgramOwner/ManageVoters.cshtml";
+        private const string ResultsView = "~/Views/VotingAdmin/Results.cshtml";
 
-        private readonly VotingDbContext             _context           = context;
-        private readonly IVotingService              _votingService     = votingService;
-        private readonly IBlockchainService          _blockchainService = blockchainService;
-        private readonly UserManager<ApplicationUser> _userManager      = userManager;
+        private readonly VotingDbContext _context = context;
+        private readonly IVotingService _votingService = votingService;
+        private readonly IBlockchainService _blockchainService = blockchainService;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
 
         private static DateTime ToLocal(DateTime utc) =>
             DateTime.SpecifyKind(utc, DateTimeKind.Utc).ToLocalTime();
@@ -61,7 +61,7 @@ namespace AmarTools.Voting.Controllers
             return View(CreateProgramView, new VotingProgram
             {
                 StartTime = localNow,
-                EndTime   = localNow.AddHours(1)
+                EndTime = localNow.AddHours(1)
             });
         }
 
@@ -106,7 +106,7 @@ namespace AmarTools.Voting.Controllers
                 return Forbid();
 
             program.StartTime = ToLocal(program.StartTime);
-            program.EndTime   = ToLocal(program.EndTime);
+            program.EndTime = ToLocal(program.EndTime);
 
             return View(CreateProgramView, program);
         }
@@ -149,9 +149,9 @@ namespace AmarTools.Voting.Controllers
             if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
-            ViewBag.Program       = program;
+            ViewBag.Program = program;
             ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal   = ToLocal(program.EndTime);
+            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
 
             return View(ManageCandidatesView, program.Candidates);
         }
@@ -188,7 +188,7 @@ namespace AmarTools.Voting.Controllers
             if (!string.IsNullOrWhiteSpace(imageUrl))
             {
                 imageUrl = imageUrl.Trim();
-                bool validUrl   = Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) &&
+                bool validUrl = Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) &&
                                   (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
                 bool relativeOk = imageUrl.StartsWith('/');
 
@@ -203,12 +203,12 @@ namespace AmarTools.Voting.Controllers
 
             var candidate = new Candidate
             {
-                Name          = name.Trim(),
+                Name = name.Trim(),
                 CandidateCode = candidateCode.Trim(),
-                Description   = string.IsNullOrWhiteSpace(description) ? null : description.Trim(),
-                ImageUrl      = safeImageUrl,
-                ProgramId     = programId,
-                CreatedAt     = DateTime.UtcNow,
+                Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim(),
+                ImageUrl = safeImageUrl,
+                ProgramId = programId,
+                CreatedAt = DateTime.UtcNow,
             };
 
             try
@@ -255,7 +255,7 @@ namespace AmarTools.Voting.Controllers
             return RedirectToAction(nameof(ManageCandidates), new { programId });
         }
 
-        
+
         [HttpGet]
         public async Task<IActionResult> Results(int id)
         {
@@ -265,15 +265,15 @@ namespace AmarTools.Voting.Controllers
             if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
-            var results    = await _votingService.GetResultsAsync(id);
+            var results = await _votingService.GetResultsAsync(id);
             var totalVotes = results.Sum(r => r.VoteCount);
 
-            ViewBag.Results         = results;
-            ViewBag.TotalVotes      = totalVotes;
+            ViewBag.Results = results;
+            ViewBag.TotalVotes = totalVotes;
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
-            ViewBag.StartTimeLocal  = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal    = ToLocal(program.EndTime);
-            ViewBag.NowLocal        = ToLocal(DateTime.UtcNow);
+            ViewBag.StartTimeLocal = ToLocal(program.StartTime);
+            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
+            ViewBag.NowLocal = ToLocal(DateTime.UtcNow);
 
             return View(ResultsView, program);
         }
@@ -312,7 +312,7 @@ namespace AmarTools.Voting.Controllers
                 return Forbid();
 
             ViewBag.ProgramId = programId;
-            ViewBag.Program   = program;
+            ViewBag.Program = program;
             return View("~/Views/VotingAdmin/RegisterVoter.cshtml");
         }
 
@@ -326,7 +326,7 @@ namespace AmarTools.Voting.Controllers
             if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
                 return Forbid();
 
-            
+
             var (success, error) = await _votingService.RegisterVoterByEmailAsync(
                 programId, name, email, memberId, registrationSource: "owner");
 
@@ -357,6 +357,38 @@ namespace AmarTools.Voting.Controllers
                 success ? "Voter removed successfully." : error;
 
             return RedirectToAction(nameof(ManageVoters), new { programId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [EnableRateLimiting("admin")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var program = await _context.VotingPrograms.FindAsync(id);
+            if (program is null) return NotFound();
+
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
+                return Forbid();
+
+            if (program.IsPublished && !program.HasEnded)
+            {
+                TempData["Error"] = "Cannot delete a published program that has not yet ended. Unpublish it first.";
+                return RedirectToAction(nameof(MyPrograms));
+            }
+
+            try
+            {
+                _context.VotingPrograms.Remove(program);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                TempData["Error"] = "This program could not be deleted right now.";
+                return RedirectToAction(nameof(MyPrograms));
+            }
+
+            TempData["Success"] = "Program deleted.";
+            return RedirectToAction(nameof(MyPrograms));
         }
 
         // ── Shared helpers ─────────────────────────────────────────────────────
