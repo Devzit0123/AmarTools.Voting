@@ -30,8 +30,10 @@ if (connStr.StartsWith("postgres://") || connStr.StartsWith("postgresql://"))
 {
     var uri = new Uri(connStr);
     var userInfo = uri.UserInfo.Split(':', 2);
-    connStr = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};" +
-              $"Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+    var port = uri.Port == -1 ? 5432 : uri.Port; // Uri doesn't know postgres's default port
+    connStr = $"Host={uri.Host};Port={port};Database={uri.AbsolutePath.TrimStart('/')};" +
+              $"Username={Uri.UnescapeDataString(userInfo[0])};Password={Uri.UnescapeDataString(userInfo[1])};" +
+              $"SSL Mode=Require;Trust Server Certificate=true";
 }
 
 builder.Services.AddDbContext<VotingDbContext>(options =>
@@ -54,8 +56,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 // ── Cookie Configuration ───────────────────────────────────────────────────
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = "/Identity/Account/Login";
-    options.LogoutPath = "/Identity/Account/Logout";
+    options.LoginPath        = "/Identity/Account/Login";
+    options.LogoutPath       = "/Identity/Account/Logout";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
@@ -63,26 +65,26 @@ builder.Services.AddRateLimiter(options =>
 {
     options.AddFixedWindowLimiter("search", opt =>
     {
-        opt.PermitLimit = 30;
-        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit          = 30;
+        opt.Window               = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit = 5;
+        opt.QueueLimit           = 5;
     });
 
     options.AddFixedWindowLimiter("voting", opt =>
     {
-        opt.PermitLimit = 10;
-        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit          = 10;
+        opt.Window               = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit = 2;
+        opt.QueueLimit           = 2;
     });
 
     options.AddFixedWindowLimiter("admin", opt =>
     {
-        opt.PermitLimit = 60;
-        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit          = 60;
+        opt.Window               = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit = 10;
+        opt.QueueLimit           = 10;
     });
 
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -102,7 +104,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var db = services.GetRequiredService<VotingDbContext>();
+    var db       = services.GetRequiredService<VotingDbContext>();
     await db.Database.MigrateAsync();
     await SeedAdminUser(services, app.Configuration);
 }
@@ -137,9 +139,9 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
 {
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var logger = services.GetRequiredService<ILogger<Program>>();
+    var logger      = services.GetRequiredService<ILogger<Program>>();
 
-    var adminEmail = config["Seed:AdminEmail"];
+    var adminEmail    = config["Seed:AdminEmail"];
     var adminPassword = config["Seed:AdminPassword"];
 
     if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword))
@@ -161,10 +163,10 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
     {
         admin = new ApplicationUser
         {
-            UserName = adminEmail,
-            Email = adminEmail,
+            UserName       = adminEmail,
+            Email          = adminEmail,
             EmailConfirmed = true,
-            FullName = "System Administrator"
+            FullName       = "System Administrator"
         };
 
         var result = await userManager.CreateAsync(admin, adminPassword);
