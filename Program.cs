@@ -15,12 +15,24 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
 
 // ── Database (PostgreSQL) ──────────────────────────────────────────────────
-var connStr = builder.Configuration.GetConnectionString("VotingConnection");
+var connStr = builder.Configuration.GetConnectionString("VotingConnection")
+    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+
 if (string.IsNullOrWhiteSpace(connStr))
     throw new InvalidOperationException(
         "Connection string 'VotingConnection' is not configured. " +
         "Use 'dotnet user-secrets' in Development or set the " +
-        "ConnectionStrings__VotingConnection environment variable in Production.");
+        "ConnectionStrings__VotingConnection (or DATABASE_URL) environment variable in Production.");
+
+// Render/Heroku-style URI connection strings (postgres://user:pass@host:port/db)
+// need converting to Npgsql's key=value format.
+if (connStr.StartsWith("postgres://") || connStr.StartsWith("postgresql://"))
+{
+    var uri = new Uri(connStr);
+    var userInfo = uri.UserInfo.Split(':', 2);
+    connStr = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.TrimStart('/')};" +
+              $"Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+}
 
 builder.Services.AddDbContext<VotingDbContext>(options =>
     options.UseNpgsql(connStr));
@@ -42,8 +54,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 // ── Cookie Configuration ───────────────────────────────────────────────────
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath        = "/Identity/Account/Login";
-    options.LogoutPath       = "/Identity/Account/Logout";
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 });
 
@@ -51,26 +63,26 @@ builder.Services.AddRateLimiter(options =>
 {
     options.AddFixedWindowLimiter("search", opt =>
     {
-        opt.PermitLimit          = 30;
-        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 30;
+        opt.Window = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 5;
+        opt.QueueLimit = 5;
     });
 
     options.AddFixedWindowLimiter("voting", opt =>
     {
-        opt.PermitLimit          = 10;
-        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 10;
+        opt.Window = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 2;
+        opt.QueueLimit = 2;
     });
 
     options.AddFixedWindowLimiter("admin", opt =>
     {
-        opt.PermitLimit          = 60;
-        opt.Window               = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 60;
+        opt.Window = TimeSpan.FromMinutes(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 10;
+        opt.QueueLimit = 10;
     });
 
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
@@ -90,7 +102,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var db       = services.GetRequiredService<VotingDbContext>();
+    var db = services.GetRequiredService<VotingDbContext>();
     await db.Database.MigrateAsync();
     await SeedAdminUser(services, app.Configuration);
 }
@@ -106,7 +118,7 @@ else
     app.UseHsts();
 }
 
-//app.UseHttpsRedirection(); // Railway handles HTTPS at proxy level
+//app.UseHttpsRedirection(); // Render handles HTTPS at proxy level
 app.UseStaticFiles();
 app.UseRouting();
 app.UseRateLimiter();
@@ -125,9 +137,9 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
 {
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var logger      = services.GetRequiredService<ILogger<Program>>();
+    var logger = services.GetRequiredService<ILogger<Program>>();
 
-    var adminEmail    = config["Seed:AdminEmail"];
+    var adminEmail = config["Seed:AdminEmail"];
     var adminPassword = config["Seed:AdminPassword"];
 
     if (string.IsNullOrWhiteSpace(adminEmail) || string.IsNullOrWhiteSpace(adminPassword))
@@ -149,10 +161,10 @@ static async Task SeedAdminUser(IServiceProvider services, IConfiguration config
     {
         admin = new ApplicationUser
         {
-            UserName       = adminEmail,
-            Email          = adminEmail,
+            UserName = adminEmail,
+            Email = adminEmail,
             EmailConfirmed = true,
-            FullName       = "System Administrator"
+            FullName = "System Administrator"
         };
 
         var result = await userManager.CreateAsync(admin, adminPassword);
