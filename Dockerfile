@@ -9,7 +9,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 COPY --from=build /app/publish .
 RUN mkdir -p /app/wwwroot/images/candidates
-ENV ASPNETCORE_URLS=http://+:${PORT}
 ENV ASPNETCORE_ENVIRONMENT=Production
-EXPOSE 8080
-ENTRYPOINT ["dotnet", "AmarTools.Voting.dll"]
+EXPOSE 10000
+ENTRYPOINT ["sh", "-c", "ASPNETCORE_URLS=http://+:${PORT:-10000} exec dotnet AmarTools.Voting.dll"]

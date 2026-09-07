@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: amartools-voting
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__VotingConnection
+        fromDatabase:
+          name: amartools-voting-db
+          property: connectionString
+      - key: Seed__AdminEmail
+        sync: false
+      - key: Seed__AdminPassword
+        sync: false
+
+databases:
+  - name: amartools-voting-db
+    plan: free
