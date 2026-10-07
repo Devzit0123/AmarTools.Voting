@@ -5,8 +5,6 @@
     var results = ViewBag.Results as IEnumerable<dynamic> ?? Enumerable.Empty<dynamic>();
     var totalVotes = (int?)(ViewBag.TotalVotes) ?? 0;
     var chainValid = (bool?)(ViewBag.BlockchainValid) ?? false;
-    var startLocal = (DateTime?)ViewBag.StartTimeLocal;
-    var endLocal = (DateTime?)ViewBag.EndTimeLocal;
     var resultsList = results.ToList();
     var winner = resultsList.FirstOrDefault();
 
@@ -174,8 +172,10 @@
         <div class="card mb-3">
             <div class="card-header">Program Period</div>
             <div class="card-body small">
-                <strong>Start:</strong> @(startLocal?.ToString("MMM d, yyyy HH:mm") ?? "—")<br />
-                <strong>End:</strong> @(endLocal?.ToString("MMM d, yyyy HH:mm") ?? "—")
+                <strong>Start:</strong>
+                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc).ToString("O")"></time><br />
+                <strong>End:</strong>
+                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc).ToString("O")"></time>
             </div>
         </div>
 

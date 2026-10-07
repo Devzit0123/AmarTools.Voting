@@ -21,18 +21,10 @@ namespace AmarTools.Voting.Controllers
         private readonly IVotingService           _votingService     = votingService;
         private readonly UserManager<ApplicationUser> _userManager   = userManager;
 
-        
-        private static DateTime ToLocal(DateTime utc) =>
-            DateTime.SpecifyKind(utc, DateTimeKind.Utc).ToLocalTime();
-
         // ── Dashboard ──────────────────────────────────────────────────────────
         public async Task<IActionResult> Index()
         {
             var programs = await _votingService.GetAllProgramsForDashboardAsync();
-
-            ViewBag.LocalNow         = ToLocal(DateTime.UtcNow);
-            ViewBag.ProgramStartTimes = programs.ToDictionary(p => p.Id, p => ToLocal(p.StartTime));
-            ViewBag.ProgramEndTimes   = programs.ToDictionary(p => p.Id, p => ToLocal(p.EndTime));
 
             return View(programs);
         }
@@ -136,8 +128,6 @@ namespace AmarTools.Voting.Controllers
             if (program is null) return NotFound();
 
             ViewBag.Program       = program;
-            ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal   = ToLocal(program.EndTime);
 
             return View(program.Candidates);
         }
@@ -155,9 +145,6 @@ namespace AmarTools.Voting.Controllers
             ViewBag.Results         = results;
             ViewBag.TotalVotes      = totalVotes;
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
-            ViewBag.StartTimeLocal  = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal    = ToLocal(program.EndTime);
-            ViewBag.NowLocal        = ToLocal(DateTime.UtcNow);
 
             return View(program);
         }

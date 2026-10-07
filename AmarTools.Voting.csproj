@@ -7,10 +7,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<InternalsVisibleTo Include="AmarTools.Voting.Tests" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="tests\**" />
+	  <Compile Remove="Tests\**" />
 	  <Content Remove="tests\**" />
+	  <Content Remove="Tests\**" />
 	  <EmbeddedResource Remove="tests\**" />
+	  <EmbeddedResource Remove="Tests\**" />
 	  <None Remove="tests\**" />
+	  <None Remove="Tests\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -34,6 +42,7 @@
 
 	<ItemGroup>
 	  <None Include="AmarTools.Voting.slnx" />
+	  <None Include="Tests\AmarTools.Voting.Tests.csproj" />
 	</ItemGroup>
 
 </Project>

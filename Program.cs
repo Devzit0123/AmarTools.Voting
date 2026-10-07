@@ -17,8 +17,6 @@ builder.Services.AddRazorPages();
 if (builder.Environment.IsDevelopment())
     mvcBuilder.AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
-var dataProtectionKeysPath = builder.Configuration["DataProtection:KeysPath"]
-    ?? Path.Combine(builder.Environment.ContentRootPath, ".keys");
 builder.Services.AddDataProtection()
     .SetApplicationName("AmarTools.Voting")
     // Persist keys to DB so they survive deploys on platforms with ephemeral filesystems.
@@ -143,20 +141,9 @@ else
 
 static string GetClientPartitionKey(HttpContext context)
 {
-    // Prefer authenticated user id when available (keys by voter), fall back to remote IP
-    try
-    {
-        if (context.User?.Identity?.IsAuthenticated == true)
-        {
-            var id = context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            if (!string.IsNullOrEmpty(id))
-                return $"user:{id}";
-        }
-    }
-    catch
-    {
-        // ignore any errors while reading claims and fall back to IP
-    }
+    var id = context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+    if (context.User.Identity?.IsAuthenticated == true && !string.IsNullOrEmpty(id))
+        return $"user:{id}";
 
     return context.Connection.RemoteIpAddress?.ToString() ?? "unknown-client";
 }

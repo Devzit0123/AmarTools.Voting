@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="AmarTools.Voting.csproj" />
+  <Project Path="Tests/AmarTools.Voting.Tests.csproj" />
 </Solution>

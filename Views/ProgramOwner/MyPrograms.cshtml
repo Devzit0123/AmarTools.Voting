@@ -318,7 +318,9 @@ else
                         </div>
                         <div class="mt-2 small text-muted">
                             <i class="bi bi-calendar3 me-1"></i>
-                            @p.StartTime.ToLocalTime().ToString("MMM dd") – @p.EndTime.ToLocalTime().ToString("MMM dd, yyyy")
+                            <time class="local-time" data-utc="@DateTime.SpecifyKind(p.StartTime, DateTimeKind.Utc).ToString("O")"></time>
+                            –
+                            <time class="local-time" data-utc="@DateTime.SpecifyKind(p.EndTime, DateTimeKind.Utc).ToString("O")"></time>
                         </div>
                     </div>
                     <div class="prog-card-footer">

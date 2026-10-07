@@ -283,7 +283,7 @@ namespace AmarTools.Voting.Services
             return (true, null, new CurrentUserInfo(userId, displayName, httpContext.User.IsInRole("Admin")));
         }
 
-        private static DateTime NormalizeToUtc(DateTime value, int? browserOffsetMinutes) =>
+        internal static DateTime NormalizeToUtc(DateTime value, int? browserOffsetMinutes) =>
             value.Kind switch
             {
                 DateTimeKind.Utc   => value,

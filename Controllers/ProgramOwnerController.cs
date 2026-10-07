@@ -26,9 +26,6 @@ namespace AmarTools.Voting.Controllers
         private readonly IBlockchainService _blockchainService = blockchainService;
         private readonly UserManager<ApplicationUser> _userManager = userManager;
 
-        private static DateTime ToLocal(DateTime utc) =>
-            DateTime.SpecifyKind(utc, DateTimeKind.Utc).ToLocalTime();
-
         private string? CurrentUserId =>
             User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
@@ -155,8 +152,6 @@ namespace AmarTools.Voting.Controllers
                 return Forbid();
 
             ViewBag.Program = program;
-            ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
 
             return View(ManageCandidatesView, program.Candidates);
         }
@@ -276,9 +271,6 @@ namespace AmarTools.Voting.Controllers
             ViewBag.Results = results;
             ViewBag.TotalVotes = totalVotes;
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
-            ViewBag.StartTimeLocal = ToLocal(program.StartTime);
-            ViewBag.EndTimeLocal = ToLocal(program.EndTime);
-            ViewBag.NowLocal = ToLocal(DateTime.UtcNow);
 
             return View(ResultsView, program);
         }
