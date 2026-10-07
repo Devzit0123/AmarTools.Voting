@@ -42,7 +42,7 @@ public class VotePathTests
     }
 
     [Fact]
-    public async Task CastVoteAtProgramEnd_RejectsTheVote()
+    public async Task CastVoteAfterProgramEnd_RejectsTheVote()
     {
         await using var context = CreateContext();
         var program = CreateProgram(DateTime.UtcNow.AddHours(-1), DateTime.UtcNow.AddMilliseconds(-1));

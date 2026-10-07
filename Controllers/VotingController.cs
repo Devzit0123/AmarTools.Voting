@@ -109,7 +109,7 @@ namespace AmarTools.Voting.Controllers
         }
 
         // ── Self-join ─────────────────────────────────────────────────────────
-        // FIX: rate-limited to 10 requests/min per IP
+        // FIX: rate-limited by authenticated voter, or by IP before authentication
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
@@ -166,7 +166,7 @@ namespace AmarTools.Voting.Controllers
         }
 
         // ── Cast Vote ─────────────────────────────────────────────────────────
-        // FIX: rate-limited to 10 requests/min per IP
+        // FIX: rate-limited by authenticated voter, or by IP before authentication
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
