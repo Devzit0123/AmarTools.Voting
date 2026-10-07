@@ -151,7 +151,6 @@ static string GetClientPartitionKey(HttpContext context)
 //app.UseHttpsRedirection(); // Render handles HTTPS at proxy level
 app.UseStaticFiles();
 app.UseRouting();
-app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
