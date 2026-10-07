@@ -29,11 +29,11 @@ namespace AmarTools.Voting.Controllers
 
             var now = DateTime.UtcNow;
 
-            ViewBag.StartTimeLocal = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.EndTimeLocal   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc).ToLocalTime();
-            ViewBag.NowLocal       = DateTime.SpecifyKind(now,               DateTimeKind.Utc).ToLocalTime();
+            ViewBag.StartTimeUtc = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc);
+            ViewBag.EndTimeUtc   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc);
+            ViewBag.NowUtc       = DateTime.SpecifyKind(now,               DateTimeKind.Utc);
 
-            if (!program.IsPublished || now < program.StartTime || now > program.EndTime)
+            if (!program.IsOpenAt(now))
             {
                 ViewBag.Message = "This voting program is not currently active.";
                 return View("Closed", program);
@@ -69,9 +69,9 @@ namespace AmarTools.Voting.Controllers
 
             ViewBag.Results        = results;
             ViewBag.TotalVotes     = totalVotes;
-            ViewBag.StartTimeLocal = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc).ToLocalTime();
-            ViewBag.EndTimeLocal   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc).ToLocalTime();
-            ViewBag.NowLocal       = DateTime.SpecifyKind(DateTime.UtcNow,   DateTimeKind.Utc).ToLocalTime();
+            ViewBag.StartTimeUtc = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc);
+            ViewBag.EndTimeUtc   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc);
+            ViewBag.NowUtc       = DateTime.SpecifyKind(DateTime.UtcNow,   DateTimeKind.Utc);
             ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
 
             return View("PublicResults", program);
@@ -99,8 +99,8 @@ namespace AmarTools.Voting.Controllers
                 {
                     p.Id,
                     name   = p.ProgramName,
-                    status = p.IsPublished && now >= p.StartTime && now <= p.EndTime ? "Active"
-                           : now > p.EndTime ? "Ended" : "Upcoming",
+                    status = p.IsPublished && now >= p.StartTime && now < p.EndTime ? "Active"
+                           : now >= p.EndTime ? "Ended" : "Upcoming",
                     candidateCount = p.Candidates.Count()
                 })
                 .ToListAsync();
@@ -123,7 +123,7 @@ namespace AmarTools.Voting.Controllers
             if (program == null) return NotFound();
 
             var now = DateTime.UtcNow;
-            if (!program.IsPublished || now > program.EndTime)
+            if (!program.IsPublished || now >= program.EndTime)
             {
                 TempData["Error"] = "Registration is closed for this voting program.";
                 return RedirectToAction(nameof(Vote), new { id = programId });
@@ -180,7 +180,7 @@ namespace AmarTools.Voting.Controllers
             if (program == null) return NotFound();
 
             var now = DateTime.UtcNow;
-            if (!program.IsPublished || now < program.StartTime || now > program.EndTime)
+            if (!program.IsOpenAt(now))
             {
                 TempData["Error"] = "This voting program is no longer active.";
                 return RedirectToAction(nameof(Vote), new { id = programId });

@@ -3,16 +3,32 @@ using AmarTools.Voting.Models;
 using AmarTools.Voting.Services;
 using AmarTools.Voting.Services.Background;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // ── MVC + Razor Pages ──────────────────────────────────────────────────────
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+var mvcBuilder = builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+if (builder.Environment.IsDevelopment())
+    mvcBuilder.AddRazorRuntimeCompilation();
 builder.Services.AddHttpContextAccessor();
+var dataProtectionKeysPath = builder.Configuration["DataProtection:KeysPath"]
+    ?? Path.Combine(builder.Environment.ContentRootPath, ".keys");
+builder.Services.AddDataProtection()
+    .SetApplicationName("AmarTools.Voting")
+    // Persist keys to DB so they survive deploys on platforms with ephemeral filesystems.
+    .PersistKeysToDbContext<AmarTools.Voting.Data.VotingDbContext>();
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 // ── Database (PostgreSQL) ──────────────────────────────────────────────────
 var connStr = builder.Configuration.GetConnectionString("VotingConnection")
@@ -63,29 +79,32 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddRateLimiter(options =>
 {
-    options.AddFixedWindowLimiter("search", opt =>
+    options.AddPolicy("search", context =>
+        RateLimitPartition.GetFixedWindowLimiter(GetClientPartitionKey(context), _ => new FixedWindowRateLimiterOptions
     {
-        opt.PermitLimit          = 30;
-        opt.Window               = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 5;
-    });
+        PermitLimit          = 30,
+        Window               = TimeSpan.FromMinutes(1),
+        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+        QueueLimit           = 5
+    }));
 
-    options.AddFixedWindowLimiter("voting", opt =>
+    options.AddPolicy("voting", context =>
+        RateLimitPartition.GetFixedWindowLimiter(GetClientPartitionKey(context), _ => new FixedWindowRateLimiterOptions
     {
-        opt.PermitLimit          = 10;
-        opt.Window               = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 2;
-    });
+        PermitLimit          = 10,
+        Window               = TimeSpan.FromMinutes(1),
+        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+        QueueLimit           = 2
+    }));
 
-    options.AddFixedWindowLimiter("admin", opt =>
+    options.AddPolicy("admin", context =>
+        RateLimitPartition.GetFixedWindowLimiter(GetClientPartitionKey(context), _ => new FixedWindowRateLimiterOptions
     {
-        opt.PermitLimit          = 60;
-        opt.Window               = TimeSpan.FromMinutes(1);
-        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
-        opt.QueueLimit           = 10;
-    });
+        PermitLimit          = 60,
+        Window               = TimeSpan.FromMinutes(1),
+        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+        QueueLimit           = 10
+    }));
 
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
@@ -100,16 +119,18 @@ builder.Services.AddHostedService<BlockchainBackgroundService>();
 
 var app = builder.Build();
 
-// ── Migrate + Seed Admin (runs in all environments including Production) ───
+// ── Optional migration + admin seed ─────────────────────────────────────────
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var db       = services.GetRequiredService<VotingDbContext>();
-    await db.Database.MigrateAsync();
+    if (app.Configuration.GetValue("Database:ApplyMigrations", app.Environment.IsDevelopment()))
+        await db.Database.MigrateAsync();
     await SeedAdminUser(services, app.Configuration);
 }
 
 // ── Middleware ─────────────────────────────────────────────────────────────
+app.UseForwardedHeaders();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
@@ -118,6 +139,26 @@ else
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+}
+
+static string GetClientPartitionKey(HttpContext context)
+{
+    // Prefer authenticated user id when available (keys by voter), fall back to remote IP
+    try
+    {
+        if (context.User?.Identity?.IsAuthenticated == true)
+        {
+            var id = context.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (!string.IsNullOrEmpty(id))
+                return $"user:{id}";
+        }
+    }
+    catch
+    {
+        // ignore any errors while reading claims and fall back to IP
+    }
+
+    return context.Connection.RemoteIpAddress?.ToString() ?? "unknown-client";
 }
 
 //app.UseHttpsRedirection(); // Render handles HTTPS at proxy level

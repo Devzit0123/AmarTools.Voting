@@ -6,8 +6,8 @@
     var remaining = ViewBag.RemainingTime as TimeSpan?;
     var candidates = ViewBag.Candidates as List<AmarTools.Voting.Models.Candidate> ?? new();
     var isRegisteredVoter = ViewBag.IsRegisteredVoter as bool? ?? false;
-    var startLocal = ViewBag.StartTimeLocal as DateTime?;
-    var endLocal = ViewBag.EndTimeLocal as DateTime?;
+    var startUtc = DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc);
+    var endUtc = DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc);
 }
 
 <style>
@@ -98,7 +98,8 @@
                 <div class="d-flex gap-2 flex-wrap">
                     <span class="info-pill">
                         <i class="bi bi-calendar3"></i>
-                        @(startLocal?.ToString("MMM dd, HH:mm") ?? "—") → @(endLocal?.ToString("MMM dd, HH:mm yyyy") ?? "—")
+                        <time class="local-time" data-utc="@startUtc.ToString("O")"></time> →
+                        <time class="local-time" data-utc="@endUtc.ToString("O")"></time>
                     </span>
                     <span class="info-pill">
                         <i class="bi bi-person-badge"></i> @candidates.Count candidates
@@ -117,7 +118,7 @@
                 <div class="small mb-1 opacity-60">Time remaining</div>
                 <div class="timer-box">
                     <i class="bi bi-hourglass-split opacity-60" style="font-size:18px;"></i>
-                    <span id="countdown" aria-live="polite" aria-atomic="true">
+                    <span id="countdown" data-endtime="@endUtc.ToString("O")" aria-live="polite" aria-atomic="true">
                         @remaining.Value.ToString(remaining.Value.Days > 0 ? @"dd\.hh\:mm\:ss" : @"hh\:mm\:ss")
                     </span>
                 </div>
@@ -258,8 +259,9 @@
     {
         <script>
             (function() {
-                let s = @remaining.Value.TotalSeconds;
+                const endTime = new Date(document.getElementById('countdown').dataset.endtime).getTime();
                 function tick() {
+                    const s = Math.max(0, Math.floor((endTime - Date.now()) / 1000));
                     if (s <= 0) {
                         document.getElementById('countdown').textContent = 'Voting ended';
                         return;
@@ -272,7 +274,6 @@
                     const pad = n => String(n).padStart(2, '0');
                     document.getElementById('countdown').textContent =
                         d > 0 ? `${pad(d)}.${pad(h)}:${pad(m)}:${pad(sec)}` : `${pad(h)}:${pad(m)}:${pad(sec)}`;
-                    s--;
                     setTimeout(tick, 1000);
                 }
                 tick();

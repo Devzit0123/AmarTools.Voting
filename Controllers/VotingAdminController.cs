@@ -41,11 +41,12 @@ namespace AmarTools.Voting.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var localNow = ToLocal(DateTime.UtcNow);
+            var utcNow = DateTime.UtcNow;
             var model    = new VotingProgram
             {
-                StartTime = localNow,
-                EndTime   = localNow.AddHours(1)
+                StartTime = utcNow,
+                EndTime   = utcNow.AddHours(1),
+                ValuesAreUtc = true
             };
             return View("CreateProgram", model);
         }
@@ -59,7 +60,10 @@ namespace AmarTools.Voting.Controllers
             PrepareProgramModelForValidation();
 
             if (!ModelState.IsValid)
+            {
+                model.ValuesAreUtc = false;
                 return View("CreateProgram", model);
+            }
 
             var (success, errorMessage) = await _votingService.ValidateAndCreateProgramAsync(model);
 
@@ -88,8 +92,9 @@ namespace AmarTools.Voting.Controllers
 
             if (program is null) return NotFound();
 
-            program.StartTime = ToLocal(program.StartTime);
-            program.EndTime   = ToLocal(program.EndTime);
+            program.StartTime = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc);
+            program.EndTime   = DateTime.SpecifyKind(program.EndTime, DateTimeKind.Utc);
+            program.ValuesAreUtc = true;
 
             return View("CreateProgram", program);
         }

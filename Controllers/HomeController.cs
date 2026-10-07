@@ -14,9 +14,6 @@ namespace AmarTools.Voting.Controllers
         private readonly VotingDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        private static DateTime ToLocal(DateTime utc) =>
-            DateTime.SpecifyKind(utc, DateTimeKind.Utc).ToLocalTime();
-
         public HomeController(VotingDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;

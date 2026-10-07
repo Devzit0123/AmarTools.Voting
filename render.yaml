@@ -15,6 +15,8 @@ services:
         sync: false
       - key: Seed__AdminPassword
         sync: false
+      - key: Database__ApplyMigrations
+        value: "true"
 
 databases:
   - name: amartools-voting-db

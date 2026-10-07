@@ -245,8 +245,14 @@ namespace AmarTools.Voting.Services
             if (model.StartTime == default || model.EndTime == default)
                 return (false, "Please select valid start and end times.", null);
 
-            var startUtc = NormalizeToUtc(model.StartTime);
-            var endUtc   = NormalizeToUtc(model.EndTime);
+            if ((model.StartTime.Kind != DateTimeKind.Utc && !model.StartTimeOffsetMinutes.HasValue) ||
+                (model.EndTime.Kind != DateTimeKind.Utc && !model.EndTimeOffsetMinutes.HasValue))
+                return (false, "Your browser time-zone information is required. Please enable JavaScript and try again.", null);
+
+            var startUtc = NormalizeToUtc(model.StartTime, model.StartTimeOffsetMinutes);
+            var endUtc   = NormalizeToUtc(model.EndTime, model.EndTimeOffsetMinutes);
+
+            model.ValuesAreUtc = true;
 
             if (endUtc < startUtc.Add(MinimumProgramDuration))
                 return (false, $"End time must be at least {MinimumProgramDuration.TotalMinutes} minutes after the start time.", null);
@@ -277,12 +283,15 @@ namespace AmarTools.Voting.Services
             return (true, null, new CurrentUserInfo(userId, displayName, httpContext.User.IsInRole("Admin")));
         }
 
-        private static DateTime NormalizeToUtc(DateTime value) =>
+        private static DateTime NormalizeToUtc(DateTime value, int? browserOffsetMinutes) =>
             value.Kind switch
             {
                 DateTimeKind.Utc   => value,
                 DateTimeKind.Local => value.ToUniversalTime(),
-                _                  => DateTime.SpecifyKind(value, DateTimeKind.Local).ToUniversalTime()
+                _ when browserOffsetMinutes.HasValue =>
+                    DateTime.SpecifyKind(value, DateTimeKind.Unspecified)
+                        .AddMinutes(-browserOffsetMinutes.Value),
+                _ => throw new ArgumentException("A browser time-zone offset is required.", nameof(browserOffsetMinutes))
             };
 
         private static bool TryNormalizeSlug(string? rawSlug, out string? normalizedSlug)

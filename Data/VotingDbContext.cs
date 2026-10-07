@@ -1,13 +1,16 @@
 ﻿using AmarTools.Voting.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.DataProtection.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AmarTools.Voting.Data
 {
     public class VotingDbContext(DbContextOptions<VotingDbContext> options)
-        : IdentityDbContext<ApplicationUser>(options)
+        : IdentityDbContext<ApplicationUser>(options), IDataProtectionKeyContext
     {
+        // DataProtection keys table
+        public DbSet<DataProtectionKey> DataProtectionKeys { get; set; } = null!;
         public DbSet<VotingProgram> VotingPrograms { get; set; } = null!;
         public DbSet<Candidate> Candidates { get; set; } = null!;
         public DbSet<Voter> Voters { get; set; } = null!;

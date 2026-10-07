@@ -32,19 +32,16 @@
                                 <div class="small">
                                     <div class="d-flex justify-content-between border-bottom py-2">
                                         <span class="text-muted">Voting opens</span>
-                                        <span class="fw-semibold">@(ViewBag.StartTimeLocal?.ToString("MMM dd, yyyy HH:mm") ?? "—")</span>
+                                        <time class="fw-semibold local-time" data-utc="@DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc).ToString("O")"></time>
                                     </div>
                                     <div class="d-flex justify-content-between border-bottom py-2">
                                         <span class="text-muted">Voting closes</span>
-                                        <span class="fw-semibold">@(ViewBag.EndTimeLocal?.ToString("MMM dd, yyyy HH:mm") ?? "—")</span>
+                                        <time class="fw-semibold local-time" data-utc="@DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc).ToString("O")"></time>
                                     </div>
-                                    @if (ViewBag.NowLocal is DateTime now)
-                                    {
                                         <div class="d-flex justify-content-between py-2">
                                             <span class="text-muted">Your current time</span>
-                                            <span>@now.ToString("MMM dd, HH:mm")</span>
+                                            <time class="local-time" data-utc="@DateTime.UtcNow.ToString("O")"></time>
                                         </div>
-                                    }
                                 </div>
                             </div>
                         </div>

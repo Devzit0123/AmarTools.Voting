@@ -54,7 +54,7 @@
     <div class="col-lg-8">
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-                <form asp-controller="@controllerName" asp-action="@actionName" method="post" id="programForm">
+                <form asp-controller="@controllerName" asp-action="@actionName" method="post" id="programForm" data-values-are-utc="@Model.ValuesAreUtc.ToString().ToLowerInvariant()">
                     @Html.AntiForgeryToken()
                     @if (isEdit)
                     {
@@ -80,11 +80,13 @@
                         <div class="col-md-6">
                             <label asp-for="StartTime" class="form-label fw-semibold"></label> <span class="text-danger">*</span>
                             <input asp-for="StartTime" asp-format="{0:yyyy-MM-ddTHH:mm}" type="datetime-local" class="form-control form-control-lg" />
+                            <input asp-for="StartTimeOffsetMinutes" type="hidden" />
                             <span asp-validation-for="StartTime" class="text-danger small"></span>
                         </div>
                         <div class="col-md-6">
                             <label asp-for="EndTime" class="form-label fw-semibold"></label> <span class="text-danger">*</span>
                             <input asp-for="EndTime" asp-format="{0:yyyy-MM-ddTHH:mm}" type="datetime-local" class="form-control form-control-lg" />
+                            <input asp-for="EndTimeOffsetMinutes" type="hidden" />
                             <span asp-validation-for="EndTime" class="text-danger small"></span>
                             <div class="form-text">End time must be at least 5 minutes after the start time.</div>
                         </div>
@@ -143,9 +145,27 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
+        function formatLocalDateTime(date) {
+            const pad = value => String(value).padStart(2, '0');
+            return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
+        }
+
+        if (document.getElementById('programForm')?.dataset.valuesAreUtc === 'true') {
+            for (const name of ['StartTime', 'EndTime']) {
+                const input = document.querySelector(`[name="${name}"]`);
+                if (input?.value) {
+                    const utcValue = new Date(`${input.value}:00Z`);
+                    if (!Number.isNaN(utcValue.getTime()))
+                        input.value = formatLocalDateTime(utcValue);
+                }
+            }
+        }
+
         document.getElementById('programForm')?.addEventListener('submit', function (e) {
-            const start = document.querySelector('[name="StartTime"]').value;
-            const end = document.querySelector('[name="EndTime"]').value;
+            const startInput = document.querySelector('[name="StartTime"]');
+            const endInput = document.querySelector('[name="EndTime"]');
+            const start = startInput.value;
+            const end = endInput.value;
             if (start && end) {
                 const startDate = new Date(start);
                 const endDate = new Date(end);
@@ -154,7 +174,11 @@
                 if (endDate.getTime() - startDate.getTime() < minimumDifferenceMs) {
                     e.preventDefault();
                     alert('End time must be at least 5 minutes after start time.');
+                    return;
                 }
+
+                document.querySelector('[name="StartTimeOffsetMinutes"]').value = -startDate.getTimezoneOffset();
+                document.querySelector('[name="EndTimeOffsetMinutes"]').value = -endDate.getTimezoneOffset();
             }
         });
 

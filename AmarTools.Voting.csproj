@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="tests\**" />
+	  <Content Remove="tests\**" />
+	  <EmbeddedResource Remove="tests\**" />
+	  <None Remove="tests\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="EFCore.NamingConventions" Version="8.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.10" />
@@ -17,11 +24,11 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.DataProtection.EntityFrameworkCore" Version="8.0.10" />
 		<PackageReference Include="Polly" Version="8.6.6" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="tests\AmarTools.Voting.Tests\" />
 		<Folder Include="wwwroot\images\candidates\" />
 	</ItemGroup>
 

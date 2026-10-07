@@ -37,6 +37,15 @@ namespace AmarTools.Voting.Models
         [Display(Name = "End Time")]
         public DateTime EndTime { get; set; }
 
+        [NotMapped]
+        public int? StartTimeOffsetMinutes { get; set; }
+
+        [NotMapped]
+        public int? EndTimeOffsetMinutes { get; set; }
+
+        [NotMapped]
+        public bool ValuesAreUtc { get; set; }
+
         [Display(Name = "Published / Active")]
         public bool IsPublished { get; set; } = false;
 
@@ -66,13 +75,19 @@ namespace AmarTools.Voting.Models
 
         // ── Computed / Business Properties (Not Mapped) ───────────────────────
         [NotMapped]
-        public bool IsActive => IsPublished && DateTime.UtcNow >= StartTime && DateTime.UtcNow <= EndTime;
+        public bool IsActive => IsPublished && IsOpenAt(DateTime.UtcNow);
 
         [NotMapped]
         public bool HasStarted => DateTime.UtcNow >= StartTime;
 
         [NotMapped]
-        public bool HasEnded => DateTime.UtcNow > EndTime;
+        public bool HasEnded => DateTime.UtcNow >= EndTime;
+
+        public bool IsOpenAt(DateTime utcNow) =>
+            IsPublished && IsOpenAt(StartTime, EndTime, utcNow);
+
+        public static bool IsOpenAt(DateTime startTime, DateTime endTime, DateTime utcNow) =>
+            utcNow >= startTime && utcNow < endTime;
 
         [NotMapped]
         public TimeSpan TimeRemaining => EndTime > DateTime.UtcNow
