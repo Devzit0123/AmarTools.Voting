@@ -169,6 +169,13 @@ namespace AmarTools.Voting.Controllers
                 return RedirectToAction(nameof(ManageCandidates), new { programId });
             }
 
+            name = name.Trim();
+            if (name.Length < 2 || name.Length > 150)
+            {
+                TempData["Error"] = "Candidate name must be between 2 and 150 characters.";
+                return RedirectToAction(nameof(ManageCandidates), new { programId });
+            }
+
             var program = await _context.VotingPrograms.FindAsync(programId);
             if (program is null) return NotFound();
 
@@ -190,7 +197,11 @@ namespace AmarTools.Voting.Controllers
                 imageUrl = imageUrl.Trim();
                 bool validUrl = Uri.TryCreate(imageUrl, UriKind.Absolute, out var uri) &&
                                   (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps);
-                bool relativeOk = imageUrl.StartsWith('/');
+                // A single leading '/' is a site-relative path. '//host/x' (protocol-relative) and
+                // '/\\host/x' would be treated by browsers as external hosts, so reject them.
+                bool relativeOk = imageUrl.StartsWith('/') &&
+                                  !imageUrl.StartsWith("//") &&
+                                  !imageUrl.StartsWith("/\\");
 
                 if (!validUrl && !relativeOk)
                 {

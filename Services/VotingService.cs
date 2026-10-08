@@ -50,7 +50,7 @@ namespace AmarTools.Voting.Services
             if (!isValid || currentUser is null)
                 return (false, errorMessage);
 
-            model.OwnerId   = currentUser.UserId;
+            model.OwnerId = currentUser.UserId;
             model.CreatedBy = currentUser.DisplayName;
             model.CreatedAt = DateTime.UtcNow;
 
@@ -64,7 +64,7 @@ namespace AmarTools.Voting.Services
             }
             catch (DbUpdateException ex)
             {
-                logger.LogError(ex, "Database error while creating voting program for user {UserId}.", currentUser.UserId);
+                logger.LogError(ex, "Database error while creating voting program for user {UserId}. Inner: {Inner}", currentUser.UserId, ex.InnerException?.Message);
                 return (false, "The voting program could not be saved. Please try again.");
             }
             catch (Exception ex)
@@ -89,10 +89,10 @@ namespace AmarTools.Voting.Services
 
             existingProgram.ProgramName = model.ProgramName?.Trim() ?? string.Empty;
             existingProgram.Description = string.IsNullOrWhiteSpace(model.Description) ? null : model.Description.Trim();
-            existingProgram.StartTime   = model.StartTime;
-            existingProgram.EndTime     = model.EndTime;
+            existingProgram.StartTime = model.StartTime;
+            existingProgram.EndTime = model.EndTime;
             existingProgram.IsPublished = model.IsPublished;
-            existingProgram.Slug        = model.Slug;
+            existingProgram.Slug = model.Slug;
 
             try
             {
@@ -155,12 +155,12 @@ namespace AmarTools.Voting.Services
 
             var voter = new Voter
             {
-                Name               = name.Trim(),
-                Email              = email,
-                MemberId           = string.IsNullOrWhiteSpace(memberId) ? null : memberId.Trim(),
-                ProgramId          = programId,
-                UserId             = linkedUser?.Id,  // null if user hasn't registered yet
-                RegisteredAt       = DateTime.UtcNow,
+                Name = name.Trim(),
+                Email = email,
+                MemberId = string.IsNullOrWhiteSpace(memberId) ? null : memberId.Trim(),
+                ProgramId = programId,
+                UserId = linkedUser?.Id,  // null if user hasn't registered yet
+                RegisteredAt = DateTime.UtcNow,
                 RegistrationSource = registrationSource,
             };
 
@@ -250,7 +250,7 @@ namespace AmarTools.Voting.Services
                 return (false, "Your browser time-zone information is required. Please enable JavaScript and try again.", null);
 
             var startUtc = NormalizeToUtc(model.StartTime, model.StartTimeOffsetMinutes);
-            var endUtc   = NormalizeToUtc(model.EndTime, model.EndTimeOffsetMinutes);
+            var endUtc = NormalizeToUtc(model.EndTime, model.EndTimeOffsetMinutes);
 
             model.ValuesAreUtc = true;
 
@@ -258,7 +258,7 @@ namespace AmarTools.Voting.Services
                 return (false, $"End time must be at least {MinimumProgramDuration.TotalMinutes} minutes after the start time.", null);
 
             model.StartTime = startUtc;
-            model.EndTime   = endUtc;
+            model.EndTime = endUtc;
 
             if (!TryNormalizeSlug(model.Slug, out var normalizedSlug))
                 return (false, "Slug can only contain lowercase letters, numbers, hyphens, and underscores.", null);
@@ -286,11 +286,12 @@ namespace AmarTools.Voting.Services
         internal static DateTime NormalizeToUtc(DateTime value, int? browserOffsetMinutes) =>
             value.Kind switch
             {
-                DateTimeKind.Utc   => value,
+                DateTimeKind.Utc => value,
                 DateTimeKind.Local => value.ToUniversalTime(),
                 _ when browserOffsetMinutes.HasValue =>
-                    DateTime.SpecifyKind(value, DateTimeKind.Unspecified)
-                        .AddMinutes(-browserOffsetMinutes.Value),
+                    DateTime.SpecifyKind(
+                        DateTime.SpecifyKind(value, DateTimeKind.Unspecified).AddMinutes(-browserOffsetMinutes.Value),
+                        DateTimeKind.Utc),
                 _ => throw new ArgumentException("A browser time-zone offset is required.", nameof(browserOffsetMinutes))
             };
 
