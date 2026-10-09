@@ -1,76 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TestRun id="0842ed0d-70cb-45e3-a4ae-96c675ab4b32" name="USER@DESKTOP-B4GOMB6 2026-10-08 17:58:24" runUser="DESKTOP-B4GOMB6\USER" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Times creation="2026-10-08T17:58:24.4682175+06:00" queuing="2026-10-08T17:58:24.4682180+06:00" start="2026-10-08T17:58:22.0377474+06:00" finish="2026-10-08T17:58:25.8271374+06:00" />
-  <TestSettings name="default" id="ede04eeb-5c5c-4958-8061-3f403be08375">
-    <Deployment runDeploymentRoot="USER_DESKTOP-B4GOMB6_2026-10-08_17_58_24" />
+<TestRun id="0655c3ba-7c78-49f3-8359-97e32293bef5" name="USER@DESKTOP-B4GOMB6 2026-10-09 12:42:00" runUser="DESKTOP-B4GOMB6\USER" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T12:42:00.1838773+06:00" queuing="2026-10-09T12:42:00.1838777+06:00" start="2026-10-09T12:41:56.3718164+06:00" finish="2026-10-09T12:42:05.4357063+06:00" />
+  <TestSettings name="default" id="04623f86-e7c0-46af-b1c1-a5c145442d2d">
+    <Deployment runDeploymentRoot="USER_DESKTOP-B4GOMB6_2026-10-09_12_42_00" />
   </TestSettings>
   <Results>
-    <UnitTestResult executionId="b6090564-0919-42c6-9be6-b9902e0d7c9b" testId="f9867f03-e166-35ab-59d5-8f71f3155173" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0043434" startTime="2026-10-08T17:58:25.3912971+06:00" endTime="2026-10-08T17:58:25.3912978+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6090564-0919-42c6-9be6-b9902e0d7c9b">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 570&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 571&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="af139b28-e295-4bae-a98a-af5d8ede9ef5" testId="0322a096-4bff-8f4d-6b2c-b0741f72ce59" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0337607" startTime="2026-10-08T17:58:25.6040206+06:00" endTime="2026-10-08T17:58:25.6040210+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="af139b28-e295-4bae-a98a-af5d8ede9ef5">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
-Expected: typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
-Actual:   typeof(Microsoft.AspNetCore.Mvc.ForbidResult)</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 648&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 648&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="b6e6208d-bc67-4390-9f47-087333ccb10e" testId="d6268953-9a6d-a4f2-4417-b83452034f45" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T17:58:23.6133024+06:00" endTime="2026-10-08T17:58:23.6133752+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b6e6208d-bc67-4390-9f47-087333ccb10e">
-      <Output>
-        <ErrorInfo>
-          <Message>Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.</Message>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="51aefcd0-4c0c-4ba3-a606-cf7f3b0e4dde" testId="6939ed7c-af5e-cb4d-0828-6f654f0fed05" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0297599" startTime="2026-10-08T17:58:25.6341187+06:00" endTime="2026-10-08T17:58:25.6341189+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="51aefcd0-4c0c-4ba3-a606-cf7f3b0e4dde">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.False() Failure&#xD;
-Expected: False&#xD;
-Actual:   True</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 694&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 694&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="91002e9b-56f8-4d05-82c2-8cb3445e6c5d" testId="1b466495-7d77-302a-19c3-5949315fa20a" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0032086" startTime="2026-10-08T17:58:25.6377624+06:00" endTime="2026-10-08T17:58:25.6377624+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="91002e9b-56f8-4d05-82c2-8cb3445e6c5d">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 606&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 607&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="3e72b9ad-ea58-4331-bb29-b97229d633de" testId="39da9558-5d74-32b9-d298-256fcb80ec28" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0058660" startTime="2026-10-08T17:58:25.6489734+06:00" endTime="2026-10-08T17:58:25.6489736+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e72b9ad-ea58-4331-bb29-b97229d633de">
-      <Output>
-        <ErrorInfo>
-          <Message>ValuesAreUtc is true but StartTime is still the browser-local value.</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 556&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 556&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="c667579e-575e-4c06-8ca7-979493e899bb" testId="ea79f4da-0d68-55ae-bebe-45a77fcef0cb" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;description&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0269177" startTime="2026-10-08T17:58:25.3768934+06:00" endTime="2026-10-08T17:58:25.3768936+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c667579e-575e-4c06-8ca7-979493e899bb">
+    <UnitTestResult executionId="3ea2e38f-fe95-4bb7-bc29-f57a7e8387b8" testId="7338fc87-a80c-da7f-452d-a7a02c14e6de" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;name&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.3709863" startTime="2026-10-09T12:41:59.8614562+06:00" endTime="2026-10-09T12:41:59.8614566+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3ea2e38f-fe95-4bb7-bc29-f57a7e8387b8" />
+    <UnitTestResult executionId="4a5eeaec-47e6-4a15-9157-7137b5d90c3b" testId="ea79f4da-0d68-55ae-bebe-45a77fcef0cb" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;description&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.1882338" startTime="2026-10-09T12:42:00.0505410+06:00" endTime="2026-10-09T12:42:00.0505413+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4a5eeaec-47e6-4a15-9157-7137b5d90c3b">
       <Output>
         <ErrorInfo>
           <Message>Assert.True() Failure&#xD;
@@ -82,48 +18,19 @@ Actual:   False</Message>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="f4d0f83e-59bb-4bd5-a89f-43983bf4a90b" testId="a880d5ee-705a-3568-2fb8-f16556041b37" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0123392" startTime="2026-10-08T17:58:25.6810984+06:00" endTime="2026-10-08T17:58:25.6810987+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4d0f83e-59bb-4bd5-a89f-43983bf4a90b">
+    <UnitTestResult executionId="7c6fddfe-a87d-4964-bc5c-36c8c3ae8acf" testId="3a8dd292-5d1b-3d0f-c13f-8fa1b855ae3c" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0223440" startTime="2026-10-09T12:42:00.3458755+06:00" endTime="2026-10-09T12:42:00.3458758+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7c6fddfe-a87d-4964-bc5c-36c8c3ae8acf">
       <Output>
         <ErrorInfo>
-          <Message>Assert.Single() Failure: The collection was empty</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 499&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 499&#xD;
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 534&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 534&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="eb88778f-032f-40e1-a80d-5e8f44648102" testId="beae69e4-86fb-fc3c-c322-166b38715032" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T17:58:23.6183068+06:00" endTime="2026-10-08T17:58:23.6183069+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="eb88778f-032f-40e1-a80d-5e8f44648102">
-      <Output>
-        <ErrorInfo>
-          <Message>Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.</Message>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="9f2ea213-c40f-452f-95d6-9021d60ac123" testId="bf94786a-154a-0539-e904-5cf35c8d3260" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0048656" startTime="2026-10-08T17:58:25.5242493+06:00" endTime="2026-10-08T17:58:25.5242494+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9f2ea213-c40f-452f-95d6-9021d60ac123">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.False() Failure&#xD;
-Expected: False&#xD;
-Actual:   True</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 420&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 420&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="3e14e552-f792-4985-91b1-d6d5a344be08" testId="c64cf4bb-2678-b778-8984-628d799a0ad6" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.1265510" startTime="2026-10-08T17:58:25.5184316+06:00" endTime="2026-10-08T17:58:25.5184317+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e14e552-f792-4985-91b1-d6d5a344be08">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.False() Failure&#xD;
-Expected: False&#xD;
-Actual:   True</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 516&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 517&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="15e55e8a-8bb2-4511-8a37-fb2ed5d9d501" testId="f7d93de4-493b-4ff5-eec4-928cf74ad189" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0041817" startTime="2026-10-08T17:58:25.6427567+06:00" endTime="2026-10-08T17:58:25.6427573+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="15e55e8a-8bb2-4511-8a37-fb2ed5d9d501">
+    <UnitTestResult executionId="f8fd7571-f0be-4b63-992b-24bf2b396814" testId="f7d93de4-493b-4ff5-eec4-928cf74ad189" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0051238" startTime="2026-10-09T12:42:00.3108536+06:00" endTime="2026-10-09T12:42:00.3108539+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f8fd7571-f0be-4b63-992b-24bf2b396814">
       <Output>
         <ErrorInfo>
           <Message>Assert.True() Failure&#xD;
@@ -135,7 +42,7 @@ Actual:   False</Message>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="1c2f1fc5-9ef6-4c97-af67-701621c7a8a2" testId="73862591-f7ce-c0d5-3de3-5f058d82fe94" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;code&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0039796" startTime="2026-10-08T17:58:25.3861730+06:00" endTime="2026-10-08T17:58:25.3861732+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1c2f1fc5-9ef6-4c97-af67-701621c7a8a2">
+    <UnitTestResult executionId="ec3f609b-e212-4076-be44-fe5bbde3a9d4" testId="8e6422ba-ba4b-7ec9-c08f-49b9af51c2ce" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;imageUrl&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0075826" startTime="2026-10-09T12:42:00.0581491+06:00" endTime="2026-10-09T12:42:00.0581495+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ec3f609b-e212-4076-be44-fe5bbde3a9d4">
       <Output>
         <ErrorInfo>
           <Message>Assert.True() Failure&#xD;
@@ -147,19 +54,44 @@ Actual:   False</Message>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="50c69814-235c-4b50-b37f-57a66a2029e6" testId="b8cfb452-953c-7e51-37a7-5890bff73410" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0226911" startTime="2026-10-08T17:58:25.7086574+06:00" endTime="2026-10-08T17:58:25.7086583+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="50c69814-235c-4b50-b37f-57a66a2029e6">
+    <UnitTestResult executionId="718a6e7d-1783-4c2d-b9d5-c57e28aadc26" testId="c64cf4bb-2678-b778-8984-628d799a0ad6" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.1364607" startTime="2026-10-09T12:42:00.2116220+06:00" endTime="2026-10-09T12:42:00.2116222+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="718a6e7d-1783-4c2d-b9d5-c57e28aadc26">
       <Output>
         <ErrorInfo>
-          <Message>Assert.Equal() Failure: Values differ&#xD;
-Expected: typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
-Actual:   typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 639&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 639&#xD;
+          <Message>Assert.False() Failure&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 516&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 517&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="bd245cf7-e567-4a96-b926-e9d91522ef6a" testId="79614509-e2d2-9615-2728-55ccb6a4db6e" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0033054" startTime="2026-10-08T17:58:25.6527222+06:00" endTime="2026-10-08T17:58:25.6527225+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bd245cf7-e567-4a96-b926-e9d91522ef6a">
+    <UnitTestResult executionId="2d9d4bdb-a51e-4b79-adda-1f247ebaf0d5" testId="0322a096-4bff-8f4d-6b2c-b0741f72ce59" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0263951" startTime="2026-10-09T12:42:00.2779726+06:00" endTime="2026-10-09T12:42:00.2779729+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2d9d4bdb-a51e-4b79-adda-1f247ebaf0d5">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.IsType() Failure: Value is not the exact type&#xD;
+Expected: typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
+Actual:   typeof(Microsoft.AspNetCore.Mvc.ForbidResult)</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 648&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 648&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="b563d9aa-11ab-481b-813f-3e4d1086510e" testId="d6268953-9a6d-a4f2-4417-b83452034f45" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" computerName="DESKTOP-B4GOMB6" duration="00:00:00.5198512" startTime="2026-10-09T12:42:02.4336465+06:00" endTime="2026-10-09T12:42:02.4336469+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b563d9aa-11ab-481b-813f-3e4d1086510e" />
+    <UnitTestResult executionId="091e53db-c564-41aa-9ac8-452dee51dada" testId="73862591-f7ce-c0d5-3de3-5f058d82fe94" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;code&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0022807" startTime="2026-10-09T12:42:00.0608086+06:00" endTime="2026-10-09T12:42:00.0608089+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="091e53db-c564-41aa-9ac8-452dee51dada">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 592&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 593&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5dd782b9-b543-4bae-b6e4-c565e4ea1441" testId="79614509-e2d2-9615-2728-55ccb6a4db6e" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0038726" startTime="2026-10-09T12:42:00.3221761+06:00" endTime="2026-10-09T12:42:00.3221763+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5dd782b9-b543-4bae-b6e4-c565e4ea1441">
       <Output>
         <ErrorInfo>
           <Message>Assert.False() Failure&#xD;
@@ -171,7 +103,57 @@ Actual:   True</Message>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="1e26b401-1f33-4587-8da0-6d7037aa01fc" testId="f3a16a94-b6a7-bbfb-9587-8f827e0fde51" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0036134" startTime="2026-10-08T17:58:25.6681560+06:00" endTime="2026-10-08T17:58:25.6681565+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1e26b401-1f33-4587-8da0-6d7037aa01fc">
+    <UnitTestResult executionId="dae8c494-c3f8-48a3-bd6e-b2925bc604ed" testId="bf94786a-154a-0539-e904-5cf35c8d3260" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0087857" startTime="2026-10-09T12:42:00.2167502+06:00" endTime="2026-10-09T12:42:00.2167503+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="dae8c494-c3f8-48a3-bd6e-b2925bc604ed">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 420&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 420&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="d694569d-edd0-4b10-a471-22921668bb12" testId="beae69e4-86fb-fc3c-c322-166b38715032" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.4507916" startTime="2026-10-09T12:42:03.8847766+06:00" endTime="2026-10-09T12:42:03.8847770+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d694569d-edd0-4b10-a471-22921668bb12" />
+    <UnitTestResult executionId="2283efbd-62c5-4139-baef-0f83aade2f58" testId="1b466495-7d77-302a-19c3-5949315fa20a" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0032184" startTime="2026-10-09T12:42:00.3041891+06:00" endTime="2026-10-09T12:42:00.3041893+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2283efbd-62c5-4139-baef-0f83aade2f58" />
+    <UnitTestResult executionId="628e4a7f-cc5c-4cf1-b792-2a37c5bcf296" testId="5ecd66f0-ecd9-b245-5eaf-f66999a3322c" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0042861" startTime="2026-10-09T12:42:00.3956200+06:00" endTime="2026-10-09T12:42:00.3956202+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="628e4a7f-cc5c-4cf1-b792-2a37c5bcf296">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 467&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 468&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="5c646fb3-fc5c-479e-bc1c-a725c754699a" testId="2e2d91f9-ab77-427d-2fd5-d80a0352c755" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0047066" startTime="2026-10-09T12:42:00.3690780+06:00" endTime="2026-10-09T12:42:00.3690783+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5c646fb3-fc5c-479e-bc1c-a725c754699a">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.True() Failure&#xD;
+Expected: True&#xD;
+Actual:   False</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 454&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 455&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4b94c671-7360-482b-a33d-f2eccf6eb271" testId="6939ed7c-af5e-cb4d-0828-6f654f0fed05" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0228515" startTime="2026-10-09T12:42:00.3014244+06:00" endTime="2026-10-09T12:42:00.3014246+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4b94c671-7360-482b-a33d-f2eccf6eb271">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.False() Failure&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 694&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 694&#xD;
+--- End of stack trace from previous location ---</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="df77c0a1-ad5b-4826-a5c7-4657d2c68794" testId="f3a16a94-b6a7-bbfb-9587-8f827e0fde51" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0046084" startTime="2026-10-09T12:42:00.3508615+06:00" endTime="2026-10-09T12:42:00.3508620+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="df77c0a1-ad5b-4826-a5c7-4657d2c68794">
       <Output>
         <ErrorInfo>
           <Message>Assert.True() Failure&#xD;
@@ -183,38 +165,7 @@ Actual:   False</Message>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="f222c2c6-3396-4e76-9d54-6f8b7291cf2c" testId="8e6422ba-ba4b-7ec9-c08f-49b9af51c2ce" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;imageUrl&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0036041" startTime="2026-10-08T17:58:25.3821257+06:00" endTime="2026-10-08T17:58:25.3821262+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f222c2c6-3396-4e76-9d54-6f8b7291cf2c">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 592&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 593&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="5a133577-292a-4151-b44a-f86de6d6d7ee" testId="895c5e04-cf47-ae4b-9d75-4e8ec7daed85" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened" computerName="DESKTOP-B4GOMB6" duration="00:00:01.3543263" startTime="2026-10-08T17:58:24.9978814+06:00" endTime="2026-10-08T17:58:24.9978816+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a133577-292a-4151-b44a-f86de6d6d7ee">
-      <Output>
-        <ErrorInfo>
-          <Message>Assert.False() Failure&#xD;
-Expected: False&#xD;
-Actual:   True</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 441&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 441&#xD;
---- End of stack trace from previous location ---</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="1675e5ad-f742-4473-8f0a-00eb8e333c36" testId="46b53826-145c-3c3f-13b3-02825909ff55" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T17:58:23.6191296+06:00" endTime="2026-10-08T17:58:23.6191297+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="1675e5ad-f742-4473-8f0a-00eb8e333c36">
-      <Output>
-        <ErrorInfo>
-          <Message>Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.</Message>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="3a1e0fc2-8df4-4716-86e2-bd858cd41da4" testId="e61dad47-890b-a89c-4457-095dc75f17f3" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0442882" startTime="2026-10-08T17:58:25.5696664+06:00" endTime="2026-10-08T17:58:25.5696668+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3a1e0fc2-8df4-4716-86e2-bd858cd41da4">
+    <UnitTestResult executionId="b3062c29-0444-400e-99cb-b54a7dc06648" testId="e61dad47-890b-a89c-4457-095dc75f17f3" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0332118" startTime="2026-10-09T12:42:00.2511453+06:00" endTime="2026-10-09T12:42:00.2511459+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b3062c29-0444-400e-99cb-b54a7dc06648">
       <Output>
         <ErrorInfo>
           <Message>Assert.Equal() Failure: Strings differ&#xD;
@@ -228,50 +179,48 @@ Actual:   "  hello  "&#xD;
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="ffc50276-11a4-4118-807b-a5b0903d9ec8" testId="5ecd66f0-ecd9-b245-5eaf-f66999a3322c" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0045786" startTime="2026-10-08T17:58:25.7137824+06:00" endTime="2026-10-08T17:58:25.7137826+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ffc50276-11a4-4118-807b-a5b0903d9ec8">
+    <UnitTestResult executionId="5ef097d4-8361-456c-9509-b924560a6759" testId="a880d5ee-705a-3568-2fb8-f16556041b37" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0119215" startTime="2026-10-09T12:42:00.3634383+06:00" endTime="2026-10-09T12:42:00.3634395+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5ef097d4-8361-456c-9509-b924560a6759">
       <Output>
         <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 467&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 468&#xD;
+          <Message>Assert.Single() Failure: The collection was empty</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 499&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 499&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="9b016922-a171-4228-a7b6-f78b11771dad" testId="2e2d91f9-ab77-427d-2fd5-d80a0352c755" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0031707" startTime="2026-10-08T17:58:25.6847924+06:00" endTime="2026-10-08T17:58:25.6847925+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9b016922-a171-4228-a7b6-f78b11771dad">
+    <UnitTestResult executionId="ee3072f1-3ef5-40de-9edc-a8468383d768" testId="f9867f03-e166-35ab-59d5-8f71f3155173" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0084212" startTime="2026-10-09T12:42:00.0689126+06:00" endTime="2026-10-09T12:42:00.0689131+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ee3072f1-3ef5-40de-9edc-a8468383d768" />
+    <UnitTestResult executionId="5cc03040-be0c-4cc6-b49e-4547bd73aedf" testId="39da9558-5d74-32b9-d298-256fcb80ec28" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0064880" startTime="2026-10-09T12:42:00.3176654+06:00" endTime="2026-10-09T12:42:00.3176656+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5cc03040-be0c-4cc6-b49e-4547bd73aedf">
       <Output>
         <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 454&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 455&#xD;
+          <Message>ValuesAreUtc is true but StartTime is still the browser-local value.</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 556&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 556&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="41259831-ed1c-4d19-a59f-8be6812527c0" testId="3a8dd292-5d1b-3d0f-c13f-8fa1b855ae3c" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0110677" startTime="2026-10-08T17:58:25.6641151+06:00" endTime="2026-10-08T17:58:25.6641154+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="41259831-ed1c-4d19-a59f-8be6812527c0">
+    <UnitTestResult executionId="25144697-e2bd-4e1f-a2f0-828c6abfe112" testId="46b53826-145c-3c3f-13b3-02825909ff55" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.2119910" startTime="2026-10-09T12:42:05.0969360+06:00" endTime="2026-10-09T12:42:05.0969363+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="25144697-e2bd-4e1f-a2f0-828c6abfe112" />
+    <UnitTestResult executionId="97b0ac6f-f1f9-4c2f-92be-065fdcdbd341" testId="b8cfb452-953c-7e51-37a7-5890bff73410" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0207381" startTime="2026-10-09T12:42:00.3903432+06:00" endTime="2026-10-09T12:42:00.3903435+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97b0ac6f-f1f9-4c2f-92be-065fdcdbd341">
       <Output>
         <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 534&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 534&#xD;
+          <Message>Assert.Equal() Failure: Values differ&#xD;
+Expected: typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
+Actual:   typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 639&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 639&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
     </UnitTestResult>
-    <UnitTestResult executionId="7362a30c-378f-436e-a50e-4b26623e7966" testId="7338fc87-a80c-da7f-452d-a7a02c14e6de" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;name&quot;)" computerName="DESKTOP-B4GOMB6" duration="00:00:00.3590721" startTime="2026-10-08T17:58:25.3490251+06:00" endTime="2026-10-08T17:58:25.3490253+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="7362a30c-378f-436e-a50e-4b26623e7966">
+    <UnitTestResult executionId="a8b5c3c0-fb88-4550-9685-d5e7128c4ad6" testId="895c5e04-cf47-ae4b-9d75-4e8ec7daed85" testName="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened" computerName="DESKTOP-B4GOMB6" duration="00:00:01.9195083" startTime="2026-10-09T12:41:59.5038265+06:00" endTime="2026-10-09T12:41:59.5038723+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a8b5c3c0-fb88-4550-9685-d5e7128c4ad6">
       <Output>
         <ErrorInfo>
-          <Message>Assert.True() Failure&#xD;
-Expected: True&#xD;
-Actual:   False</Message>
-          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 592&#xD;
-   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field) in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 593&#xD;
+          <Message>Assert.False() Failure&#xD;
+Expected: False&#xD;
+Actual:   True</Message>
+          <StackTrace>   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 441&#xD;
+   at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs:line 441&#xD;
 --- End of stack trace from previous location ---</StackTrace>
         </ErrorInfo>
       </Output>
@@ -279,365 +228,324 @@ Actual:   False</Message>
   </Results>
   <TestDefinitions>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="5ecd66f0-ecd9-b245-5eaf-f66999a3322c">
-      <Execution id="ffc50276-11a4-4118-807b-a5b0903d9ec8" />
+      <Execution id="628e4a7f-cc5c-4cf1-b792-2a37c5bcf296" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D02_AddCandidate_AfterProgramEnded_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;description&quot;)" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="ea79f4da-0d68-55ae-bebe-45a77fcef0cb">
-      <Execution id="c667579e-575e-4c06-8ca7-979493e899bb" />
+      <Execution id="4a5eeaec-47e6-4a15-9157-7137b5d90c3b" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;code&quot;)" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="73862591-f7ce-c0d5-3de3-5f058d82fe94">
-      <Execution id="1c2f1fc5-9ef6-4c97-af67-701621c7a8a2" />
+      <Execution id="091e53db-c564-41aa-9ac8-452dee51dada" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="e61dad47-890b-a89c-4457-095dc75f17f3">
-      <Execution id="3a1e0fc2-8df4-4716-86e2-bd858cd41da4" />
+      <Execution id="b3062c29-0444-400e-99cb-b54a7dc06648" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D13_Create_TrimsDescriptionLikeEditDoes" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="2e2d91f9-ab77-427d-2fd5-d80a0352c755">
-      <Execution id="9b016922-a171-4228-a7b6-f78b11771dad" />
+      <Execution id="5c646fb3-fc5c-479e-bc1c-a725c754699a" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D02_AddCandidate_WhileProgramIsActive_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="a880d5ee-705a-3568-2fb8-f16556041b37">
-      <Execution id="f4d0f83e-59bb-4bd5-a89f-43983bf4a90b" />
+      <Execution id="5ef097d4-8361-456c-9509-b924560a6759" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D03_DeleteCandidate_WithRecordedVotes_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="d6268953-9a6d-a4f2-4417-b83452034f45">
-      <Execution id="b6e6208d-bc67-4390-9f47-087333ccb10e" />
+      <Execution id="b563d9aa-11ab-481b-813f-3e4d1086510e" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="0322a096-4bff-8f4d-6b2c-b0741f72ce59">
-      <Execution id="af139b28-e295-4bae-a98a-af5d8ede9ef5" />
+      <Execution id="2d9d4bdb-a51e-4b79-adda-1f247ebaf0d5" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="895c5e04-cf47-ae4b-9d75-4e8ec7daed85">
-      <Execution id="5a133577-292a-4151-b44a-f86de6d6d7ee" />
+      <Execution id="a8b5c3c0-fb88-4550-9685-d5e7128c4ad6" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D01_Edit_EndedProgram_CannotBeReopened" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="c64cf4bb-2678-b778-8984-628d799a0ad6">
-      <Execution id="3e14e552-f792-4985-91b1-d6d5a344be08" />
+      <Execution id="718a6e7d-1783-4c2d-b9d5-c57e28aadc26" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f9867f03-e166-35ab-59d5-8f71f3155173">
-      <Execution id="b6090564-0919-42c6-9be6-b9902e0d7c9b" />
+      <Execution id="ee3072f1-3ef5-40de-9edc-a8468383d768" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D07_AddCandidate_SingleCharacterName_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="39da9558-5d74-32b9-d298-256fcb80ec28">
-      <Execution id="3e72b9ad-ea58-4331-bb29-b97229d633de" />
+      <Execution id="5cc03040-be0c-4cc6-b49e-4547bd73aedf" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="bf94786a-154a-0539-e904-5cf35c8d3260">
-      <Execution id="9f2ea213-c40f-452f-95d6-9021d60ac123" />
+      <Execution id="dae8c494-c3f8-48a3-bd6e-b2925bc604ed" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="46b53826-145c-3c3f-13b3-02825909ff55">
-      <Execution id="1675e5ad-f742-4473-8f0a-00eb8e333c36" />
+      <Execution id="25144697-e2bd-4e1f-a2f0-828c6abfe112" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_SingleCharacterName_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f7d93de4-493b-4ff5-eec4-928cf74ad189">
-      <Execution id="15e55e8a-8bb2-4511-8a37-fb2ed5d9d501" />
+      <Execution id="f8fd7571-f0be-4b63-992b-24bf2b396814" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D02_DeleteCandidate_WhileProgramIsActive_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="beae69e4-86fb-fc3c-c322-166b38715032">
-      <Execution id="eb88778f-032f-40e1-a80d-5e8f44648102" />
+      <Execution id="d694569d-edd0-4b10-a471-22921668bb12" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_ProtocolRelativeImageUrl_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="b8cfb452-953c-7e51-37a7-5890bff73410">
-      <Execution id="50c69814-235c-4b50-b37f-57a66a2029e6" />
+      <Execution id="97b0ac6f-f1f9-4c2f-92be-065fdcdbd341" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="1b466495-7d77-302a-19c3-5949315fa20a">
-      <Execution id="91002e9b-56f8-4d05-82c2-8cb3445e6c5d" />
+      <Execution id="2283efbd-62c5-4139-baef-0f83aade2f58" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="6939ed7c-af5e-cb4d-0828-6f654f0fed05">
-      <Execution id="51aefcd0-4c0c-4ba3-a606-cf7f3b0e4dde" />
+      <Execution id="4b94c671-7360-482b-a33d-f2eccf6eb271" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D14_RegisterVoter_AfterElectionEnded_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;imageUrl&quot;)" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="8e6422ba-ba4b-7ec9-c08f-49b9af51c2ce">
-      <Execution id="f222c2c6-3396-4e76-9d54-6f8b7291cf2c" />
+      <Execution id="ec3f609b-e212-4076-be44-fe5bbde3a9d4" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="79614509-e2d2-9615-2728-55ccb6a4db6e">
-      <Execution id="bd245cf7-e567-4a96-b926-e9d91522ef6a" />
+      <Execution id="5dd782b9-b543-4bae-b6e4-c565e4ea1441" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D14_RegisterVoter_InvalidEmailFormat_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: &quot;name&quot;)" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="7338fc87-a80c-da7f-452d-a7a02c14e6de">
-      <Execution id="7362a30c-378f-436e-a50e-4b26623e7966" />
+      <Execution id="3ea2e38f-fe95-4bb7-bc29-f57a7e8387b8" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="3a8dd292-5d1b-3d0f-c13f-8fa1b855ae3c">
-      <Execution id="41259831-ed1c-4d19-a59f-8be6812527c0" />
+      <Execution id="7c6fddfe-a87d-4964-bc5c-36c8c3ae8acf" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D05_Delete_EndedProgramWithVotes_IsNotHardDeleted" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f3a16a94-b6a7-bbfb-9587-8f827e0fde51">
-      <Execution id="1e26b401-1f33-4587-8da0-6d7037aa01fc" />
+      <Execution id="df77c0a1-ad5b-4826-a5c7-4657d2c68794" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerDefectTests" name="D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate" />
     </UnitTest>
   </TestDefinitions>
   <TestEntries>
-    <TestEntry testId="f9867f03-e166-35ab-59d5-8f71f3155173" executionId="b6090564-0919-42c6-9be6-b9902e0d7c9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="0322a096-4bff-8f4d-6b2c-b0741f72ce59" executionId="af139b28-e295-4bae-a98a-af5d8ede9ef5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="d6268953-9a6d-a4f2-4417-b83452034f45" executionId="b6e6208d-bc67-4390-9f47-087333ccb10e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="6939ed7c-af5e-cb4d-0828-6f654f0fed05" executionId="51aefcd0-4c0c-4ba3-a606-cf7f3b0e4dde" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="1b466495-7d77-302a-19c3-5949315fa20a" executionId="91002e9b-56f8-4d05-82c2-8cb3445e6c5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="39da9558-5d74-32b9-d298-256fcb80ec28" executionId="3e72b9ad-ea58-4331-bb29-b97229d633de" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="ea79f4da-0d68-55ae-bebe-45a77fcef0cb" executionId="c667579e-575e-4c06-8ca7-979493e899bb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="a880d5ee-705a-3568-2fb8-f16556041b37" executionId="f4d0f83e-59bb-4bd5-a89f-43983bf4a90b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="beae69e4-86fb-fc3c-c322-166b38715032" executionId="eb88778f-032f-40e1-a80d-5e8f44648102" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="bf94786a-154a-0539-e904-5cf35c8d3260" executionId="9f2ea213-c40f-452f-95d6-9021d60ac123" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="c64cf4bb-2678-b778-8984-628d799a0ad6" executionId="3e14e552-f792-4985-91b1-d6d5a344be08" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="f7d93de4-493b-4ff5-eec4-928cf74ad189" executionId="15e55e8a-8bb2-4511-8a37-fb2ed5d9d501" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="73862591-f7ce-c0d5-3de3-5f058d82fe94" executionId="1c2f1fc5-9ef6-4c97-af67-701621c7a8a2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="b8cfb452-953c-7e51-37a7-5890bff73410" executionId="50c69814-235c-4b50-b37f-57a66a2029e6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="79614509-e2d2-9615-2728-55ccb6a4db6e" executionId="bd245cf7-e567-4a96-b926-e9d91522ef6a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="f3a16a94-b6a7-bbfb-9587-8f827e0fde51" executionId="1e26b401-1f33-4587-8da0-6d7037aa01fc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="8e6422ba-ba4b-7ec9-c08f-49b9af51c2ce" executionId="f222c2c6-3396-4e76-9d54-6f8b7291cf2c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="895c5e04-cf47-ae4b-9d75-4e8ec7daed85" executionId="5a133577-292a-4151-b44a-f86de6d6d7ee" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="46b53826-145c-3c3f-13b3-02825909ff55" executionId="1675e5ad-f742-4473-8f0a-00eb8e333c36" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="e61dad47-890b-a89c-4457-095dc75f17f3" executionId="3a1e0fc2-8df4-4716-86e2-bd858cd41da4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="5ecd66f0-ecd9-b245-5eaf-f66999a3322c" executionId="ffc50276-11a4-4118-807b-a5b0903d9ec8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="2e2d91f9-ab77-427d-2fd5-d80a0352c755" executionId="9b016922-a171-4228-a7b6-f78b11771dad" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="3a8dd292-5d1b-3d0f-c13f-8fa1b855ae3c" executionId="41259831-ed1c-4d19-a59f-8be6812527c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="7338fc87-a80c-da7f-452d-a7a02c14e6de" executionId="7362a30c-378f-436e-a50e-4b26623e7966" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7338fc87-a80c-da7f-452d-a7a02c14e6de" executionId="3ea2e38f-fe95-4bb7-bc29-f57a7e8387b8" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ea79f4da-0d68-55ae-bebe-45a77fcef0cb" executionId="4a5eeaec-47e6-4a15-9157-7137b5d90c3b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a8dd292-5d1b-3d0f-c13f-8fa1b855ae3c" executionId="7c6fddfe-a87d-4964-bc5c-36c8c3ae8acf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f7d93de4-493b-4ff5-eec4-928cf74ad189" executionId="f8fd7571-f0be-4b63-992b-24bf2b396814" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e6422ba-ba4b-7ec9-c08f-49b9af51c2ce" executionId="ec3f609b-e212-4076-be44-fe5bbde3a9d4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="c64cf4bb-2678-b778-8984-628d799a0ad6" executionId="718a6e7d-1783-4c2d-b9d5-c57e28aadc26" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="0322a096-4bff-8f4d-6b2c-b0741f72ce59" executionId="2d9d4bdb-a51e-4b79-adda-1f247ebaf0d5" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6268953-9a6d-a4f2-4417-b83452034f45" executionId="b563d9aa-11ab-481b-813f-3e4d1086510e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="73862591-f7ce-c0d5-3de3-5f058d82fe94" executionId="091e53db-c564-41aa-9ac8-452dee51dada" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="79614509-e2d2-9615-2728-55ccb6a4db6e" executionId="5dd782b9-b543-4bae-b6e4-c565e4ea1441" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bf94786a-154a-0539-e904-5cf35c8d3260" executionId="dae8c494-c3f8-48a3-bd6e-b2925bc604ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="beae69e4-86fb-fc3c-c322-166b38715032" executionId="d694569d-edd0-4b10-a471-22921668bb12" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1b466495-7d77-302a-19c3-5949315fa20a" executionId="2283efbd-62c5-4139-baef-0f83aade2f58" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="5ecd66f0-ecd9-b245-5eaf-f66999a3322c" executionId="628e4a7f-cc5c-4cf1-b792-2a37c5bcf296" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="2e2d91f9-ab77-427d-2fd5-d80a0352c755" executionId="5c646fb3-fc5c-479e-bc1c-a725c754699a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6939ed7c-af5e-cb4d-0828-6f654f0fed05" executionId="4b94c671-7360-482b-a33d-f2eccf6eb271" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f3a16a94-b6a7-bbfb-9587-8f827e0fde51" executionId="df77c0a1-ad5b-4826-a5c7-4657d2c68794" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e61dad47-890b-a89c-4457-095dc75f17f3" executionId="b3062c29-0444-400e-99cb-b54a7dc06648" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a880d5ee-705a-3568-2fb8-f16556041b37" executionId="5ef097d4-8361-456c-9509-b924560a6759" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f9867f03-e166-35ab-59d5-8f71f3155173" executionId="ee3072f1-3ef5-40de-9edc-a8468383d768" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="39da9558-5d74-32b9-d298-256fcb80ec28" executionId="5cc03040-be0c-4cc6-b49e-4547bd73aedf" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46b53826-145c-3c3f-13b3-02825909ff55" executionId="25144697-e2bd-4e1f-a2f0-828c6abfe112" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b8cfb452-953c-7e51-37a7-5890bff73410" executionId="97b0ac6f-f1f9-4c2f-92be-065fdcdbd341" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="895c5e04-cf47-ae4b-9d75-4e8ec7daed85" executionId="a8b5c3c0-fb88-4550-9685-d5e7128c4ad6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
   </TestEntries>
   <TestLists>
     <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
     <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
   </TestLists>
   <ResultSummary outcome="Failed">
-    <Counters total="24" executed="21" passed="0" failed="21" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Counters total="24" executed="24" passed="6" failed="18" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
     <Output>
       <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 8.0.31)&#xD;
-[xUnit.net 00:00:00.26]   Discovering: AmarTools.Voting.Tests&#xD;
-[xUnit.net 00:00:00.58]   Discovered:  AmarTools.Voting.Tests&#xD;
-[xUnit.net 00:00:00.60]   Starting:    AmarTools.Voting.Tests&#xD;
-[xUnit.net 00:00:00.70]       Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.&#xD;
-[xUnit.net 00:00:00.71]       Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.&#xD;
-[xUnit.net 00:00:00.71]       Set AMARTOOLS_BASE_URL, AMARTOOLS_TEST_EMAIL and AMARTOOLS_TEST_PASSWORD to run Selenium tests.&#xD;
-Test 'AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped' was skipped in the test run.&#xD;
-Test 'AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected' was skipped in the test run.&#xD;
-Test 'AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected' was skipped in the test run.&#xD;
-[xUnit.net 00:00:02.08]       Assert.False() Failure&#xD;
-[xUnit.net 00:00:02.08]       Expected: False&#xD;
-[xUnit.net 00:00:02.08]       Actual:   True&#xD;
-[xUnit.net 00:00:02.09]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.09]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(441,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened()&#xD;
-[xUnit.net 00:00:02.09]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(441,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened()&#xD;
-[xUnit.net 00:00:02.09]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.44]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.44]       Expected: True&#xD;
-[xUnit.net 00:00:02.44]       Actual:   False&#xD;
-[xUnit.net 00:00:02.44]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.44]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.44]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.44]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.47]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.47]       Expected: True&#xD;
-[xUnit.net 00:00:02.47]       Actual:   False&#xD;
-[xUnit.net 00:00:02.47]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.47]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.47]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.47]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.47]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.47]       Expected: True&#xD;
-[xUnit.net 00:00:02.47]       Actual:   False&#xD;
-[xUnit.net 00:00:02.47]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.47]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.47]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.47]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.48]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.48]       Expected: True&#xD;
-[xUnit.net 00:00:02.48]       Actual:   False&#xD;
-[xUnit.net 00:00:02.48]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.48]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.48]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
-[xUnit.net 00:00:02.48]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.48]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.48]       Expected: True&#xD;
-[xUnit.net 00:00:02.48]       Actual:   False&#xD;
-[xUnit.net 00:00:02.48]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.48]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(570,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected()&#xD;
-[xUnit.net 00:00:02.48]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(571,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected()&#xD;
-[xUnit.net 00:00:02.48]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.61]       Assert.False() Failure&#xD;
-[xUnit.net 00:00:02.61]       Expected: False&#xD;
-[xUnit.net 00:00:02.61]       Actual:   True&#xD;
-[xUnit.net 00:00:02.61]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.61]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(516,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected()&#xD;
-[xUnit.net 00:00:02.61]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(517,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected()&#xD;
-[xUnit.net 00:00:02.61]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.61]       Assert.False() Failure&#xD;
-[xUnit.net 00:00:02.61]       Expected: False&#xD;
-[xUnit.net 00:00:02.61]       Actual:   True&#xD;
-[xUnit.net 00:00:02.61]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.61]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(420,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture()&#xD;
-[xUnit.net 00:00:02.61]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(420,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture()&#xD;
-[xUnit.net 00:00:02.61]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.66]       Assert.Equal() Failure: Strings differ&#xD;
-[xUnit.net 00:00:02.66]                  ↓ (pos 0)&#xD;
-[xUnit.net 00:00:02.66]       Expected: "hello"&#xD;
-[xUnit.net 00:00:02.66]       Actual:   "  hello  "&#xD;
-[xUnit.net 00:00:02.66]                  ↑ (pos 0)&#xD;
-[xUnit.net 00:00:02.66]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.66]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(669,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes()&#xD;
-[xUnit.net 00:00:02.66]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(669,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes()&#xD;
-[xUnit.net 00:00:02.66]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.69]       Assert.IsType() Failure: Value is not the exact type&#xD;
-[xUnit.net 00:00:02.69]       Expected: typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
-[xUnit.net 00:00:02.69]       Actual:   typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
-[xUnit.net 00:00:02.69]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.69]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(648,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions()&#xD;
-[xUnit.net 00:00:02.69]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(648,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions()&#xD;
-[xUnit.net 00:00:02.69]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.72]       Assert.False() Failure&#xD;
-[xUnit.net 00:00:02.72]       Expected: False&#xD;
-[xUnit.net 00:00:02.72]       Actual:   True&#xD;
-[xUnit.net 00:00:02.72]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.72]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(694,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected()&#xD;
-[xUnit.net 00:00:02.72]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(694,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected()&#xD;
-[xUnit.net 00:00:02.72]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.73]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.73]       Expected: True&#xD;
-[xUnit.net 00:00:02.73]       Actual:   False&#xD;
-[xUnit.net 00:00:02.73]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.73]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(606,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected()&#xD;
-[xUnit.net 00:00:02.73]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(607,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected()&#xD;
-[xUnit.net 00:00:02.73]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.73]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.73]       Expected: True&#xD;
-[xUnit.net 00:00:02.73]       Actual:   False&#xD;
-[xUnit.net 00:00:02.73]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.73]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(481,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected()&#xD;
-[xUnit.net 00:00:02.73]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(482,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected()&#xD;
-[xUnit.net 00:00:02.73]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.74]       ValuesAreUtc is true but StartTime is still the browser-local value.&#xD;
-[xUnit.net 00:00:02.74]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.74]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(556,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc()&#xD;
-[xUnit.net 00:00:02.74]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(556,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc()&#xD;
-[xUnit.net 00:00:02.74]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.74]       Assert.False() Failure&#xD;
-[xUnit.net 00:00:02.74]       Expected: False&#xD;
-[xUnit.net 00:00:02.74]       Actual:   True&#xD;
-[xUnit.net 00:00:02.74]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.74]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(682,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected()&#xD;
-[xUnit.net 00:00:02.74]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(682,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected()&#xD;
-[xUnit.net 00:00:02.74]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.75]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.75]       Expected: True&#xD;
-[xUnit.net 00:00:02.75]       Actual:   False&#xD;
-[xUnit.net 00:00:02.75]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.75]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(534,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted()&#xD;
-[xUnit.net 00:00:02.75]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(534,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted()&#xD;
-[xUnit.net 00:00:02.75]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.76]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.76]       Expected: True&#xD;
-[xUnit.net 00:00:02.76]       Actual:   False&#xD;
-[xUnit.net 00:00:02.76]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.76]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(621,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate()&#xD;
-[xUnit.net 00:00:02.76]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(622,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate()&#xD;
-[xUnit.net 00:00:02.76]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.77]       Assert.Single() Failure: The collection was empty&#xD;
-[xUnit.net 00:00:02.77]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.77]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(499,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected()&#xD;
-[xUnit.net 00:00:02.77]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(499,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected()&#xD;
-[xUnit.net 00:00:02.77]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.78]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.78]       Expected: True&#xD;
-[xUnit.net 00:00:02.78]       Actual:   False&#xD;
-[xUnit.net 00:00:02.78]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.78]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(454,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected()&#xD;
-[xUnit.net 00:00:02.78]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(455,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected()&#xD;
-[xUnit.net 00:00:02.78]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.80]       Assert.Equal() Failure: Values differ&#xD;
-[xUnit.net 00:00:02.80]       Expected: typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
-[xUnit.net 00:00:02.80]       Actual:   typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
-[xUnit.net 00:00:02.80]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.80]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(639,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame()&#xD;
-[xUnit.net 00:00:02.80]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(639,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame()&#xD;
-[xUnit.net 00:00:02.80]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.80]       Assert.True() Failure&#xD;
-[xUnit.net 00:00:02.80]       Expected: True&#xD;
-[xUnit.net 00:00:02.80]       Actual:   False&#xD;
-[xUnit.net 00:00:02.80]       Stack Trace:&#xD;
-[xUnit.net 00:00:02.80]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(467,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected()&#xD;
-[xUnit.net 00:00:02.80]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(468,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected()&#xD;
-[xUnit.net 00:00:02.80]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:00:02.81]   Finished:    AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.15]   Discovering: AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.27]   Discovered:  AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.28]   Starting:    AmarTools.Voting.Tests&#xD;
+Starting ChromeDriver 154.0.8037.92 (334b65d254ccc35df4fca82706d1753227b01039-refs/branch-heads/8037@{#1589}) on port 57736&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 57736.&#xD;
+[xUnit.net 00:00:02.33]       Assert.False() Failure&#xD;
+[xUnit.net 00:00:02.33]       Expected: False&#xD;
+[xUnit.net 00:00:02.33]       Actual:   True&#xD;
+[xUnit.net 00:00:02.33]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.33]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(441,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened()&#xD;
+[xUnit.net 00:00:02.33]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(441,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened()&#xD;
+[xUnit.net 00:00:02.33]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.88]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.88]       Expected: True&#xD;
+[xUnit.net 00:00:02.88]       Actual:   False&#xD;
+[xUnit.net 00:00:02.88]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.88]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.88]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.88]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.89]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.89]       Expected: True&#xD;
+[xUnit.net 00:00:02.89]       Actual:   False&#xD;
+[xUnit.net 00:00:02.89]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.89]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.89]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.89]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:02.89]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:02.89]       Expected: True&#xD;
+[xUnit.net 00:00:02.89]       Actual:   False&#xD;
+[xUnit.net 00:00:02.89]       Stack Trace:&#xD;
+[xUnit.net 00:00:02.89]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(592,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.89]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(593,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(String field)&#xD;
+[xUnit.net 00:00:02.89]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.04]       Assert.False() Failure&#xD;
+[xUnit.net 00:00:03.04]       Expected: False&#xD;
+[xUnit.net 00:00:03.04]       Actual:   True&#xD;
+[xUnit.net 00:00:03.04]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.04]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(516,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected()&#xD;
+[xUnit.net 00:00:03.04]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(517,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected()&#xD;
+[xUnit.net 00:00:03.04]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.05]       Assert.False() Failure&#xD;
+[xUnit.net 00:00:03.05]       Expected: False&#xD;
+[xUnit.net 00:00:03.05]       Actual:   True&#xD;
+[xUnit.net 00:00:03.05]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(420,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture()&#xD;
+[xUnit.net 00:00:03.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(420,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture()&#xD;
+[xUnit.net 00:00:03.05]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.08]       Assert.Equal() Failure: Strings differ&#xD;
+[xUnit.net 00:00:03.08]                  ↓ (pos 0)&#xD;
+[xUnit.net 00:00:03.08]       Expected: "hello"&#xD;
+[xUnit.net 00:00:03.08]       Actual:   "  hello  "&#xD;
+[xUnit.net 00:00:03.08]                  ↑ (pos 0)&#xD;
+[xUnit.net 00:00:03.08]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.08]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(669,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes()&#xD;
+[xUnit.net 00:00:03.08]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(669,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes()&#xD;
+[xUnit.net 00:00:03.08]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.11]       Assert.IsType() Failure: Value is not the exact type&#xD;
+[xUnit.net 00:00:03.11]       Expected: typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
+[xUnit.net 00:00:03.11]       Actual:   typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
+[xUnit.net 00:00:03.11]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.11]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(648,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions()&#xD;
+[xUnit.net 00:00:03.11]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(648,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions()&#xD;
+[xUnit.net 00:00:03.11]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.13]       Assert.False() Failure&#xD;
+[xUnit.net 00:00:03.13]       Expected: False&#xD;
+[xUnit.net 00:00:03.13]       Actual:   True&#xD;
+[xUnit.net 00:00:03.13]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.13]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(694,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected()&#xD;
+[xUnit.net 00:00:03.13]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(694,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected()&#xD;
+[xUnit.net 00:00:03.13]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.14]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:03.14]       Expected: True&#xD;
+[xUnit.net 00:00:03.14]       Actual:   False&#xD;
+[xUnit.net 00:00:03.14]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.14]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(481,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected()&#xD;
+[xUnit.net 00:00:03.14]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(482,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected()&#xD;
+[xUnit.net 00:00:03.14]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.15]       ValuesAreUtc is true but StartTime is still the browser-local value.&#xD;
+[xUnit.net 00:00:03.15]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.15]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(556,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc()&#xD;
+[xUnit.net 00:00:03.15]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(556,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc()&#xD;
+[xUnit.net 00:00:03.15]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.16]       Assert.False() Failure&#xD;
+[xUnit.net 00:00:03.16]       Expected: False&#xD;
+[xUnit.net 00:00:03.16]       Actual:   True&#xD;
+[xUnit.net 00:00:03.16]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.16]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(682,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected()&#xD;
+[xUnit.net 00:00:03.16]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(682,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected()&#xD;
+[xUnit.net 00:00:03.16]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.18]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:03.18]       Expected: True&#xD;
+[xUnit.net 00:00:03.18]       Actual:   False&#xD;
+[xUnit.net 00:00:03.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.18]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(534,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted()&#xD;
+[xUnit.net 00:00:03.18]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(534,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted()&#xD;
+[xUnit.net 00:00:03.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.18]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:03.18]       Expected: True&#xD;
+[xUnit.net 00:00:03.18]       Actual:   False&#xD;
+[xUnit.net 00:00:03.18]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.18]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(621,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate()&#xD;
+[xUnit.net 00:00:03.18]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(622,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate()&#xD;
+[xUnit.net 00:00:03.18]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.20]       Assert.Single() Failure: The collection was empty&#xD;
+[xUnit.net 00:00:03.20]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.20]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(499,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected()&#xD;
+[xUnit.net 00:00:03.20]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(499,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected()&#xD;
+[xUnit.net 00:00:03.20]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.20]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:03.20]       Expected: True&#xD;
+[xUnit.net 00:00:03.20]       Actual:   False&#xD;
+[xUnit.net 00:00:03.20]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.20]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(454,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected()&#xD;
+[xUnit.net 00:00:03.20]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(455,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected()&#xD;
+[xUnit.net 00:00:03.20]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.22]       Assert.Equal() Failure: Values differ&#xD;
+[xUnit.net 00:00:03.22]       Expected: typeof(Microsoft.AspNetCore.Mvc.ForbidResult)&#xD;
+[xUnit.net 00:00:03.22]       Actual:   typeof(Microsoft.AspNetCore.Mvc.NotFoundResult)&#xD;
+[xUnit.net 00:00:03.22]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.22]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(639,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame()&#xD;
+[xUnit.net 00:00:03.22]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(639,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame()&#xD;
+[xUnit.net 00:00:03.22]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:03.23]       Assert.True() Failure&#xD;
+[xUnit.net 00:00:03.23]       Expected: True&#xD;
+[xUnit.net 00:00:03.23]       Actual:   False&#xD;
+[xUnit.net 00:00:03.23]       Stack Trace:&#xD;
+[xUnit.net 00:00:03.23]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(467,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected()&#xD;
+[xUnit.net 00:00:03.23]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerBoundaryDefectTests.cs(468,0): at AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected()&#xD;
+[xUnit.net 00:00:03.23]         --- End of stack trace from previous location ---&#xD;
+[xUnit.net 00:00:08.17]   Finished:    AmarTools.Voting.Tests&#xD;
 </StdOut>
     </Output>
     <RunInfos>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-08T17:58:23.6113899+06:00">
-        <Text>[xUnit.net 00:00:00.70]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped [SKIP]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:41:59.4962502+06:00">
+        <Text>[xUnit.net 00:00:02.33]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-08T17:58:23.6185396+06:00">
-        <Text>[xUnit.net 00:00:00.71]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected [SKIP]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.0500925+06:00">
+        <Text>[xUnit.net 00:00:02.88]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "description") [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-08T17:58:23.6193294+06:00">
-        <Text>[xUnit.net 00:00:00.71]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected [SKIP]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.0579819+06:00">
+        <Text>[xUnit.net 00:00:02.89]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "imageUrl") [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:24.9926423+06:00">
-        <Text>[xUnit.net 00:00:02.08]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_EndedProgram_CannotBeReopened [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.0606812+06:00">
+        <Text>[xUnit.net 00:00:02.89]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "code") [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.3490735+06:00">
-        <Text>[xUnit.net 00:00:02.44]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "name") [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.2065494+06:00">
+        <Text>[xUnit.net 00:00:03.04]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.3768411+06:00">
-        <Text>[xUnit.net 00:00:02.47]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "description") [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.2161150+06:00">
+        <Text>[xUnit.net 00:00:03.05]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.3818991+06:00">
-        <Text>[xUnit.net 00:00:02.47]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "imageUrl") [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.2508548+06:00">
+        <Text>[xUnit.net 00:00:03.08]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.3861200+06:00">
-        <Text>[xUnit.net 00:00:02.48]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D08_AddCandidate_FieldOverMaxLength_IsRejectedWithValidationMessage(field: "code") [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.2779464+06:00">
+        <Text>[xUnit.net 00:00:03.11]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.3911554+06:00">
-        <Text>[xUnit.net 00:00:02.48]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D07_AddCandidate_SingleCharacterName_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3014433+06:00">
+        <Text>[xUnit.net 00:00:03.13]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.5184609+06:00">
-        <Text>[xUnit.net 00:00:02.61]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D04_RemoveVoter_VoterWhoAlreadyVoted_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3104794+06:00">
+        <Text>[xUnit.net 00:00:03.14]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.5242255+06:00">
-        <Text>[xUnit.net 00:00:02.61]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3174177+06:00">
+        <Text>[xUnit.net 00:00:03.15]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.5692017+06:00">
-        <Text>[xUnit.net 00:00:02.66]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D13_Create_TrimsDescriptionLikeEditDoes [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3223069+06:00">
+        <Text>[xUnit.net 00:00:03.16]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6038404+06:00">
-        <Text>[xUnit.net 00:00:02.69]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_RemoveVoter_MissingProgram_ReturnsNotFoundLikeTheOtherActions [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3451304+06:00">
+        <Text>[xUnit.net 00:00:03.18]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6341529+06:00">
-        <Text>[xUnit.net 00:00:02.72]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_AfterElectionEnded_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3506112+06:00">
+        <Text>[xUnit.net 00:00:03.18]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6377678+06:00">
-        <Text>[xUnit.net 00:00:02.73]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D09_AddCandidate_ProtocolRelativeImageUrl_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3632263+06:00">
+        <Text>[xUnit.net 00:00:03.20]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6425135+06:00">
-        <Text>[xUnit.net 00:00:02.73]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_DeleteCandidate_WhileProgramIsActive_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3686849+06:00">
+        <Text>[xUnit.net 00:00:03.20]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6488004+06:00">
-        <Text>[xUnit.net 00:00:02.74]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D06_DurationFailure_DoesNotLeaveLocalTimesFlaggedAsUtc [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3902512+06:00">
+        <Text>[xUnit.net 00:00:03.22]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame [FAIL]</Text>
       </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6525873+06:00">
-        <Text>[xUnit.net 00:00:02.74]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D14_RegisterVoter_InvalidEmailFormat_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6641723+06:00">
-        <Text>[xUnit.net 00:00:02.75]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D05_Delete_EndedProgramWithVotes_IsNotHardDeleted [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6680168+06:00">
-        <Text>[xUnit.net 00:00:02.76]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6811459+06:00">
-        <Text>[xUnit.net 00:00:02.77]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D03_DeleteCandidate_WithRecordedVotes_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.6983884+06:00">
-        <Text>[xUnit.net 00:00:02.77]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_WhileProgramIsActive_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.7082034+06:00">
-        <Text>[xUnit.net 00:00:02.80]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D11_DeleteCandidate_ExistingAndMissingCandidateOfOtherProgram_BehaveTheSame [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T17:58:25.7135611+06:00">
-        <Text>[xUnit.net 00:00:02.80]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected [FAIL]</Text>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-09T12:42:00.3952804+06:00">
+        <Text>[xUnit.net 00:00:03.23]     AmarTools.Voting.Tests.ProgramOwnerDefectTests.D02_AddCandidate_AfterProgramEnded_IsRejected [FAIL]</Text>
       </RunInfo>
     </RunInfos>
   </ResultSummary>

@@ -1,507 +1,98 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TestRun id="5536e96f-5c87-45ea-87a7-a0bb5a145553" name="USER@DESKTOP-B4GOMB6 2026-10-08 19:26:34" runUser="DESKTOP-B4GOMB6\USER" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
-  <Times creation="2026-10-08T19:26:34.6602850+06:00" queuing="2026-10-08T19:26:34.6602854+06:00" start="2026-10-08T19:22:02.0268961+06:00" finish="2026-10-08T19:26:35.0291531+06:00" />
-  <TestSettings name="default" id="ee1d2896-26b2-4e53-af30-6c865e6b7a75">
-    <Deployment runDeploymentRoot="USER_DESKTOP-B4GOMB6_2026-10-08_19_26_34" />
+<TestRun id="19d7261d-0eff-497d-8e7b-f6afeb20c942" name="USER@DESKTOP-B4GOMB6 2026-10-09 12:53:33" runUser="DESKTOP-B4GOMB6\USER" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-09T12:53:33.1854584+06:00" queuing="2026-10-09T12:53:33.1854588+06:00" start="2026-10-09T12:53:26.1441677+06:00" finish="2026-10-09T12:53:45.2692407+06:00" />
+  <TestSettings name="default" id="cd3d7e8a-4cce-49b7-9c6c-bf3ab2e77dda">
+    <Deployment runDeploymentRoot="USER_DESKTOP-B4GOMB6_2026-10-09_12_53_33" />
   </TestSettings>
   <Results>
-    <UnitTestResult executionId="3e9df169-52fb-41e4-b6fb-babaf9af2950" testId="beae69e4-86fb-fc3c-c322-166b38715032" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5304347+06:00" endTime="2026-10-08T19:26:34.5304348+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3e9df169-52fb-41e4-b6fb-babaf9af2950">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="bf563438-e8e0-430d-801a-58203856de87" testId="f93a3c96-b036-b430-fa21-262013788d93" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5364365+06:00" endTime="2026-10-08T19:26:34.5364367+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf563438-e8e0-430d-801a-58203856de87">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="bfb4646b-e4a7-4b91-95d1-3ad08e581bbd" testId="969550a3-28cc-ab86-9de7-4441bdb24449" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5252768+06:00" endTime="2026-10-08T19:26:34.5252770+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bfb4646b-e4a7-4b91-95d1-3ad08e581bbd">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="31b6d94f-d94c-4fc4-8dbb-068508508c70" testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5350067+06:00" endTime="2026-10-08T19:26:34.5350070+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="31b6d94f-d94c-4fc4-8dbb-068508508c70">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="cc4f22bf-4773-451d-a5e3-63d0265bfc0a" testId="d6268953-9a6d-a4f2-4417-b83452034f45" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5284099+06:00" endTime="2026-10-08T19:26:34.5284100+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc4f22bf-4773-451d-a5e3-63d0265bfc0a">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="cc1196a9-30c8-4aae-97ba-3218aefb137e" testId="46b53826-145c-3c3f-13b3-02825909ff55" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5318719+06:00" endTime="2026-10-08T19:26:34.5318722+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="cc1196a9-30c8-4aae-97ba-3218aefb137e">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="a226272b-b92d-4ca6-8d1f-f14ea143615d" testId="a48889c9-f273-7057-f0d7-39aed42cbffe" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5638592+06:00" endTime="2026-10-08T19:26:34.5638594+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a226272b-b92d-4ca6-8d1f-f14ea143615d">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="370fc778-9843-4c65-8bdd-ebc07a94c8c4" testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5334274+06:00" endTime="2026-10-08T19:26:34.5334275+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="370fc778-9843-4c65-8bdd-ebc07a94c8c4">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="07494f11-ce1f-4e71-ae6d-8711c555339c" testId="13af4e07-aa81-897e-ca22-b77a4804d92c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5269279+06:00" endTime="2026-10-08T19:26:34.5269280+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="07494f11-ce1f-4e71-ae6d-8711c555339c">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="936b5410-c514-402e-8f04-7a880a3b84c0" testId="8edf8b5d-4f31-2169-2d6b-948138e91132" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5198890+06:00" endTime="2026-10-08T19:26:34.5199054+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="936b5410-c514-402e-8f04-7a880a3b84c0">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
-    <UnitTestResult executionId="39e0ee94-5a4d-452f-82f1-6cb8a505cf21" testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-08T19:26:34.5646859+06:00" endTime="2026-10-08T19:26:34.5646861+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39e0ee94-5a4d-452f-82f1-6cb8a505cf21">
-      <Output>
-        <ErrorInfo>
-          <Message>Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
----- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)</Message>
-          <StackTrace>&#xD;
------ Inner Stack Trace -----&#xD;
-   at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-   at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-   at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
---- End of stack trace from previous location ---&#xD;
-   at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-   at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor() in D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs:line 69&#xD;
-   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</StackTrace>
-        </ErrorInfo>
-      </Output>
-    </UnitTestResult>
+    <UnitTestResult executionId="428f9da3-0662-43f5-96ed-7c0aa74c3f88" testId="beae69e4-86fb-fc3c-c322-166b38715032" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:02.8387876" startTime="2026-10-09T12:53:38.0565848+06:00" endTime="2026-10-09T12:53:38.0565853+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="428f9da3-0662-43f5-96ed-7c0aa74c3f88" />
+    <UnitTestResult executionId="67e8e918-a16a-426e-86e7-b85c4b8b4958" testId="a48889c9-f273-7057-f0d7-39aed42cbffe" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.9324259" startTime="2026-10-09T12:53:43.1728287+06:00" endTime="2026-10-09T12:53:43.1728290+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="67e8e918-a16a-426e-86e7-b85c4b8b4958" />
+    <UnitTestResult executionId="e22970d9-9045-45cc-b809-7d7d7342a6dc" testId="8edf8b5d-4f31-2169-2d6b-948138e91132" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.6139687" startTime="2026-10-09T12:53:33.1321422+06:00" endTime="2026-10-09T12:53:33.1321663+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e22970d9-9045-45cc-b809-7d7d7342a6dc" />
+    <UnitTestResult executionId="72cae1e5-5b6a-4927-b8c9-1d8049ab4f4b" testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:01.2090341" startTime="2026-10-09T12:53:42.0985492+06:00" endTime="2026-10-09T12:53:42.0985499+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="72cae1e5-5b6a-4927-b8c9-1d8049ab4f4b" />
+    <UnitTestResult executionId="97f6c5c2-af2a-4f81-a616-6438f2a40f80" testId="13af4e07-aa81-897e-ca22-b77a4804d92c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.5972119" startTime="2026-10-09T12:53:34.7703207+06:00" endTime="2026-10-09T12:53:34.7703213+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="97f6c5c2-af2a-4f81-a616-6438f2a40f80" />
+    <UnitTestResult executionId="b8a276c2-ec09-4838-9f77-160773844d1e" testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:01.7076344" startTime="2026-10-09T12:53:44.8806846+06:00" endTime="2026-10-09T12:53:44.8806852+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="b8a276c2-ec09-4838-9f77-160773844d1e" />
+    <UnitTestResult executionId="ada6879c-dc0e-4f77-b1be-c37fc9bc9fc0" testId="969550a3-28cc-ab86-9de7-4441bdb24449" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:01.0421269" startTime="2026-10-09T12:53:34.1729791+06:00" endTime="2026-10-09T12:53:34.1729795+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ada6879c-dc0e-4f77-b1be-c37fc9bc9fc0" />
+    <UnitTestResult executionId="555c543f-05e7-40e4-b17b-b7852f31c49d" testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:01.7952288" startTime="2026-10-09T12:53:40.8892942+06:00" endTime="2026-10-09T12:53:40.8892947+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="555c543f-05e7-40e4-b17b-b7852f31c49d" />
+    <UnitTestResult executionId="8ec416a1-9398-4dbf-9bba-1f7f3cec6a74" testId="f93a3c96-b036-b430-fa21-262013788d93" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin" computerName="DESKTOP-B4GOMB6" duration="00:00:00.1415485" startTime="2026-10-09T12:53:42.2402078+06:00" endTime="2026-10-09T12:53:42.2402083+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8ec416a1-9398-4dbf-9bba-1f7f3cec6a74" />
+    <UnitTestResult executionId="04de298f-dddb-453d-bd81-4b320f5c2fbb" testId="d6268953-9a6d-a4f2-4417-b83452034f45" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" computerName="DESKTOP-B4GOMB6" duration="00:00:00.4471441" startTime="2026-10-09T12:53:35.2176491+06:00" endTime="2026-10-09T12:53:35.2176495+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04de298f-dddb-453d-bd81-4b320f5c2fbb" />
+    <UnitTestResult executionId="e918a357-422e-4794-a81e-f7f7ed79263b" testId="46b53826-145c-3c3f-13b3-02825909ff55" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.0371158" startTime="2026-10-09T12:53:39.0938434+06:00" endTime="2026-10-09T12:53:39.0938437+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e918a357-422e-4794-a81e-f7f7ed79263b" />
   </Results>
   <TestDefinitions>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="63632cc0-953f-7fe1-8b4d-082fc4345a77">
-      <Execution id="370fc778-9843-4c65-8bdd-ebc07a94c8c4" />
+      <Execution id="555c543f-05e7-40e4-b17b-b7852f31c49d" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="RegisterVoter_DuplicateEmail_ShowsError" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="a48889c9-f273-7057-f0d7-39aed42cbffe">
-      <Execution id="a226272b-b92d-4ca6-8d1f-f14ea143615d" />
+      <Execution id="67e8e918-a16a-426e-86e7-b85c4b8b4958" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="DeleteProgram_Unpublished_RemovesItFromTheDashboard" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c">
-      <Execution id="31b6d94f-d94c-4fc4-8dbb-068508508c70" />
+      <Execution id="72cae1e5-5b6a-4927-b8c9-1d8049ab4f4b" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_ValidInput_ShowsSuccess" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f8635b8f-3e26-f15f-9256-3b3b4726d59b">
-      <Execution id="39e0ee94-5a4d-452f-82f1-6cb8a505cf21" />
+      <Execution id="b8a276c2-ec09-4838-9f77-160773844d1e" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_DuplicateCode_ShowsError" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="969550a3-28cc-ab86-9de7-4441bdb24449">
-      <Execution id="bfb4646b-e4a7-4b91-95d1-3ad08e581bbd" />
+      <Execution id="ada6879c-dc0e-4f77-b1be-c37fc9bc9fc0" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="RegisterVoter_ValidInput_ShowsSuccess" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f93a3c96-b036-b430-fa21-262013788d93">
-      <Execution id="bf563438-e8e0-430d-801a-58203856de87" />
+      <Execution id="8ec416a1-9398-4dbf-9bba-1f7f3cec6a74" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="Dashboard_IsShownAfterLogin" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="8edf8b5d-4f31-2169-2d6b-948138e91132">
-      <Execution id="936b5410-c514-402e-8f04-7a880a3b84c0" />
+      <Execution id="e22970d9-9045-45cc-b809-7d7d7342a6dc" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_JavascriptImageUrl_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="beae69e4-86fb-fc3c-c322-166b38715032">
-      <Execution id="3e9df169-52fb-41e4-b6fb-babaf9af2950" />
+      <Execution id="428f9da3-0662-43f5-96ed-7c0aa74c3f88" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_ProtocolRelativeImageUrl_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="46b53826-145c-3c3f-13b3-02825909ff55">
-      <Execution id="cc1196a9-30c8-4aae-97ba-3218aefb137e" />
+      <Execution id="e918a357-422e-4794-a81e-f7f7ed79263b" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_SingleCharacterName_IsRejected" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="d6268953-9a6d-a4f2-4417-b83452034f45">
-      <Execution id="cc4f22bf-4773-451d-a5e3-63d0265bfc0a" />
+      <Execution id="04de298f-dddb-453d-bd81-4b320f5c2fbb" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" />
     </UnitTest>
     <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="13af4e07-aa81-897e-ca22-b77a4804d92c">
-      <Execution id="07494f11-ce1f-4e71-ae6d-8711c555339c" />
+      <Execution id="97f6c5c2-af2a-4f81-a616-6438f2a40f80" />
       <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="CreateProgram_ValidInput_AppearsOnDashboard" />
     </UnitTest>
   </TestDefinitions>
   <TestEntries>
-    <TestEntry testId="beae69e4-86fb-fc3c-c322-166b38715032" executionId="3e9df169-52fb-41e4-b6fb-babaf9af2950" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="f93a3c96-b036-b430-fa21-262013788d93" executionId="bf563438-e8e0-430d-801a-58203856de87" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="969550a3-28cc-ab86-9de7-4441bdb24449" executionId="bfb4646b-e4a7-4b91-95d1-3ad08e581bbd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" executionId="31b6d94f-d94c-4fc4-8dbb-068508508c70" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="d6268953-9a6d-a4f2-4417-b83452034f45" executionId="cc4f22bf-4773-451d-a5e3-63d0265bfc0a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="46b53826-145c-3c3f-13b3-02825909ff55" executionId="cc1196a9-30c8-4aae-97ba-3218aefb137e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="a48889c9-f273-7057-f0d7-39aed42cbffe" executionId="a226272b-b92d-4ca6-8d1f-f14ea143615d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" executionId="370fc778-9843-4c65-8bdd-ebc07a94c8c4" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="13af4e07-aa81-897e-ca22-b77a4804d92c" executionId="07494f11-ce1f-4e71-ae6d-8711c555339c" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="8edf8b5d-4f31-2169-2d6b-948138e91132" executionId="936b5410-c514-402e-8f04-7a880a3b84c0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
-    <TestEntry testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" executionId="39e0ee94-5a4d-452f-82f1-6cb8a505cf21" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="beae69e4-86fb-fc3c-c322-166b38715032" executionId="428f9da3-0662-43f5-96ed-7c0aa74c3f88" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a48889c9-f273-7057-f0d7-39aed42cbffe" executionId="67e8e918-a16a-426e-86e7-b85c4b8b4958" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8edf8b5d-4f31-2169-2d6b-948138e91132" executionId="e22970d9-9045-45cc-b809-7d7d7342a6dc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" executionId="72cae1e5-5b6a-4927-b8c9-1d8049ab4f4b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13af4e07-aa81-897e-ca22-b77a4804d92c" executionId="97f6c5c2-af2a-4f81-a616-6438f2a40f80" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" executionId="b8a276c2-ec09-4838-9f77-160773844d1e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="969550a3-28cc-ab86-9de7-4441bdb24449" executionId="ada6879c-dc0e-4f77-b1be-c37fc9bc9fc0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" executionId="555c543f-05e7-40e4-b17b-b7852f31c49d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f93a3c96-b036-b430-fa21-262013788d93" executionId="8ec416a1-9398-4dbf-9bba-1f7f3cec6a74" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6268953-9a6d-a4f2-4417-b83452034f45" executionId="04de298f-dddb-453d-bd81-4b320f5c2fbb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46b53826-145c-3c3f-13b3-02825909ff55" executionId="e918a357-422e-4794-a81e-f7f7ed79263b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
   </TestEntries>
   <TestLists>
     <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
     <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
   </TestLists>
-  <ResultSummary outcome="Failed">
-    <Counters total="11" executed="11" passed="0" failed="11" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+  <ResultSummary outcome="Completed">
+    <Counters total="11" executed="11" passed="11" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
     <Output>
       <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 8.0.31)&#xD;
-[xUnit.net 00:00:00.07]   Discovering: AmarTools.Voting.Tests&#xD;
-[xUnit.net 00:00:00.13]   Discovered:  AmarTools.Voting.Tests&#xD;
-[xUnit.net 00:00:00.14]   Starting:    AmarTools.Voting.Tests&#xD;
-Starting ChromeDriver 154.0.8037.92 (334b65d254ccc35df4fca82706d1753227b01039-refs/branch-heads/8037@{#1589}) on port 58383&#xD;
+[xUnit.net 00:00:00.15]   Discovering: AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.26]   Discovered:  AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.27]   Starting:    AmarTools.Voting.Tests&#xD;
+Starting ChromeDriver 154.0.8037.92 (334b65d254ccc35df4fca82706d1753227b01039-refs/branch-heads/8037@{#1589}) on port 50070&#xD;
 Only local connections are allowed.&#xD;
 Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
-ChromeDriver was started successfully on port 58383.&#xD;
-[xUnit.net 00:04:32.04]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.04]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.04]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.04]         &#xD;
-[xUnit.net 00:04:32.04]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.04]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.04]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.04]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.04]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.04]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.04]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.04]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.04]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.04]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.05]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.05]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.05]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.05]         &#xD;
-[xUnit.net 00:04:32.05]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.05]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.05]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.05]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.05]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.05]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.06]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.06]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.06]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.06]         &#xD;
-[xUnit.net 00:04:32.06]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.06]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.06]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.06]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.06]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.06]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.06]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.06]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.06]         &#xD;
-[xUnit.net 00:04:32.06]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.06]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.06]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.06]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.06]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.06]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.08]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.08]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.08]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.09]         &#xD;
-[xUnit.net 00:04:32.09]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.09]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.09]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.09]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.09]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.09]       Class fixture type 'AmarTools.Voting.Tests.OwnerBrowserFixture' threw in its constructor&#xD;
-[xUnit.net 00:04:32.09]       ---- OpenQA.Selenium.WebDriverException : unknown error: net::ERR_CONNECTION_REFUSED
-  (Session info: chrome=154.0.8037.98)&#xD;
-[xUnit.net 00:04:32.09]       Stack Trace:&#xD;
-[xUnit.net 00:04:32.09]         &#xD;
-[xUnit.net 00:04:32.09]         ----- Inner Stack Trace -----&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.WebDriver.UnpackAndThrowOnError(Response errorResponse, String commandToExecute)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.WebDriver.ExecuteAsync(String driverCommandToExecute, Dictionary`2 parameters)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.GoToUrlAsync(String url)&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.&lt;&gt;c__DisplayClass6_0.&lt;&lt;GoToUrl&gt;b__0&gt;d.MoveNext()&#xD;
-[xUnit.net 00:04:32.09]         --- End of stack trace from previous location ---&#xD;
-[xUnit.net 00:04:32.09]            at OpenQA.Selenium.Navigator.GoToUrl(String url)&#xD;
-[xUnit.net 00:04:32.09]         D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\ProgramOwnerSeleniumFlowTests.cs(69,0): at AmarTools.Voting.Tests.OwnerBrowserFixture..ctor()&#xD;
-[xUnit.net 00:04:32.09]            at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)&#xD;
-[xUnit.net 00:04:32.09]            at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)&#xD;
-[xUnit.net 00:04:32.09]   Finished:    AmarTools.Voting.Tests&#xD;
+ChromeDriver was started successfully on port 50070.&#xD;
+[xUnit.net 00:00:18.16]   Finished:    AmarTools.Voting.Tests&#xD;
 </StdOut>
     </Output>
-    <RunInfos>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5635248+06:00">
-        <Text>[xUnit.net 00:04:32.03]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5654019+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5656760+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5659532+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5665196+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5669242+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5671118+06:00">
-        <Text>[xUnit.net 00:04:32.05]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5677234+06:00">
-        <Text>[xUnit.net 00:04:32.06]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.5684802+06:00">
-        <Text>[xUnit.net 00:04:32.06]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.6836887+06:00">
-        <Text>[xUnit.net 00:04:32.08]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard [FAIL]</Text>
-      </RunInfo>
-      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Error" timestamp="2026-10-08T19:26:34.6838605+06:00">
-        <Text>[xUnit.net 00:04:32.09]     AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError [FAIL]</Text>
-      </RunInfo>
-    </RunInfos>
   </ResultSummary>
 </TestRun>
