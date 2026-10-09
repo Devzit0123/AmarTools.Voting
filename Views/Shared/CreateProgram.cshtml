@@ -54,7 +54,7 @@
     <div class="col-lg-8">
         <div class="card border-0 shadow-sm">
             <div class="card-body p-4">
-                <form asp-controller="@controllerName" asp-action="@actionName" method="post" id="programForm" data-values-are-utc="@Model.ValuesAreUtc.ToString().ToLowerInvariant()">
+                <form asp-controller="@controllerName" asp-action="@actionName" method="post" id="programForm" data-values-are-utc="@((Model?.ValuesAreUtc ?? false).ToString().ToLowerInvariant())">
                     @Html.AntiForgeryToken()
                     @if (isEdit)
                     {

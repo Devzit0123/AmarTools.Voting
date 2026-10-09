@@ -6,8 +6,8 @@
     var results = ViewBag.Results as List<AmarTools.Voting.Models.CandidateResultViewModel> ?? new();
     var totalVotes = (int?)(ViewBag.TotalVotes) ?? 0;
     var chainValid = (bool?)(ViewBag.BlockchainValid) ?? false;
-    var startUtc = DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc);
-    var endUtc = DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc);
+    var startUtc = DateTime.SpecifyKind(Model?.StartTime ?? DateTime.UtcNow, DateTimeKind.Utc);
+    var endUtc = DateTime.SpecifyKind(Model?.EndTime ?? DateTime.UtcNow, DateTimeKind.Utc);
     var resultsList = results;
 }
 

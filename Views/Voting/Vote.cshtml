@@ -6,8 +6,9 @@
     var remaining = ViewBag.RemainingTime as TimeSpan?;
     var candidates = ViewBag.Candidates as List<AmarTools.Voting.Models.Candidate> ?? new();
     var isRegisteredVoter = ViewBag.IsRegisteredVoter as bool? ?? false;
-    var startUtc = DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc);
-    var endUtc = DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc);
+    var hasVoted = ViewBag.HasVoted as bool? ?? false;
+    var startUtc = DateTime.SpecifyKind(Model?.StartTime ?? DateTime.UtcNow, DateTimeKind.Utc);
+    var endUtc = DateTime.SpecifyKind(Model?.EndTime ?? DateTime.UtcNow, DateTimeKind.Utc);
 }
 
 <style>
@@ -160,7 +161,7 @@
     @if (candidates.Count > 0)
     {
         <h4 class="fw-bold mb-4 text-center">
-            @if (isRegisteredVoter)
+            @if (isRegisteredVoter && !hasVoted)
             {
                 <span>Select your candidate to cast your vote</span>
             }
@@ -199,7 +200,7 @@
                             }
 
                             <div class="mt-auto">
-                                @if (isRegisteredVoter)
+                                @if (isRegisteredVoter && !hasVoted)
                                 {
                                     <form asp-action="CastVote" method="post">
                                         @Html.AntiForgeryToken()
@@ -210,6 +211,10 @@
                                             <i class="bi bi-check-circle-fill me-2"></i>Vote for @candidate.Name
                                         </button>
                                     </form>
+                                }
+                                else if (hasVoted)
+                                {
+                                    <div class="alert alert-success mb-0">You have already voted in this program.</div>
                                 }
                                 else if (User.Identity?.IsAuthenticated == true)
                                 {

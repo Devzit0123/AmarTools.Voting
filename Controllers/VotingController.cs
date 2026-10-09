@@ -25,7 +25,7 @@ namespace AmarTools.Voting.Controllers
         public async Task<IActionResult> Vote(int id)
         {
             var program = await _votingService.GetProgramWithCandidatesAsync(id);
-            if (program == null) return NotFound();
+            if (program == null || !program.IsPublished) return NotFound();
 
             var now = DateTime.UtcNow;
 
@@ -46,12 +46,16 @@ namespace AmarTools.Voting.Controllers
             if (User.Identity?.IsAuthenticated == true)
             {
                 var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-                ViewBag.IsRegisteredVoter = await _context.Voters
-                    .AnyAsync(v => v.ProgramId == id && v.UserId == userId);
+                var voter = string.IsNullOrEmpty(userId)
+                    ? null
+                    : await _context.Voters.FirstOrDefaultAsync(v => v.ProgramId == id && v.UserId == userId);
+                ViewBag.IsRegisteredVoter = voter is not null;
+                ViewBag.HasVoted = voter?.HasVoted ?? false;
             }
             else
             {
                 ViewBag.IsRegisteredVoter = false;
+                ViewBag.HasVoted = false;
             }
 
             return View(program);
@@ -72,7 +76,14 @@ namespace AmarTools.Voting.Controllers
             ViewBag.StartTimeUtc = DateTime.SpecifyKind(program.StartTime, DateTimeKind.Utc);
             ViewBag.EndTimeUtc   = DateTime.SpecifyKind(program.EndTime,   DateTimeKind.Utc);
             ViewBag.NowUtc       = DateTime.SpecifyKind(DateTime.UtcNow,   DateTimeKind.Utc);
-            ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
+            try
+            {
+                ViewBag.BlockchainValid = await _blockchainService.IsChainValidForProgramAsync(_context, id);
+            }
+            catch
+            {
+                ViewBag.BlockchainValid = false;
+            }
 
             return View("PublicResults", program);
         }
@@ -92,7 +103,7 @@ namespace AmarTools.Voting.Controllers
             var programs = await _context.VotingPrograms
                 .Where(p => p.IsPublished &&
                             p.ProgramName.ToLower().Contains(q.ToLower()))
-                .OrderByDescending(p => p.IsActive)
+                .OrderByDescending(p => p.StartTime <= now && p.EndTime > now)
                 .ThenByDescending(p => p.StartTime)
                 .Take(8)
                 .Select(p => new
@@ -131,37 +142,13 @@ namespace AmarTools.Voting.Controllers
 
             bool exists = await _context.Voters
                 .AnyAsync(v => v.ProgramId == programId && v.UserId == userId);
-
             if (exists)
             {
                 TempData["Error"] = "You are already registered for this program.";
                 return RedirectToAction(nameof(Vote), new { id = programId });
             }
 
-            var user = await _context.Users.FindAsync(userId);
-
-            var voter = new Voter
-            {
-                Name               = user?.FullName?.Trim() ?? user?.UserName ?? "Anonymous Voter",
-                Email              = user?.Email,
-                ProgramId          = programId,
-                UserId             = userId,
-                RegisteredAt       = DateTime.UtcNow,
-                RegistrationSource = "self",
-            };
-
-            try
-            {
-                _context.Voters.Add(voter);
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                TempData["Error"] = "Registration could not be completed right now. Please try again.";
-                return RedirectToAction(nameof(Vote), new { id = programId });
-            }
-
-            TempData["Success"] = "You have been registered for this program. You can now cast your vote.";
+            TempData["Error"] = "Only the program owner can register voters for this program.";
             return RedirectToAction(nameof(Vote), new { id = programId });
         }
 
@@ -221,7 +208,7 @@ namespace AmarTools.Voting.Controllers
                     VotedAt     = DateTime.UtcNow,
                     VoteSource  = "web",
                     IpAddress   = HttpContext.Connection.RemoteIpAddress?.ToString(),
-                    UserAgent   = Request.Headers.UserAgent.ToString(),
+                    UserAgent   = Request.Headers.UserAgent.ToString()[..Math.Min(Request.Headers.UserAgent.ToString().Length, 512)],
                 };
 
                 _context.Votes.Add(vote);
@@ -242,6 +229,7 @@ namespace AmarTools.Voting.Controllers
                 }
 
                 TempData["Success"]     = "Your vote has been recorded successfully!";
+                TempData["VoteRecorded"] = true;
                 TempData["ProgramName"] = program.ProgramName;
                 TempData["ProgramId"]   = programId;
 
@@ -275,7 +263,14 @@ namespace AmarTools.Voting.Controllers
             }
         }
 
-        [HttpGet] public IActionResult ThankYou() => View();
+        [HttpGet]
+        public IActionResult ThankYou()
+        {
+            if (TempData["VoteRecorded"] is not true)
+                return RedirectToAction(nameof(Vote));
+
+            return View();
+        }
         [HttpGet] public IActionResult Closed()   => View();
     }
 }

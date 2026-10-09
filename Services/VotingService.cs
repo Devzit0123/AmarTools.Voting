@@ -87,6 +87,12 @@ namespace AmarTools.Voting.Services
             if (!currentUser.IsAdmin && existingProgram.OwnerId != currentUser.UserId)
                 return (false, "You are not allowed to update this voting program.");
 
+            if (existingProgram.HasStarted &&
+                (existingProgram.StartTime != model.StartTime ||
+                 existingProgram.EndTime != model.EndTime ||
+                 existingProgram.IsPublished != model.IsPublished))
+                return (false, "Voting schedule and publication status cannot be changed after voting has started.");
+
             existingProgram.ProgramName = model.ProgramName?.Trim() ?? string.Empty;
             existingProgram.Description = string.IsNullOrWhiteSpace(model.Description) ? null : model.Description.Trim();
             existingProgram.StartTime = model.StartTime;
@@ -121,10 +127,20 @@ namespace AmarTools.Voting.Services
             if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(email))
                 return (false, "Name and Email are required.");
 
-            email = email.Trim().ToLowerInvariant();
+            name = name.Trim();
+            if (name.Length is < 2 or > 150)
+                return (false, "Voter name must be between 2 and 150 characters.");
 
-            if (!await ProgramExistsAsync(programId))
+            email = email.Trim().ToLowerInvariant();
+            if (!new System.ComponentModel.DataAnnotations.EmailAddressAttribute().IsValid(email))
+                return (false, "Please provide a valid email address.");
+
+            var program = await context.VotingPrograms.FirstOrDefaultAsync(p => p.Id == programId);
+            if (program is null)
                 return (false, "Voting program not found.");
+
+            if (program.HasStarted)
+                return (false, "Voter registration is closed because voting has started.");
 
             // FIX: The original code only checked for duplicate EMAIL.
             //      The DB unique constraint is on {ProgramId, UserId}.
@@ -155,7 +171,7 @@ namespace AmarTools.Voting.Services
 
             var voter = new Voter
             {
-                Name = name.Trim(),
+                Name = name,
                 Email = email,
                 MemberId = string.IsNullOrWhiteSpace(memberId) ? null : memberId.Trim(),
                 ProgramId = programId,
@@ -186,6 +202,9 @@ namespace AmarTools.Voting.Services
             var voter = await context.Voters.FindAsync(voterId);
             if (voter == null || voter.ProgramId != programId)
                 return (false, "Voter not found.");
+
+            if (voter.HasVoted)
+                return (false, "A voter who has voted cannot be removed.");
 
             try
             {
@@ -239,6 +258,7 @@ namespace AmarTools.Voting.Services
                 return (false, "Unable to determine the current user. Please sign in again.", null);
 
             model.ProgramName = model.ProgramName?.Trim() ?? string.Empty;
+            model.Description = string.IsNullOrWhiteSpace(model.Description) ? null : model.Description.Trim();
             if (string.IsNullOrWhiteSpace(model.ProgramName))
                 return (false, "Program name is required.", null);
 
@@ -252,13 +272,12 @@ namespace AmarTools.Voting.Services
             var startUtc = NormalizeToUtc(model.StartTime, model.StartTimeOffsetMinutes);
             var endUtc = NormalizeToUtc(model.EndTime, model.EndTimeOffsetMinutes);
 
+            model.StartTime = startUtc;
+            model.EndTime = endUtc;
             model.ValuesAreUtc = true;
 
             if (endUtc < startUtc.Add(MinimumProgramDuration))
                 return (false, $"End time must be at least {MinimumProgramDuration.TotalMinutes} minutes after the start time.", null);
-
-            model.StartTime = startUtc;
-            model.EndTime = endUtc;
 
             if (!TryNormalizeSlug(model.Slug, out var normalizedSlug))
                 return (false, "Slug can only contain lowercase letters, numbers, hyphens, and underscores.", null);

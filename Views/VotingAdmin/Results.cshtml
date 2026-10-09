@@ -173,9 +173,9 @@
             <div class="card-header">Program Period</div>
             <div class="card-body small">
                 <strong>Start:</strong>
-                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model.StartTime, DateTimeKind.Utc).ToString("O")"></time><br />
+                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model?.StartTime ?? DateTime.UtcNow, DateTimeKind.Utc).ToString("O")"></time><br />
                 <strong>End:</strong>
-                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model.EndTime, DateTimeKind.Utc).ToString("O")"></time>
+                <time class="local-time" data-utc="@DateTime.SpecifyKind(Model?.EndTime ?? DateTime.UtcNow, DateTimeKind.Utc).ToString("O")"></time>
             </div>
         </div>
 

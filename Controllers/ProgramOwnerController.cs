@@ -176,14 +176,28 @@ namespace AmarTools.Voting.Controllers
                 return RedirectToAction(nameof(ManageCandidates), new { programId });
             }
 
+            candidateCode = candidateCode.Trim();
+            description = string.IsNullOrWhiteSpace(description) ? null : description.Trim();
+            if (candidateCode.Length > 50 || description?.Length > 500 || imageUrl?.Trim().Length > 500)
+            {
+                TempData["Error"] = "Candidate code, description, and image URL must not exceed their maximum lengths.";
+                return RedirectToAction(nameof(ManageCandidates), new { programId });
+            }
+
             var program = await _context.VotingPrograms.FindAsync(programId);
             if (program is null) return NotFound();
 
             if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
+            if (program.HasStarted)
+            {
+                TempData["Error"] = "Candidates cannot be changed after voting has started.";
+                return RedirectToAction(nameof(ManageCandidates), new { programId });
+            }
+
             bool codeExists = await _context.Candidates
-                .AnyAsync(c => c.ProgramId == programId && c.CandidateCode == candidateCode.Trim());
+                .AnyAsync(c => c.ProgramId == programId && c.CandidateCode.ToUpper() == candidateCode.ToUpper());
 
             if (codeExists)
             {
@@ -215,8 +229,8 @@ namespace AmarTools.Voting.Controllers
             var candidate = new Candidate
             {
                 Name = name.Trim(),
-                CandidateCode = candidateCode.Trim(),
-                Description = string.IsNullOrWhiteSpace(description) ? null : description.Trim(),
+                CandidateCode = candidateCode,
+                Description = description,
                 ImageUrl = safeImageUrl,
                 ProgramId = programId,
                 CreatedAt = DateTime.UtcNow,
@@ -242,14 +256,26 @@ namespace AmarTools.Voting.Controllers
         [EnableRateLimiting("admin")]
         public async Task<IActionResult> DeleteCandidate(int id, int programId)
         {
-            var candidate = await _context.Candidates.FindAsync(id);
-            if (candidate is null) return NotFound();
-
             var program = await _context.VotingPrograms.FindAsync(programId);
-            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
+            if (program is null) return NotFound();
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
-            if (candidate.ProgramId != programId) return Forbid();
+            var candidate = await _context.Candidates
+                .FirstOrDefaultAsync(c => c.Id == id && c.ProgramId == programId);
+            if (candidate is null) return NotFound();
+
+            if (program.HasStarted)
+            {
+                TempData["Error"] = "Candidates cannot be changed after voting has started.";
+                return RedirectToAction(nameof(ManageCandidates), new { programId });
+            }
+
+            if (await _context.Votes.AnyAsync(v => v.CandidateId == id))
+            {
+                TempData["Error"] = "A candidate with recorded votes cannot be deleted.";
+                return RedirectToAction(nameof(ManageCandidates), new { programId });
+            }
 
             try
             {
@@ -353,9 +379,9 @@ namespace AmarTools.Voting.Controllers
         [EnableRateLimiting("admin")]
         public async Task<IActionResult> RemoveVoter(int voterId, int programId)
         {
-            // Ownership check
             var program = await _context.VotingPrograms.FindAsync(programId);
-            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
+            if (program is null) return NotFound();
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
             // FIX: delegates to service (same as Admin controller)
@@ -381,6 +407,12 @@ namespace AmarTools.Voting.Controllers
             if (program.IsPublished && !program.HasEnded)
             {
                 TempData["Error"] = "Cannot delete a published program that has not yet ended. Unpublish it first.";
+                return RedirectToAction(nameof(MyPrograms));
+            }
+
+            if (await _context.Votes.AnyAsync(v => v.ProgramId == id))
+            {
+                TempData["Error"] = "A program with recorded votes cannot be deleted.";
                 return RedirectToAction(nameof(MyPrograms));
             }
 

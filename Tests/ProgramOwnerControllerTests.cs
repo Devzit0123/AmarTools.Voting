@@ -319,7 +319,7 @@ public sealed class ProgramOwnerControllerTests
     }
 
     [Fact]
-    public async Task DeleteCandidate_WrongProgram_ReturnsForbid()
+    public async Task DeleteCandidate_WrongProgram_ReturnsNotFound()
     {
         await using var context = CreateContext();
         context.VotingPrograms.Add(Program(1, "owner-1"));
@@ -329,7 +329,7 @@ public sealed class ProgramOwnerControllerTests
         var controller = CreateController(context);
         SetUser(controller, "owner-1");
 
-        Assert.IsType<ForbidResult>(await controller.DeleteCandidate(2, 1));
+        Assert.IsType<NotFoundResult>(await controller.DeleteCandidate(2, 1));
     }
 
     [Fact]
@@ -471,10 +471,10 @@ public sealed class ProgramOwnerControllerTests
     }
 
     [Fact]
-    public async Task RemoveVoter_MissingProgram_ReturnsForbid()
+    public async Task RemoveVoter_MissingProgram_ReturnsNotFound()
     {
         await using var context = CreateContext();
-        Assert.IsType<ForbidResult>(await CreateController(context).RemoveVoter(1, 1));
+        Assert.IsType<NotFoundResult>(await CreateController(context).RemoveVoter(1, 1));
     }
 
     [Theory]
@@ -559,8 +559,8 @@ public sealed class ProgramOwnerControllerTests
         Id = id,
         ProgramName = $"Program {id}",
         OwnerId = ownerId,
-        StartTime = DateTime.UtcNow.AddHours(-1),
-        EndTime = DateTime.UtcNow.AddHours(1)
+        StartTime = DateTime.UtcNow.AddHours(1),
+        EndTime = DateTime.UtcNow.AddHours(2)
     };
 
     private static VotingDbContext CreateContext()

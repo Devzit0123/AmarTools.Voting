@@ -17,7 +17,7 @@ namespace AmarTools.Voting.Tests;
 public class VotePathTests
 {
     [Fact]
-    public async Task JoinAtProgramStart_RegistersTheAuthenticatedVoter()
+    public async Task JoinAtProgramStart_DoesNotRegisterAnUnregisteredVoter()
     {
         await using var context = CreateContext();
         var user = new ApplicationUser
@@ -35,10 +35,10 @@ public class VotePathTests
 
         var result = await controller.Join(program.Id);
 
-        Assert.IsType<RedirectToActionResult>(result);
-        var voter = await context.Voters.SingleAsync();
-        Assert.Equal("voter-1", voter.UserId);
-        Assert.Equal(program.Id, voter.ProgramId);
+        var redirect = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal(nameof(VotingController.Vote), redirect.ActionName);
+        Assert.Equal("Only the program owner can register voters for this program.", controller.TempData["Error"]);
+        Assert.Empty(await context.Voters.ToListAsync());
     }
 
     [Fact]
