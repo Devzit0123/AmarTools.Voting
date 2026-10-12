@@ -127,6 +127,7 @@ namespace AmarTools.Voting.Controllers
             var program = await _votingService.GetProgramWithCandidatesAsync(programId);
             if (program is null) return NotFound();
 
+            program.LoadedVoteCount = await _context.Votes.CountAsync(v => v.ProgramId == programId);
             ViewBag.Program       = program;
 
             return View(program.Candidates);

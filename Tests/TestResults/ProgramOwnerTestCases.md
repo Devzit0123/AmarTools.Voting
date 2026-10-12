@@ -4,32 +4,40 @@ Scope: `Controllers/ProgramOwnerController.cs` and the services it calls.
 
 ## Execution summary
 
+### Run 2 (current): 2026-10-13, after the defect fixes
+
 | Run | Result | Evidence |
 |---|---|---|
-| Non-defect (`Category!=Defect`) | 104 tests: 104 passed | `nondefect-output.txt`, `Tests/TestResults/nondefect.trx` |
-| Defect (`Category=Defect`) | 24 tests: 6 passed, 18 failed | `defect-output.txt`, `Tests/TestResults/defect.trx` |
-| Selenium flows | 11 tests: 11 passed | `selenium-output.txt`, `Tests/TestResults/selenium.trx` |
-| **Combined** | **128 tests: 110 passed, 18 failed** |  |
+| Unit, non-defect (`Category!=Defect`) | 123 tests: 123 passed | `nondefect-output.txt`, `Tests/TestResults/nondefect.trx` |
+| Unit, defect (`Category=Defect`) | 34 tests: 34 passed | `defect-output.txt`, `Tests/TestResults/defect.trx` |
+| Selenium flows (separate browser run against the running app) | 12 tests: 12 passed, including S12 (D30). Re-run at 03:06 after the D12/D34 fix and an app restart: 12 passed again. | `Tests/TestResults/selenium-final.trx` (2026-10-13 03:06, app at https://localhost:7135; earlier pass: `selenium-retry.trx`, 02:47) |
+| **Unit + Selenium combined** | **169 tests: 169 passed, 0 failed** |  |
+
+Filter used for these runs: `FullyQualifiedName~ProgramOwner|FullyQualifiedName~TimeBehaviorTests|FullyQualifiedName~VotePathTests`. The full solution (including teammates' VotingController tests) gives 255 tests: 235 passed, 0 failed, 20 Selenium skipped.
+
+### Run 1: 2026-10-09, before the fixes
+
+128 tests: 110 passed, 18 failed. All 18 failures were defect tests that confirmed D01–D06, D08, D10, D11, D13 and D14. Commit 4896cce then fixed those defects in `ProgramOwnerController` and `VotingService`, and on 2026-10-13 the remaining D11 case, D30 and the new D33 were fixed.
 
 Test project: `Tests/AmarTools.Voting.Tests.csproj` (xUnit, Moq, EF Core InMemory, Selenium WebDriver). Selenium tests need `AMARTOOLS_BASE_URL`, `AMARTOOLS_TEST_EMAIL` and `AMARTOOLS_TEST_PASSWORD`; without them they are reported as skipped.
 
 ## Test counts
 
-| Group | Tests | File(s) | Result |
+| Group | Tests | File(s) | Result (run 2) |
 |---|---:|---|---|
-| Existing controller tests | 53 | ProgramOwnerControllerTests.cs | 53 passed |
+| Controller tests | 53 | ProgramOwnerControllerTests.cs | 53 passed |
 | Time and vote-path tests | 9 | TimeBehaviorTests.cs, VotePathTests.cs | 9 passed |
-| New BVA / ECT / basis-path unit tests | 34 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerBoundaryTests) | 34 passed |
-| New Selenium flows (non-defect) | 8 | ProgramOwnerSeleniumFlowTests.cs | 8 passed |
-| **Non-defect total** | **104** |  | **104 passed** |
-| Defect unit tests | 21 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerDefectTests) | 3 passed (fixed defects), 18 failed (open defects) |
-| Defect Selenium tests | 3 | ProgramOwnerSeleniumFlowTests.cs | 3 passed |
-| **Defect total** | **24** |  | **6 passed, 18 failed** |
-| **Grand total** | **128** |  | **110 passed, 18 failed** |
+| BVA / ECT / basis-path unit tests | 61 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerBoundaryTests) | 61 passed |
+| Selenium flows (non-defect) | 8 | ProgramOwnerSeleniumFlowTests.cs | 8 passed (browser run) |
+| **Non-defect total** | **131** |  | **131 passed** |
+| Defect unit tests | 34 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerDefectTests) | 34 passed (all defects fixed) |
+| Defect Selenium tests | 4 | ProgramOwnerSeleniumFlowTests.cs (S03, S07, S08, S12) | 4 passed (browser run) |
+| **Defect total** | **38** |  | **38 passed** |
+| **Grand total** | **169** |  | **169 passed, 0 failed** |
 
 ## Designed test cases (60): BVA 20, ECT 20, basis path 20
 
-Result is from the runs above. A case marked Fail is a confirmed defect; a case marked Pass whose defect is Fixed now acts as a regression test. Test names starting with `PO-` refer to the case matrix further down.
+Result is from run 2. Eleven cases failed in run 1 (BVA-13..15, ECT-13..20) and confirmed defects; they pass now that the defects are fixed, and they stay in the suite as regression tests. Test names starting with `PO-` refer to the case matrix further down.
 
 | ID | Function | Technique | Priority | Preconditions | Test data | Steps | Expected result | Automated test | Result | Actual result | Defect |
 |---|---|---|---|---|---|---|---|---|---|---|---|
@@ -45,9 +53,9 @@ Result is from the runs above. A case marked Fail is a confirmed defect; a case 
 | BVA-10 | AddCandidate | BVA | Medium | Upcoming program, owner | name 2 chars, code 1 char | POST AddCandidate | Saved | AddCandidate_NameAndCodeAtUpperAndLowerValidBounds_AreSaved(2,1) | Pass | As expected; test passed. |  |
 | BVA-11 | AddCandidate | BVA | Medium | Upcoming program, owner | name 150 chars, code 50 chars | POST AddCandidate | Saved | AddCandidate_NameAndCodeAtUpperAndLowerValidBounds_AreSaved(150,50) | Pass | As expected; test passed. |  |
 | BVA-12 | AddCandidate | BVA | Low | Upcoming program, owner | name 151 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("name") | Pass | Rejected after the fix; defect D08 (name) is fixed and the regression test passes. | D08 |
-| BVA-13 | AddCandidate | BVA | Low | Upcoming program, owner | code 51 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("code") | Fail | Not rejected / incorrect behaviour; defect D08 confirmed (assertion failure). | D08 |
-| BVA-14 | AddCandidate | BVA | Low | Upcoming program, owner | description 501 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("description") | Fail | Not rejected / incorrect behaviour; defect D08 confirmed (assertion failure). | D08 |
-| BVA-15 | AddCandidate | BVA | Low | Upcoming program, owner | imageUrl 501 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("imageUrl") | Fail | Not rejected / incorrect behaviour; defect D08 confirmed (assertion failure). | D08 |
+| BVA-13 | AddCandidate | BVA | Low | Upcoming program, owner | code 51 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("code") | Pass | Rejected as expected. Defect D08 was fixed in commit 4896cce; this test now guards against regression. | D08 |
+| BVA-14 | AddCandidate | BVA | Low | Upcoming program, owner | description 501 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("description") | Pass | Rejected as expected. Defect D08 was fixed in commit 4896cce; this test now guards against regression. | D08 |
+| BVA-15 | AddCandidate | BVA | Low | Upcoming program, owner | imageUrl 501 chars | POST AddCandidate | Rejected with message | D08_..._IsRejectedWithValidationMessage("imageUrl") | Pass | Rejected as expected. Defect D08 was fixed in commit 4896cce; this test now guards against regression. | D08 |
 | BVA-16 | Edit GET | BVA | Medium | No programs | id = 0 | GET /ProgramOwner/Edit/0 | 404 NotFound | EditGet_NonExistingIdBoundaries_ReturnNotFound(0) | Pass | As expected; test passed. |  |
 | BVA-17 | Edit GET | BVA | Medium | No programs | id = -1 and int.MinValue | GET Edit | 404 NotFound | EditGet_NonExistingIdBoundaries_ReturnNotFound(-1, int.MinValue) | Pass | As expected; test passed. |  |
 | BVA-18 | Edit GET | BVA | Low | No programs | id = int.MaxValue | GET Edit | 404 NotFound | EditGet_NonExistingIdBoundaries_ReturnNotFound(int.MaxValue) | Pass | As expected; test passed. |  |
@@ -65,40 +73,40 @@ Result is from the runs above. A case marked Fail is a confirmed defect; a case 
 | ECT-10 | AddCandidate | ECT | High | Owner | imageUrl javascript:alert(1) | POST AddCandidate | Rejected | PO-034 (existing) | Pass | As expected; test passed. |  |
 | ECT-11 | AddCandidate | ECT | Medium | Owner | imageUrl ftp://x.example/a.png | POST AddCandidate | Rejected | PO-035 (existing) | Pass | As expected; test passed. |  |
 | ECT-12 | AddCandidate | ECT | Medium | Candidate code 'A' exists | code 'A' again | POST AddCandidate | Rejected as duplicate | PO-029 (existing) | Pass | As expected; test passed. |  |
-| ECT-13 | AddCandidate | ECT | Low | Candidate code 'A' exists | code 'a' | POST AddCandidate | Rejected as duplicate | D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate | Fail | Not rejected / incorrect behaviour; defect D10 confirmed (assertion failure). | D10 |
-| ECT-14 | AddCandidate | ECT | High | Active published program | Valid candidate | POST AddCandidate | Rejected: ballot frozen | D02_AddCandidate_WhileProgramIsActive_IsRejected | Fail | Not rejected / incorrect behaviour; defect D02 confirmed (assertion failure). | D02 |
-| ECT-15 | AddCandidate | ECT | High | Ended program | Valid candidate | POST AddCandidate | Rejected | D02_AddCandidate_AfterProgramEnded_IsRejected | Fail | Not rejected / incorrect behaviour; defect D02 confirmed (assertion failure). | D02 |
-| ECT-16 | DeleteCandidate | ECT | High | Active published program | Existing candidate | POST DeleteCandidate | Rejected | D02_DeleteCandidate_WhileProgramIsActive_IsRejected | Fail | Not rejected / incorrect behaviour; defect D02 confirmed (assertion failure). | D02 |
-| ECT-17 | DeleteCandidate | ECT | High | Candidate has a vote | Existing candidate | POST DeleteCandidate | Rejected; votes preserved | D03_DeleteCandidate_WithRecordedVotes_IsRejected | Fail | Not rejected / incorrect behaviour; defect D03 confirmed (assertion failure). | D03 |
-| ECT-18 | RegisterVoter | ECT | Medium | Owner program | email 'not-an-email' | RegisterVoterByEmailAsync | Rejected | D14_RegisterVoter_InvalidEmailFormat_IsRejected | Fail | Not rejected / incorrect behaviour; defect D14 confirmed (assertion failure). | D14 |
-| ECT-19 | RegisterVoter | ECT | Medium | Ended program | Valid voter | RegisterVoterByEmailAsync | Rejected | D14_RegisterVoter_AfterElectionEnded_IsRejected | Fail | Not rejected / incorrect behaviour; defect D14 confirmed (assertion failure). | D14 |
-| ECT-20 | Edit POST | ECT | High | Active program | New Start/End in the future | ValidateAndUpdateProgramAsync | Rejected | D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture | Fail | Not rejected / incorrect behaviour; defect D01 confirmed (assertion failure). | D01 |
+| ECT-13 | AddCandidate | ECT | Low | Candidate code 'A' exists | code 'a' | POST AddCandidate | Rejected as duplicate | D10_AddCandidate_CodeThatDiffersOnlyByCase_IsRejectedAsDuplicate | Pass | Rejected as expected. Defect D10 was fixed in commit 4896cce; this test now guards against regression. | D10 |
+| ECT-14 | AddCandidate | ECT | High | Active published program | Valid candidate | POST AddCandidate | Rejected: ballot frozen | D02_AddCandidate_WhileProgramIsActive_IsRejected | Pass | Rejected as expected. Defect D02 was fixed in commit 4896cce; this test now guards against regression. | D02 |
+| ECT-15 | AddCandidate | ECT | High | Ended program | Valid candidate | POST AddCandidate | Rejected | D02_AddCandidate_AfterProgramEnded_IsRejected | Pass | Rejected as expected. Defect D02 was fixed in commit 4896cce; this test now guards against regression. | D02 |
+| ECT-16 | DeleteCandidate | ECT | High | Active published program | Existing candidate | POST DeleteCandidate | Rejected | D02_DeleteCandidate_WhileProgramIsActive_IsRejected | Pass | Rejected as expected. Defect D02 was fixed in commit 4896cce; this test now guards against regression. | D02 |
+| ECT-17 | DeleteCandidate | ECT | High | Candidate has a vote | Existing candidate | POST DeleteCandidate | Rejected; votes preserved | D03_DeleteCandidate_WithRecordedVotes_IsRejected | Pass | Rejected as expected. Defect D03 was fixed in commit 4896cce; this test now guards against regression. | D03 |
+| ECT-18 | RegisterVoter | ECT | Medium | Owner program | email 'not-an-email' | RegisterVoterByEmailAsync | Rejected | D14_RegisterVoter_InvalidEmailFormat_IsRejected | Pass | Rejected as expected. Defect D14 was fixed in commit 4896cce; this test now guards against regression. | D14 |
+| ECT-19 | RegisterVoter | ECT | Medium | Ended program | Valid voter | RegisterVoterByEmailAsync | Rejected | D14_RegisterVoter_AfterElectionEnded_IsRejected | Pass | Rejected as expected. Defect D14 was fixed in commit 4896cce; this test now guards against regression. | D14 |
+| ECT-20 | Edit POST | ECT | High | Active program | New Start/End in the future | ValidateAndUpdateProgramAsync | Rejected | D01_Edit_StartedProgram_CannotBeRescheduledIntoTheFuture | Pass | Rejected as expected. Defect D01 was fixed in commit 4896cce; this test now guards against regression. | D01 |
 | BP-01 | MyPrograms | Basis path | High | No user id | — | GET MyPrograms | Unauthorized (P1) | PO-001 (existing) | Pass | As expected; test passed. |  |
 | BP-02 | MyPrograms | Basis path | High | Owner has 1 program | owner-1 | GET MyPrograms | View with owner's programs (P2) | PO-002 (existing) | Pass | As expected; test passed. |  |
 | BP-03 | Create POST | Basis path | High | Invalid ModelState | Empty name | POST Create | Form returned, ValuesAreUtc=false (P1) | PO-005 (existing) | Pass | As expected; test passed. |  |
 | BP-04 | Create POST | Basis path | High | Service fails with a message | — | POST Create | Form + model error (P2) | PO-006 (existing) | Pass | As expected; test passed. |  |
 | BP-05 | Create POST | Basis path | Medium | Service fails with no message | — | POST Create | Form returned, no model error (P3) | CreatePost_ServiceFailureWithoutMessage_ReturnsFormWithoutModelError | Pass | As expected; test passed. |  |
 | BP-06 | Create POST | Basis path | High | Service succeeds, unpublished | — | POST Create | Redirect to MyPrograms (P4) | PO-007 (existing) | Pass | As expected; test passed. |  |
-| BP-07 | Create POST | Basis path | High | Service succeeds, published | IsPublished=true | POST Create | Published link stored, redirect (P5) | PO-008 (existing) | Pass | As expected; test passed. |  |
+| BP-07 | Create POST | Basis path | High | Service succeeds, published | IsPublished=true | POST Create | Published link stored, redirect (P5) | CreatePost_PublishedSuccess_StoresPublishedLinkAndRedirects | Pass | As expected; test passed. |  |
 | BP-08 | Edit POST | Basis path | High | id != model.Id | id=1, model.Id=2 | POST Edit | NotFound (P1) | PO-013 (existing) | Pass | As expected; test passed. |  |
 | BP-09 | Edit POST | Basis path | Medium | Service fails with no message | — | POST Edit | Form returned, no model error (P4) | EditPost_ServiceFailureWithoutMessage_ReturnsFormWithoutModelError | Pass | As expected; test passed. |  |
 | BP-10 | Edit POST | Basis path | High | Service succeeds, published | IsPublished=true | POST Edit | Link stored, redirect (P6) | EditPost_PublishedSuccess_StoresPublishedLinkAndRedirects | Pass | As expected; test passed. |  |
 | BP-11 | AddCandidate | Basis path | High | Owner | name = '' | POST AddCandidate | Error + redirect (P1) | PO-022 (existing) | Pass | As expected; test passed. |  |
-| BP-12 | AddCandidate | Basis path | High | Admin, program of another owner | Valid data | POST AddCandidate | Saved (P5) | AddCandidate_AdminOnAnotherOwnersProgram_SavesCandidate | Pass | As expected; test passed. |  |
-| BP-13 | AddCandidate | Basis path | Medium | Owner | imageUrl 'example.com/a.png' | POST AddCandidate | Rejected (P12) | PO-036 (existing) | Pass | As expected; test passed. |  |
-| BP-14 | DeleteCandidate | Basis path | High | Candidate belongs to another program | candidateId of program 2, programId 1 | POST DeleteCandidate | Forbid (P5) | PO-043 (existing) | Pass | As expected; test passed. |  |
-| BP-15 | DeleteCandidate | Basis path | High | Owner, upcoming program | Own candidate | POST DeleteCandidate | Deleted (P7) | PO-040 (existing) | Pass | As expected; test passed. |  |
+| BP-12 | AddCandidate | Basis path | High | Admin, program of another owner | Valid data | POST AddCandidate | Saved (P10) | AddCandidate_AdminOnAnotherOwnersProgram_SavesCandidate | Pass | As expected; test passed. |  |
+| BP-13 | AddCandidate | Basis path | Medium | Owner | imageUrl 'example.com/a.png' | POST AddCandidate | Rejected (P19) | PO-036 (existing) | Pass | As expected; test passed. |  |
+| BP-14 | DeleteCandidate | Basis path | High | Candidate belongs to another program | candidateId of program 2, programId 1 | POST DeleteCandidate | NotFound (P4) | DeleteCandidate_WrongProgram_ReturnsNotFound (PO-043) | Pass | As expected; test passed. |  |
+| BP-15 | DeleteCandidate | Basis path | High | Owner, upcoming program | Own candidate | POST DeleteCandidate | Deleted (P8) | DeleteCandidate_Owner_DeletesCandidate | Pass | As expected; test passed. |  |
 | BP-16 | Results | Basis path | Medium | Admin, program of another owner | — | GET Results | View returned (P4) | Results_AdminOnAnotherOwnersProgram_ReturnsView | Pass | As expected; test passed. |  |
 | BP-17 | RegisterVoter POST | Basis path | High | Service fails | — | POST RegisterVoter | Redirect with error (P4) | PO-054 (existing) | Pass | As expected; test passed. |  |
 | BP-18 | RegisterVoter POST | Basis path | Medium | Admin, program of another owner | Valid voter | POST RegisterVoter | Service called (P3) | RegisterVoterPost_AdminOnAnotherOwnersProgram_CallsService | Pass | As expected; test passed. |  |
-| BP-19 | Delete | Basis path | High | Published, active program | — | POST Delete | Refused with error (P4) | PO-061 (existing) | Pass | As expected; test passed. |  |
-| BP-20 | Delete | Basis path | Medium | Unpublished program | — | POST Delete | Deleted (P5) | Delete_UnpublishedProgram_RemovesProgram | Pass | As expected; test passed. |  |
+| BP-19 | Delete | Basis path | High | Published, active program | — | POST Delete | Refused with error (P6) | PO-061 (existing) | Pass | As expected; test passed. |  |
+| BP-20 | Delete | Basis path | Medium | Unpublished program | — | POST Delete | Deleted (P4) | Delete_UnpublishedProgram_RemovesProgram | Pass | As expected; test passed. |  |
 
-Result totals for the 60 cases: 49 Pass, 11 Fail (executed 2026-10-09 by Binoy Dev).
+Result totals for the 60 cases: 60 Pass, 0 Fail (first run 2026-10-09: 49 Pass, 11 Fail; re-run 2026-10-13 after the defect fixes).
 
 ## Existing controller case matrix (PO-001 to PO-062)
 
-Every test behind these cases is in the non-defect run, which passed (104 of 104).
+Every case has an automated test in the non-defect run. PO-008, PO-010, PO-015, PO-040 and PO-053 had no real test before 2026-10-13 (PO-008's test sent an unpublished model); the tests were added in `ProgramOwnerBoundaryDefectTests.cs`.
 
 | ID | Module | Class / equivalence | Expected result |
 |---:|---|---|---|
@@ -144,7 +152,7 @@ Every test behind these cases is in the non-defect run, which passed (104 of 104
 | PO-040 | DeleteCandidate | Current owner | Candidate deleted |
 | PO-041 | DeleteCandidate | Different owner | Forbid |
 | PO-042 | DeleteCandidate | Admin | Candidate deleted |
-| PO-043 | DeleteCandidate | Candidate belongs to another program | Forbid |
+| PO-043 | DeleteCandidate | Candidate belongs to another program | NotFound |
 | PO-044 | Results | Missing program | NotFound |
 | PO-045 | Results | Different owner | Forbid |
 | PO-046 | Results | Current owner | Results view returned |
@@ -157,7 +165,7 @@ Every test behind these cases is in the non-defect run, which passed (104 of 104
 | PO-053 | RegisterVoter GET | Different owner | Forbid |
 | PO-054 | RegisterVoter POST | Service failure | Redirect with error |
 | PO-055 | RegisterVoter POST | Service success | Redirect with success |
-| PO-056 | RemoveVoter | Missing program | Forbid |
+| PO-056 | RemoveVoter | Missing program | NotFound |
 | PO-057 | RemoveVoter | Service success | Redirect with success |
 | PO-058 | RemoveVoter | Service failure | Redirect with error |
 | PO-059 | Delete | Missing program | NotFound |

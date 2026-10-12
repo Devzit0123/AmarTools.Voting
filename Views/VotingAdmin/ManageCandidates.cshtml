@@ -256,7 +256,8 @@
                                 <td><code class="small">@c.CandidateCode</code></td>
                                 <td style="text-align:right;">
                                     <form asp-action="DeleteCandidate" asp-route-id="@c.Id" method="post" style="display:inline;"
-                                          onsubmit="return confirm('Delete @Html.Raw(c.Name.Replace("'", "\\'"))? This cannot be undone.');">
+                                          data-confirm="Delete @c.Name? This cannot be undone."
+                                          onsubmit="return confirm(this.dataset.confirm);">
                                         @Html.AntiForgeryToken()
                                         <input type="hidden" name="programId" value="@program.Id" />
                                         <button type="submit" class="btn btn-sm btn-outline-danger" aria-label="Delete @c.Name">

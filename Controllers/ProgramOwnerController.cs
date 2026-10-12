@@ -39,13 +39,10 @@ namespace AmarTools.Voting.Controllers
             ViewBag.OwnerName = user?.FullName ?? user?.UserName ?? User.Identity?.Name ?? "there";
 
             var programs = await _context.VotingPrograms
-                .Include(p => p.Candidates)
-                .Include(p => p.Votes)
-                .Include(p => p.Voters)
                 .Where(p => p.OwnerId == userId)
                 .OrderByDescending(p => p.CreatedAt)
                 .AsNoTracking()
-                .ToListAsync();
+                .ToListWithCountsAsync();
 
             return View(programs);
         }
@@ -151,6 +148,7 @@ namespace AmarTools.Voting.Controllers
             if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
 
+            program.LoadedVoteCount = await _context.Votes.CountAsync(v => v.ProgramId == programId);
             ViewBag.Program = program;
 
             return View(ManageCandidatesView, program.Candidates);
@@ -355,11 +353,10 @@ namespace AmarTools.Voting.Controllers
         [EnableRateLimiting("admin")]
         public async Task<IActionResult> RegisterVoter(int programId, string name, string email, string? memberId)
         {
-            // Ownership check first
             var program = await _context.VotingPrograms.FindAsync(programId);
-            if (program == null || (program.OwnerId != CurrentUserId && !User.IsInRole("Admin")))
+            if (program is null) return NotFound();
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
                 return Forbid();
-
 
             var (success, error) = await _votingService.RegisterVoterByEmailAsync(
                 programId, name, email, memberId, registrationSource: "owner");
@@ -406,7 +403,9 @@ namespace AmarTools.Voting.Controllers
 
             if (program.IsPublished && !program.HasEnded)
             {
-                TempData["Error"] = "Cannot delete a published program that has not yet ended. Unpublish it first.";
+                TempData["Error"] = program.HasStarted
+                    ? "Cannot delete a program while voting is in progress. Wait until it has ended."
+                    : "Cannot delete a published program that has not yet ended. Unpublish it first.";
                 return RedirectToAction(nameof(MyPrograms));
             }
 

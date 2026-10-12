@@ -345,4 +345,23 @@ public sealed class ProgramOwnerSeleniumFlowTests : IClassFixture<OwnerBrowserFi
 
         Assert.DoesNotContain(name, _ui.PageText);
     }
+
+    // S12 — D30: a candidate name with quotes/markup must appear literally in the delete
+    // confirmation and must not break out of the onsubmit attribute.
+    [SeleniumFact]
+    [Trait("Category", "Defect")]
+    public void DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation()
+    {
+        const string hostileName = "O'Neil \"x\" <b>bold</b>";
+        var id = _ui.CreateProgram(Unique("Xss"));
+        _ui.AddCandidate(id, hostileName, "X1");
+
+        _ui.Driver!.FindElement(By.CssSelector("form[action*='DeleteCandidate'] button[type='submit']")).Click();
+        var alert = _ui.WaitForAlert();
+        var text = alert.Text;
+        alert.Dismiss();   // cancel: the candidate must stay
+
+        Assert.Equal($"Delete {hostileName}? This cannot be undone.", text);
+        Assert.Contains("added successfully", _ui.PageText, StringComparison.OrdinalIgnoreCase);
+    }
 }
