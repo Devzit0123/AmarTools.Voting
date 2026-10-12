@@ -6,7 +6,7 @@
     var totalPrograms = programs.Count;
     var activePrograms = programs.Count(p => p.IsActive);
     var totalVotes = programs.Sum(p => p.TotalVotes);
-    var totalVoters = programs.Sum(p => p.Voters?.Count ?? 0);
+    var totalVoters = programs.Sum(p => p.VoterCount);
 
 }
 
@@ -107,7 +107,7 @@ else
                             </td>
                             <td class="text-center fw-medium">@p.CandidateCount</td>
                             <td class="text-center fw-medium">@p.TotalVotes</td>
-                            <td class="text-center fw-medium">@(p.Voters?.Count ?? 0)</td>
+                            <td class="text-center fw-medium">@p.VoterCount</td>
                             <td class="text-center">
                                 <span class="badge @statusClass rounded-pill px-3 py-2">@statusText</span>
                             </td>

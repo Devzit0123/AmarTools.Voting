@@ -4,72 +4,74 @@
 
 | Run | Command | Result | Evidence |
 |---|---|---|---|
-| Non-defect tests | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "Category!=Defect"` | **104 passed, 0 failed** | `nondefect-output.txt`, `Tests/TestResults/nondefect.trx` |
-| Defect tests | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "Category=Defect"` | **18 failed, 6 passed** (24 tests) | `defect-output.txt`, `Tests/TestResults/defect.trx` |
-| Selenium flows | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "FullyQualifiedName~ProgramOwnerSeleniumFlowTests"` | **11 passed** (app at `http://localhost:5256`) | `selenium-output.txt`, `Tests/TestResults/selenium.trx` |
+| Run 1 (2026-10-09), before the fixes | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "Category=Defect"` | 24 tests: 18 failed, 6 passed | Recorded in the earlier version of this report |
+| Run 2 (2026-10-13), non-defect | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "(FullyQualifiedName~ProgramOwner\|FullyQualifiedName~TimeBehaviorTests\|FullyQualifiedName~VotePathTests)&Category!=Defect"` | **123 passed, 0 failed** (8 Selenium skipped) | `nondefect-output.txt`, `Tests/TestResults/nondefect.trx` |
+| Run 2 (2026-10-13), defect | same filter with `Category=Defect` | **34 passed, 0 failed** (4 Selenium skipped) | `defect-output.txt`, `Tests/TestResults/defect.trx` |
+| Selenium flows (2026-10-09) | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "FullyQualifiedName~ProgramOwnerSeleniumFlowTests"` | **11 passed** (app at `http://localhost:5256`) | `selenium-output.txt`, `Tests/TestResults/selenium.trx` |
+| Selenium flows (2026-10-13 03:06), after all fixes incl. D12/D34 | same command, app restarted on the new build | **12 passed**, including S12 (D30) | `Tests/TestResults/selenium-final.trx` (earlier pass: `selenium-retry.trx`) |
 
-Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures (`Assert.True/False/Single/Equal/IsType` or the explicit D06 message); none is an exception.
+In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equal/IsType` or the explicit D06 message), not exceptions, so each one confirmed a defect. Commit 4896cce (2026-10-09) fixed those defects in `ProgramOwnerController` and `VotingService`. The changes made on 2026-10-13 fixed D11 (RegisterVoter POST), D30 and the new D33, and added the defect tests for D29, D33 and the remaining D11 case. Every defect test now passes and acts as a regression test.
 
 ## Summary
 
-32 defects are recorded.
+34 defects are recorded.
 
 | Status | Count | Meaning |
 |---|---|---|
-| Confirmed | 10 | A defect test fails; the defect is open. |
-| Partly fixed | 1 | Some cases fixed, some still fail. |
-| Fixed | 4 | Fixed in the code; the regression test passes. |
-| Open | 17 | Found by code review; not yet reproduced by a test run. |
+| Fixed | 24 | Fixed in the code. Verified by a passing test, by the build (D27), or by the file being removed (D28). D30 is verified in the browser by Selenium test S12. |
+| Open | 10 | Found by code review; not fixed. All of them are outside ProgramOwnerController (services, blockchain, Identity, data model). |
 
 | Severity | Count |
 |---|---|
 | Critical | 1 |
 | High | 9 |
 | Medium | 7 |
-| Low | 15 |
+| Low | 17 |
 
 ## Defect list
 
 | ID | Severity | Status | Title |
 |---|---|---|---|
-| D01 | High | Confirmed | Edit allows rescheduling/reopening a program after voting started or ended |
-| D02 | High | Confirmed | Candidates can be added or deleted while the election is active or after it ended |
-| D03 | High | Confirmed | Deleting a candidate that has votes silently deletes those votes (FK cascade) |
-| D04 | High | Confirmed | Removing a voter who already voted deletes their vote (FK cascade) |
-| D05 | Medium | Confirmed | A program with recorded votes can be hard-deleted as soon as it ends |
-| D06 | Low | Confirmed | After a duration-validation failure the form re-renders with shifted times |
+| D01 | High | Fixed | Edit allows rescheduling/reopening a program after voting started or ended |
+| D02 | High | Fixed | Candidates can be added or deleted while the election is active or after it ended |
+| D03 | High | Fixed | Deleting a candidate that has votes silently deletes those votes (FK cascade) |
+| D04 | High | Fixed | Removing a voter who already voted deletes their vote (FK cascade) |
+| D05 | Medium | Fixed | A program with recorded votes can be hard-deleted as soon as it ends |
+| D06 | Low | Fixed | After a duration-validation failure the form re-renders with shifted times |
 | D07 | Low | Fixed | Candidate name of 1 character is accepted (model requires 2..150) |
-| D08 | Low | Partly fixed | No server-side maximum-length checks for candidate fields |
+| D08 | Low | Fixed | No server-side maximum-length checks for candidate fields |
 | D09 | Low | Fixed | Protocol-relative image URL (//host/img.png) is accepted |
-| D10 | Low | Confirmed | Candidate-code uniqueness is case-sensitive |
-| D11 | Low | Confirmed | Inconsistent NotFound/Forbid responses reveal which IDs exist |
-| D12 | Medium | Open | MyPrograms and the dashboard load every vote, voter and candidate |
-| D13 | Low | Confirmed | Create does not trim Description (Edit does); invalid-slug message is unreachable |
-| D14 | Medium | Confirmed | Voter registration has no email-format check and ignores the election window |
+| D10 | Low | Fixed | Candidate-code uniqueness is case-sensitive |
+| D11 | Low | Fixed | Inconsistent NotFound/Forbid responses reveal which IDs exist |
+| D12 | Medium | Fixed | MyPrograms and the dashboard load every vote, voter and candidate |
+| D13 | Low | Fixed | Create does not trim Description (Edit does); invalid-slug message is unreachable |
+| D14 | Medium | Fixed | Voter registration has no email-format check and ignores the election window |
 | D15 | Critical | Open | Anyone can take over a pre-registered voter's slot by registering with that email |
-| D16 | High | Open | Any signed-in user can self-register as a voter in any published program |
+| D16 | High | Fixed | Any signed-in user can self-register as a voter in any published program |
 | D17 | High | Open | Ballot secrecy is not preserved |
 | D18 | High | Open | Hash chain does not cover the vote's content |
 | D19 | Medium | Open | Chain validation cannot detect missing or truncated blocks |
 | D20 | Medium | Open | Block queue is in memory, drops writes when full, and is lost on restart |
 | D21 | Low | Open | Retry delays block the single queue reader |
-| D22 | High | Open | Search orders by an unmapped property and may return HTTP 500 |
+| D22 | High | Fixed | Search orders by an unmapped property and may return HTTP 500 |
 | D23 | Medium | Open | Live tallies are visible to voters while voting is still open |
-| D24 | Low | Open | Unpublished (draft) programs can be opened by id |
+| D24 | Low | Fixed | Unpublished (draft) programs can be opened by id |
 | D25 | Low | Open | Search has no maximum query length |
 | D26 | Low | Fixed | Selenium tests report a pass when nothing ran |
-| D27 | Low | Open | Nullable-reference warnings in four views |
+| D27 | Low | Fixed | Nullable-reference warnings in four views |
 | D28 | Low | Fixed | A real Data Protection key file is present in the project folder |
-| D29 | Low | Open | Voter name length is not validated on registration (model rule 2..150) |
-| D30 | High | Open | Stored XSS / attribute injection through the candidate name in the delete confirmation |
+| D29 | Low | Fixed | Voter name length is not validated on registration (model rule 2..150) |
+| D30 | High | Fixed | Stored XSS / attribute injection through the candidate name in the delete confirmation |
 | D31 | Medium | Open | Custom URL slug is collected but never used, and its uniqueness is not enforced by the database |
 | D32 | Low | Open | Verification fields are never set or read (Vote.IsVerified, Vote.VerifiedAt, Vote.BlockchainReference, Voter.IsVerified, Voter.VerifiedAt) |
+| D33 | Low | Fixed | Delete tells the owner to "unpublish first" for an active program, which the D01 fix made impossible |
+| D34 | Low | Fixed | ManageCandidates header always shows "0 vote(s)" |
 
 ## Details
 
 ### D01: Edit allows rescheduling/reopening a program after voting started or ended
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce. The defect test failed in run 1 and passes in run 2 (see defect-output.txt). A guard test (D01_Edit_ActiveProgram_NameOnlyChange_IsAccepted) checks that renaming an active program still works.
 - **Severity / priority:** High / P1
 - **Location:** VotingService.ValidateAndUpdateProgramAsync (called from ProgramOwnerController.Edit POST, line ~119)
 - **Preconditions:** Published program already started (or ended); logged in as owner
@@ -81,7 +83,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D02: Candidates can be added or deleted while the election is active or after it ended
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce. The defect test failed in run 1 and passes in run 2 (see defect-output.txt).
 - **Severity / priority:** High / P1
 - **Location:** ProgramOwnerController.AddCandidate (line ~162), DeleteCandidate (line ~232)
 - **Preconditions:** Published program that is active (or ended)
@@ -93,7 +95,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D03: Deleting a candidate that has votes silently deletes those votes (FK cascade)
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce. The defect test failed in run 1 and passes in run 2 (see defect-output.txt).
 - **Severity / priority:** High / P1
 - **Location:** ProgramOwnerController.DeleteCandidate; Migrations/20260418054953_Initialcreate.cs (FK_Votes_Candidates_CandidateId = Cascade)
 - **Preconditions:** Candidate has at least one vote
@@ -105,7 +107,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D04: Removing a voter who already voted deletes their vote (FK cascade)
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce. The defect test failed in run 1 and passes in run 2 (see defect-output.txt).
 - **Severity / priority:** High / P1
 - **Location:** VotingService.RemoveVoterAsync; FK_Votes_Voters_VoterId = Cascade
 - **Preconditions:** Voter has HasVoted = true
@@ -117,7 +119,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D05: A program with recorded votes can be hard-deleted as soon as it ends
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce. The defect test failed in run 1 and passes in run 2 (see defect-output.txt).
 - **Severity / priority:** Medium / P2
 - **Location:** ProgramOwnerController.Delete (line ~362); cascade FK on Votes/BlockchainVotes; VotingDbContext Owner OnDelete Cascade
 - **Preconditions:** Ended published program with votes
@@ -129,7 +131,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D06: After a duration-validation failure the form re-renders with shifted times
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce (times are normalised to UTC before the duration check). The defect test passes in run 2.
 - **Severity / priority:** Low / P3
 - **Location:** VotingService.ValidateProgramAsync (sets ValuesAreUtc = true before assigning StartTime/EndTime)
 - **Preconditions:** Browser time zone is not UTC
@@ -153,7 +155,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D08: No server-side maximum-length checks for candidate fields
 
-- **Status:** Partly fixed: candidate name is enforced; code (51), description (501) and image URL (501) are still accepted, so 3 of the 4 test cases still fail.
+- **Status:** Fixed. The name limit was fixed first; commit 4896cce added the code, description and image URL limits. All 4 test cases pass in run 2.
 - **Severity / priority:** Low / P3
 - **Location:** ProgramOwnerController.AddCandidate
 - **Preconditions:** Crafted POST (browser maxlength can be bypassed)
@@ -177,7 +179,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D10: Candidate-code uniqueness is case-sensitive
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce (case-insensitive comparison). The defect test passes in run 2.
 - **Severity / priority:** Low / P3
 - **Location:** ProgramOwnerController.AddCandidate; unique index on (ProgramId, CandidateCode)
 - **Preconditions:** Candidate with code 'A' exists
@@ -189,7 +191,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D11: Inconsistent NotFound/Forbid responses reveal which IDs exist
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed. DeleteCandidate and RemoveVoter were fixed in 4896cce. RegisterVoter POST still returned Forbid for a missing program and was fixed on 2026-10-13. D11_RegisterVoterPost_MissingProgram_ReturnsNotFoundLikeTheOtherActions failed against the old code and passes now.
 - **Severity / priority:** Low / P3
 - **Location:** ProgramOwnerController.DeleteCandidate, RemoveVoter
 - **Preconditions:** Logged in as a different owner
@@ -201,19 +203,19 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D12: MyPrograms and the dashboard load every vote, voter and candidate
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-13. MyPrograms and GetAllProgramsForDashboardAsync now use `ToListWithCountsAsync` (Data/VotingProgramQueryExtensions.cs), which produces one SQL query with `count(*)` subqueries; the views read `CandidateCount`, `TotalVotes` and `VoterCount`. D12_MyPrograms_ShowsCountsWithoutLoadingVotesOrVoters and D12_AdminDashboard_ShowsCountsWithoutLoadingVotesOrVoters failed against the old queries and pass now.
 - **Severity / priority:** Medium / P2
 - **Location:** ProgramOwnerController.MyPrograms (Include Candidates/Votes/Voters); VotingService.GetAllProgramsForDashboardAsync
 - **Preconditions:** Owner with large programs
 - **Steps to reproduce:** 1) Open MyPrograms for a program with thousands of votes.
 - **Expected result:** Page loads counts only.
 - **Actual result:** All rows are materialised; memory and latency grow with vote volume.
-- **Evidence / test:** (performance) measure query size / response time
+- **Evidence / test:** D12_MyPrograms_ShowsCountsWithoutLoadingVotesOrVoters, D12_AdminDashboard_ShowsCountsWithoutLoadingVotesOrVoters (counts correct, Votes/Voters/Candidates collections not loaded); the PostgreSQL SQL was checked with ToQueryString
 - **Suggested fix:** Project to counts with Select(p => new { ..., Votes = p.Votes.Count }).
 
 ### D13: Create does not trim Description (Edit does); invalid-slug message is unreachable
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce (Create trims Description). The defect test passes in run 2.
 - **Severity / priority:** Low / P3
 - **Location:** VotingService.ValidateAndCreateProgramAsync; TryNormalizeSlug (always returns true)
 - **Preconditions:** Any owner
@@ -225,7 +227,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D14: Voter registration has no email-format check and ignores the election window
 
-- **Status:** Confirmed: the defect test fails with an assertion failure (see defect-output.txt).
+- **Status:** Fixed in commit 4896cce (email format check; registration closes once voting starts). Both defect tests pass in run 2.
 - **Severity / priority:** Medium / P2
 - **Location:** VotingService.RegisterVoterByEmailAsync
 - **Preconditions:** Owner of a program
@@ -249,7 +251,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D16: Any signed-in user can self-register as a voter in any published program
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed by the VotingController owner in commit 4896cce: Join no longer creates voter rows. Covered by their test DV08_Join_ArbitrarySignedInUser_ShouldNotBecomeAnEligibleVoter.
 - **Severity / priority:** High / P1
 - **Location:** VotingController.Join (RegistrationSource = "self")
 - **Preconditions:** Published program intended for a closed list
@@ -321,7 +323,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D22: Search orders by an unmapped property and may return HTTP 500
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed by the VotingController owner in commit 4896cce: Search now orders by mapped columns (StartTime/EndTime).
 - **Severity / priority:** High / P1
 - **Location:** VotingController.Search (`OrderByDescending(p => p.IsActive)`; IsActive is [NotMapped])
 - **Preconditions:** Published programs exist
@@ -345,7 +347,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D24: Unpublished (draft) programs can be opened by id
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed by the VotingController owner in commit 4896cce: Vote returns 404 for unpublished programs. Covered by their test DV02_Vote_UnpublishedProgram_ShouldNotBeDisclosed.
 - **Severity / priority:** Low / P3
 - **Location:** VotingController.Vote (no IsPublished check; PublicResults does check)
 - **Preconditions:** Draft program
@@ -381,7 +383,7 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D27: Nullable-reference warnings in four views
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed in commit 4896cce (null-safe Model access). `dotnet build` of the web project now reports 0 warnings.
 - **Severity / priority:** Low / P3
 - **Location:** Vote.cshtml(9), PublicResults.cshtml(9), VotingAdmin/Results.cshtml(176), Shared/CreateProgram.cshtml(57)
 - **Preconditions:** dotnet build
@@ -405,26 +407,26 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 
 ### D29: Voter name length is not validated on registration (model rule 2..150)
 
-- **Status:** Open: from code review. A unit test (D29_RegisterVoter_NameOutsideAllowedLength_IsRejected) is ready to add.
+- **Status:** Fixed in commit 4896cce (name length 2..150 checked in the service). D29_RegisterVoter_NameLengthBoundary_IsEnforced (7 BVA points) passes.
 - **Severity / priority:** Low / P3
 - **Location:** VotingService.RegisterVoterByEmailAsync (called from ProgramOwnerController.RegisterVoter POST, line ~319)
 - **Preconditions:** Owner of a program; crafted POST (browser maxlength can be bypassed)
 - **Steps to reproduce:** 1) Register a voter with a 1-character name. 2) Register one with a 151-character name.
 - **Expected result:** Both rejected with a validation message.
 - **Actual result:** Both are accepted by the service (only null/whitespace is checked); the long name fails later at the database with a generic error.
-- **Evidence / test:** D29_RegisterVoter_NameOutsideAllowedLength_IsRejected (2 cases)
+- **Evidence / test:** D29_RegisterVoter_NameLengthBoundary_IsEnforced (7 cases)
 - **Suggested fix:** Check Name length 2..150 (and email 200, memberId 100) before SaveChanges.
 
 ### D30: Stored XSS / attribute injection through the candidate name in the delete confirmation
 
-- **Status:** Open: from code review. A Selenium test (AddCandidate_NameWithQuote_DoesNotInjectAttributesIntoDeleteForm) is ready to add.
+- **Status:** Fixed on 2026-10-13. Html.Raw was removed: the message is now an HTML-encoded data-confirm attribute, and the handler is `confirm(this.dataset.confirm)`. Selenium regression test S12 (DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation) passed on 2026-10-13: the confirm dialog shows the name `O'Neil "x" <b>bold</b>` literally (selenium-final.trx).
 - **Severity / priority:** High / P1
 - **Location:** Views/VotingAdmin/ManageCandidates.cshtml line 259 (`onsubmit="return confirm('Delete @Html.Raw(c.Name.Replace(...))?')"`)
 - **Preconditions:** A ProgramOwner adds a candidate; an Admin (or the owner) opens ManageCandidates
 - **Steps to reproduce:** 1) Add a candidate named  Eve" data-injected="1  (or \');alert(1);// ). 2) Open ManageCandidates and inspect the delete form / submit it.
 - **Expected result:** The name is encoded; the form has no extra attributes and no script runs.
 - **Actual result:** Html.Raw writes the name unencoded inside an HTML attribute and a JavaScript string. A double quote closes the attribute; a backslash defeats the single-quote escaping. A ProgramOwner can therefore run script in an Admin's session.
-- **Evidence / test:** Selenium S12 (AddCandidate_NameWithQuote_DoesNotInjectAttributesIntoDeleteForm); manual: use the name above
+- **Evidence / test:** Selenium S12 (DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation); manual: use the name above
 - **Suggested fix:** Remove Html.Raw; use @Json.Serialize(c.Name) inside the handler, or a data attribute plus JavaScript confirm.
 
 ### D31: Custom URL slug is collected but never used, and its uniqueness is not enforced by the database
@@ -451,12 +453,35 @@ Total: 128 tests, 110 passed, 18 failed. All 18 failures are assertion failures 
 - **Evidence / test:** Code search: no assignment or read outside the model classes
 - **Suggested fix:** Populate BlockchainReference when the block is created, or remove the unused columns.
 
+### D33: Delete tells the owner to "unpublish first" for an active program, which the D01 fix made impossible
+
+- **Status:** Fixed on 2026-10-13. D33_Delete_ActiveProgram_DoesNotSuggestAnImpossibleUnpublish failed against the old code and passes now.
+- **Severity / priority:** Low / P3
+- **Location:** ProgramOwnerController.Delete (line ~406); interacts with VotingService.ValidateAndUpdateProgramAsync
+- **Preconditions:** Published program that has started but not ended; logged in as owner
+- **Steps to reproduce:** 1) Click Delete on an active program. 2) Follow the message and try to unpublish it through Edit.
+- **Expected result:** The message explains that the program can be deleted only after voting ends.
+- **Actual result:** The message said "Unpublish it first", but since the D01 fix the service rejects any change to IsPublished after voting has started, so the owner cannot follow the instruction.
+- **Evidence / test:** D33_Delete_ActiveProgram_DoesNotSuggestAnImpossibleUnpublish; Delete_PublishedUpcomingProgram_IsRefusedWithUnpublishHint keeps the old hint for programs that have not started
+- **Suggested fix:** Use a different message when program.HasStarted (implemented).
+
+### D34: ManageCandidates header always shows "0 vote(s)"
+
+- **Status:** Fixed on 2026-10-13. D34_ManageCandidates_HeaderVoteCountIncludesRecordedVotes failed against the old code and passes now.
+- **Severity / priority:** Low / P3
+- **Location:** ProgramOwnerController.ManageCandidates and VotingAdminController.ManageCandidates; Views/VotingAdmin/ManageCandidates.cshtml line 186 (`@program.TotalVotes vote(s)`)
+- **Preconditions:** Program with recorded votes
+- **Steps to reproduce:** 1) Open ManageCandidates for a program that has votes. 2) Read the header next to the candidate count.
+- **Expected result:** The header shows the number of recorded votes.
+- **Actual result:** It always shows 0. Both actions load the program through GetProgramWithCandidatesAsync, which does not load Votes, and TotalVotes counted that empty collection.
+- **Evidence / test:** D34_ManageCandidates_HeaderVoteCountIncludesRecordedVotes. Found while fixing D12.
+- **Suggested fix:** Count the votes in the database and set LoadedVoteCount in both actions (implemented).
+
 ## Notes
 
-- Defects D01 to D11, D13 and D14 were found by reading the code and then checked with the defect tests in `ProgramOwnerBoundaryDefectTests.cs`. Defects D12, D15 to D25 and D27 to D32 come from code review of the services, `VotingController`, `BlockchainService`, Identity registration, a Razor view and the data model; they have not been reproduced by an automated test.
-- Some of those involve code owned by other team members; confirm with them before reporting them as this controller's defects.
+- Defects D01 to D14, D29, D33 and D34 were found by reading the code and confirmed with the defect tests in `ProgramOwnerBoundaryDefectTests.cs`. Each of those tests failed before its fix and passes now. Defects D12, D15 to D25, D27, D28, D31 and D32 come from code review of the services, `VotingController`, `BlockchainService`, Identity registration, Razor views and the data model.
+- D16, D22, D24 and D27 are in code owned by the VotingController team member and were fixed in their commit 4896cce. Confirm with them before reporting them as this controller's defects.
 - D06 can only be reached by bypassing the page's client-side check, so the Selenium test checks the alert and the typed times, while the unit test confirms the server-side behaviour.
-- `defect.trx` and `defect-output.txt` show the 3 passing unit tests (D07, D08 name, D09) as regression tests of fixed defects.
 
 ## Report format for any new defect
 

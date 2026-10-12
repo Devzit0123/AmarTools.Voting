@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ccf50746-4976-41f6-bcca-d0df2f22ef8c" name="USER@DESKTOP-B4GOMB6 2026-10-13 03:06:24" runUser="DESKTOP-B4GOMB6\USER" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2026-10-13T03:06:24.2658924+06:00" queuing="2026-10-13T03:06:24.2658934+06:00" start="2026-10-13T03:06:22.0137456+06:00" finish="2026-10-13T03:06:43.4421699+06:00" />
+  <TestSettings name="default" id="594ae799-727b-48bb-bb02-c6ac45438ad0">
+    <Deployment runDeploymentRoot="USER_DESKTOP-B4GOMB6_2026-10-13_03_06_24" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="bc362e19-9867-4874-a0a7-01df75fa1b55" testId="c4933a45-52d3-5ebe-18ae-87bb8c2b2e3e" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL01_VotePage_UnknownProgram_Returns404" computerName="DESKTOP-B4GOMB6" duration="00:00:00.6410903" startTime="2026-10-13T03:06:23.5524659+06:00" endTime="2026-10-13T03:06:23.5524919+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bc362e19-9867-4874-a0a7-01df75fa1b55" />
+    <UnitTestResult executionId="11d04285-e697-4f6a-8112-2ea8b7209323" testId="1e24da83-235e-e1ca-f7c1-7549089b844b" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL05_Search_EmptyQuery_ReturnsEmptyJsonArray" computerName="DESKTOP-B4GOMB6" duration="00:00:02.6734708" startTime="2026-10-13T03:06:26.3979202+06:00" endTime="2026-10-13T03:06:26.3979215+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="11d04285-e697-4f6a-8112-2ea8b7209323" />
+    <UnitTestResult executionId="ed90cb05-147e-4ca9-ab12-f17c3aa049fb" testId="82e0f60e-1447-6e26-2eec-200b2f04f5d5" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL04_VotePage_ActiveProgram_Anonymous_ShowsSignInPrompt" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-13T03:06:26.4063411+06:00" endTime="2026-10-13T03:06:26.4063417+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ed90cb05-147e-4ca9-ab12-f17c3aa049fb">
+      <Output>
+        <ErrorInfo>
+          <Message>Set environment variable(s): AMARTOOLS_ACTIVE_PROGRAM_ID</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="2f458d0e-32ff-4e55-bcaa-a2e447b68011" testId="cd1f7fc7-434f-abe9-5315-1412046d2d64" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation" computerName="DESKTOP-B4GOMB6" duration="00:00:00.8811291" startTime="2026-10-13T03:06:34.5761017+06:00" endTime="2026-10-13T03:06:34.5761019+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2f458d0e-32ff-4e55-bcaa-a2e447b68011" />
+    <UnitTestResult executionId="87b0b679-1aa5-438f-bb50-e89c70a25573" testId="f93a3c96-b036-b430-fa21-262013788d93" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0927826" startTime="2026-10-13T03:06:39.7896794+06:00" endTime="2026-10-13T03:06:39.7896827+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87b0b679-1aa5-438f-bb50-e89c70a25573" />
+    <UnitTestResult executionId="576c57b3-d38a-4789-9663-8998d268cd75" testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:00.7146074" startTime="2026-10-13T03:06:39.6967474+06:00" endTime="2026-10-13T03:06:39.6967475+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="576c57b3-d38a-4789-9663-8998d268cd75" />
+    <UnitTestResult executionId="3dabc5cd-08cb-480c-a659-112f7992866f" testId="e0673ca5-6014-21cd-8970-03be4f46672e" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL02_PublicResults_UnknownProgram_Returns404" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0224924" startTime="2026-10-13T03:06:26.4654514+06:00" endTime="2026-10-13T03:06:26.4654518+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3dabc5cd-08cb-480c-a659-112f7992866f" />
+    <UnitTestResult executionId="77bc05f2-2849-490f-bb19-52c2931f78f6" testId="46b53826-145c-3c3f-13b3-02825909ff55" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.1743121" startTime="2026-10-13T03:06:37.7564372+06:00" endTime="2026-10-13T03:06:37.7564373+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="77bc05f2-2849-490f-bb19-52c2931f78f6" />
+    <UnitTestResult executionId="e9f73f39-cbcf-4d70-b1b4-75c20436624b" testId="13af4e07-aa81-897e-ca22-b77a4804d92c" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.4608989" startTime="2026-10-13T03:06:35.0372827+06:00" endTime="2026-10-13T03:06:35.0372832+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="e9f73f39-cbcf-4d70-b1b4-75c20436624b" />
+    <UnitTestResult executionId="27a34b8d-effa-4bad-bf05-1c42fca8ebdb" testId="11b65d75-2163-9f6c-795a-67596fa60642" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL06_Search_ValidQuery_Returns200" computerName="DESKTOP-B4GOMB6" duration="00:00:00.1687186" startTime="2026-10-13T03:06:23.7226455+06:00" endTime="2026-10-13T03:06:23.7226461+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="27a34b8d-effa-4bad-bf05-1c42fca8ebdb" />
+    <UnitTestResult executionId="3f729571-c8b8-4276-841b-818292923ece" testId="7b2f1a31-4e85-a774-6d01-9489ef57c893" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL07_CastVote_WithoutSignIn_IsNotAccepted" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0415341" startTime="2026-10-13T03:06:26.4420943+06:00" endTime="2026-10-13T03:06:26.4420947+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3f729571-c8b8-4276-841b-818292923ece" />
+    <UnitTestResult executionId="48bb82d1-4a9c-4d89-b812-543bd24f6b53" testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:02.7808731" startTime="2026-10-13T03:06:43.1989193+06:00" endTime="2026-10-13T03:06:43.1989196+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="48bb82d1-4a9c-4d89-b812-543bd24f6b53" />
+    <UnitTestResult executionId="5a510006-060b-4ab5-8ae4-2f4f9c051642" testId="beae69e4-86fb-fc3c-c322-166b38715032" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.2714163" startTime="2026-10-13T03:06:36.5819433+06:00" endTime="2026-10-13T03:06:36.5819436+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="5a510006-060b-4ab5-8ae4-2f4f9c051642" />
+    <UnitTestResult executionId="ba373afb-53f7-4722-97af-095f6411ba00" testId="a48889c9-f273-7057-f0d7-39aed42cbffe" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard" computerName="DESKTOP-B4GOMB6" duration="00:00:00.6277522" startTime="2026-10-13T03:06:40.4178123+06:00" endTime="2026-10-13T03:06:40.4178128+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ba373afb-53f7-4722-97af-095f6411ba00" />
+    <UnitTestResult executionId="39036477-9e95-49b8-bc44-1f0607f57a8f" testId="3a68352b-268b-f8db-e014-0b92e2cc1725" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL08_FullFlow_RegisteredVoter_CastsVote_ReachesThankYou" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-13T03:06:23.7241736+06:00" endTime="2026-10-13T03:06:23.7241743+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="39036477-9e95-49b8-bc44-1f0607f57a8f">
+      <Output>
+        <ErrorInfo>
+          <Message>Set environment variable(s): AMARTOOLS_ACTIVE_PROGRAM_ID, AMARTOOLS_ALLOW_VOTE</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="8d1ee165-3b4a-4f3d-8a4e-070b0dec384b" testId="d6268953-9a6d-a4f2-4417-b83452034f45" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" computerName="DESKTOP-B4GOMB6" duration="00:00:00.2729416" startTime="2026-10-13T03:06:35.3103661+06:00" endTime="2026-10-13T03:06:35.3103664+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8d1ee165-3b4a-4f3d-8a4e-070b0dec384b" />
+    <UnitTestResult executionId="682e5bc3-0d7c-4b31-8f71-c36b3d293c61" testId="71789ed3-e1f6-243b-d83c-102e0e13df34" testName="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL03_VotePage_ClosedProgram_ShowsNotAvailablePage" computerName="DESKTOP-B4GOMB6" duration="00:00:00.0010000" startTime="2026-10-13T03:06:26.4039077+06:00" endTime="2026-10-13T03:06:26.4039081+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="682e5bc3-0d7c-4b31-8f71-c36b3d293c61">
+      <Output>
+        <ErrorInfo>
+          <Message>Set environment variable(s): AMARTOOLS_CLOSED_PROGRAM_ID</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="4266d304-566b-4ef8-84e3-f9b2f7158764" testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError" computerName="DESKTOP-B4GOMB6" duration="00:00:01.2253372" startTime="2026-10-13T03:06:38.9819369+06:00" endTime="2026-10-13T03:06:38.9819372+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4266d304-566b-4ef8-84e3-f9b2f7158764" />
+    <UnitTestResult executionId="a90d4abf-9534-4626-adcd-ead64843f24a" testId="8edf8b5d-4f31-2169-2d6b-948138e91132" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected" computerName="DESKTOP-B4GOMB6" duration="00:00:01.9871898" startTime="2026-10-13T03:06:32.4261798+06:00" endTime="2026-10-13T03:06:32.4261803+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="a90d4abf-9534-4626-adcd-ead64843f24a" />
+    <UnitTestResult executionId="9772331d-b8d8-4de9-aa4a-56c641a45c69" testId="969550a3-28cc-ab86-9de7-4441bdb24449" testName="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess" computerName="DESKTOP-B4GOMB6" duration="00:00:01.2684539" startTime="2026-10-13T03:06:33.6948093+06:00" endTime="2026-10-13T03:06:33.6948096+06:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="9772331d-b8d8-4de9-aa4a-56c641a45c69" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_DuplicateEmail_ShowsError" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="63632cc0-953f-7fe1-8b4d-082fc4345a77">
+      <Execution id="4266d304-566b-4ef8-84e3-f9b2f7158764" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="RegisterVoter_DuplicateEmail_ShowsError" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL06_Search_ValidQuery_Returns200" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="11b65d75-2163-9f6c-795a-67596fa60642">
+      <Execution id="27a34b8d-effa-4bad-bf05-1c42fca8ebdb" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL06_Search_ValidQuery_Returns200" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="cd1f7fc7-434f-abe9-5315-1412046d2d64">
+      <Execution id="2f458d0e-32ff-4e55-bcaa-a2e447b68011" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="DeleteCandidate_NameWithQuotesAndMarkup_IsShownLiterallyInConfirmation" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="d6268953-9a6d-a4f2-4417-b83452034f45">
+      <Execution id="8d1ee165-3b4a-4f3d-8a4e-070b0dec384b" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="CreateProgram_DurationUnderFiveMinutes_KeepsTheTimesTheUserTyped" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_JavascriptImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="8edf8b5d-4f31-2169-2d6b-948138e91132">
+      <Execution id="a90d4abf-9534-4626-adcd-ead64843f24a" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_JavascriptImageUrl_IsRejected" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.RegisterVoter_ValidInput_ShowsSuccess" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="969550a3-28cc-ab86-9de7-4441bdb24449">
+      <Execution id="9772331d-b8d8-4de9-aa4a-56c641a45c69" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="RegisterVoter_ValidInput_ShowsSuccess" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_SingleCharacterName_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="46b53826-145c-3c3f-13b3-02825909ff55">
+      <Execution id="77bc05f2-2849-490f-bb19-52c2931f78f6" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_SingleCharacterName_IsRejected" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL01_VotePage_UnknownProgram_Returns404" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="c4933a45-52d3-5ebe-18ae-87bb8c2b2e3e">
+      <Execution id="bc362e19-9867-4874-a0a7-01df75fa1b55" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL01_VotePage_UnknownProgram_Returns404" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ValidInput_ShowsSuccess" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c">
+      <Execution id="576c57b3-d38a-4789-9663-8998d268cd75" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_ValidInput_ShowsSuccess" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL04_VotePage_ActiveProgram_Anonymous_ShowsSignInPrompt" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="82e0f60e-1447-6e26-2eec-200b2f04f5d5">
+      <Execution id="ed90cb05-147e-4ca9-ab12-f17c3aa049fb" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL04_VotePage_ActiveProgram_Anonymous_ShowsSignInPrompt" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL03_VotePage_ClosedProgram_ShowsNotAvailablePage" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="71789ed3-e1f6-243b-d83c-102e0e13df34">
+      <Execution id="682e5bc3-0d7c-4b31-8f71-c36b3d293c61" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL03_VotePage_ClosedProgram_ShowsNotAvailablePage" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL05_Search_EmptyQuery_ReturnsEmptyJsonArray" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="1e24da83-235e-e1ca-f7c1-7549089b844b">
+      <Execution id="11d04285-e697-4f6a-8112-2ea8b7209323" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL05_Search_EmptyQuery_ReturnsEmptyJsonArray" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_ProtocolRelativeImageUrl_IsRejected" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="beae69e4-86fb-fc3c-c322-166b38715032">
+      <Execution id="5a510006-060b-4ab5-8ae4-2f4f9c051642" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_ProtocolRelativeImageUrl_IsRejected" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL07_CastVote_WithoutSignIn_IsNotAccepted" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="7b2f1a31-4e85-a774-6d01-9489ef57c893">
+      <Execution id="3f729571-c8b8-4276-841b-818292923ece" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL07_CastVote_WithoutSignIn_IsNotAccepted" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.Dashboard_IsShownAfterLogin" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f93a3c96-b036-b430-fa21-262013788d93">
+      <Execution id="87b0b679-1aa5-438f-bb50-e89c70a25573" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="Dashboard_IsShownAfterLogin" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.DeleteProgram_Unpublished_RemovesItFromTheDashboard" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="a48889c9-f273-7057-f0d7-39aed42cbffe">
+      <Execution id="ba373afb-53f7-4722-97af-095f6411ba00" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="DeleteProgram_Unpublished_RemovesItFromTheDashboard" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.AddCandidate_DuplicateCode_ShowsError" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="f8635b8f-3e26-f15f-9256-3b3b4726d59b">
+      <Execution id="48bb82d1-4a9c-4d89-b812-543bd24f6b53" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="AddCandidate_DuplicateCode_ShowsError" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests.CreateProgram_ValidInput_AppearsOnDashboard" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="13af4e07-aa81-897e-ca22-b77a4804d92c">
+      <Execution id="e9f73f39-cbcf-4d70-b1b4-75c20436624b" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.ProgramOwnerSeleniumFlowTests" name="CreateProgram_ValidInput_AppearsOnDashboard" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL08_FullFlow_RegisteredVoter_CastsVote_ReachesThankYou" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="3a68352b-268b-f8db-e014-0b92e2cc1725">
+      <Execution id="39036477-9e95-49b8-bc44-1f0607f57a8f" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL08_FullFlow_RegisteredVoter_CastsVote_ReachesThankYou" />
+    </UnitTest>
+    <UnitTest name="AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL02_PublicResults_UnknownProgram_Returns404" storage="d:\binoyy\7th\stqal\amartools.voting\tests\bin\debug\net8.0\amartools.voting.tests.dll" id="e0673ca5-6014-21cd-8970-03be4f46672e">
+      <Execution id="3dabc5cd-08cb-480c-a659-112f7992866f" />
+      <TestMethod codeBase="D:\binoyy\7th\STQAL\AmarTools.Voting\Tests\bin\Debug\net8.0\AmarTools.Voting.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="AmarTools.Voting.Tests.VotingControllerSeleniumTests" name="SEL02_PublicResults_UnknownProgram_Returns404" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="c4933a45-52d3-5ebe-18ae-87bb8c2b2e3e" executionId="bc362e19-9867-4874-a0a7-01df75fa1b55" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="1e24da83-235e-e1ca-f7c1-7549089b844b" executionId="11d04285-e697-4f6a-8112-2ea8b7209323" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="82e0f60e-1447-6e26-2eec-200b2f04f5d5" executionId="ed90cb05-147e-4ca9-ab12-f17c3aa049fb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="cd1f7fc7-434f-abe9-5315-1412046d2d64" executionId="2f458d0e-32ff-4e55-bcaa-a2e447b68011" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f93a3c96-b036-b430-fa21-262013788d93" executionId="87b0b679-1aa5-438f-bb50-e89c70a25573" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b3bcdaf7-5c89-fe9d-9fcf-7d1da3f8ed0c" executionId="576c57b3-d38a-4789-9663-8998d268cd75" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0673ca5-6014-21cd-8970-03be4f46672e" executionId="3dabc5cd-08cb-480c-a659-112f7992866f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="46b53826-145c-3c3f-13b3-02825909ff55" executionId="77bc05f2-2849-490f-bb19-52c2931f78f6" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="13af4e07-aa81-897e-ca22-b77a4804d92c" executionId="e9f73f39-cbcf-4d70-b1b4-75c20436624b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="11b65d75-2163-9f6c-795a-67596fa60642" executionId="27a34b8d-effa-4bad-bf05-1c42fca8ebdb" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="7b2f1a31-4e85-a774-6d01-9489ef57c893" executionId="3f729571-c8b8-4276-841b-818292923ece" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f8635b8f-3e26-f15f-9256-3b3b4726d59b" executionId="48bb82d1-4a9c-4d89-b812-543bd24f6b53" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="beae69e4-86fb-fc3c-c322-166b38715032" executionId="5a510006-060b-4ab5-8ae4-2f4f9c051642" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="a48889c9-f273-7057-f0d7-39aed42cbffe" executionId="ba373afb-53f7-4722-97af-095f6411ba00" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="3a68352b-268b-f8db-e014-0b92e2cc1725" executionId="39036477-9e95-49b8-bc44-1f0607f57a8f" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="d6268953-9a6d-a4f2-4417-b83452034f45" executionId="8d1ee165-3b4a-4f3d-8a4e-070b0dec384b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="71789ed3-e1f6-243b-d83c-102e0e13df34" executionId="682e5bc3-0d7c-4b31-8f71-c36b3d293c61" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="63632cc0-953f-7fe1-8b4d-082fc4345a77" executionId="4266d304-566b-4ef8-84e3-f9b2f7158764" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8edf8b5d-4f31-2169-2d6b-948138e91132" executionId="a90d4abf-9534-4626-adcd-ead64843f24a" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="969550a3-28cc-ab86-9de7-4441bdb24449" executionId="9772331d-b8d8-4de9-aa4a-56c641a45c69" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="20" executed="17" passed="17" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.8.2+699d445a1a (64-bit .NET 8.0.31)&#xD;
+[xUnit.net 00:00:00.20]   Discovering: AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.29]   Discovered:  AmarTools.Voting.Tests&#xD;
+[xUnit.net 00:00:00.30]   Starting:    AmarTools.Voting.Tests&#xD;
+Starting ChromeDriver 154.0.8037.92 (334b65d254ccc35df4fca82706d1753227b01039-refs/branch-heads/8037@{#1589}) on port 53026&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 53026.&#xD;
+[xUnit.net 00:00:01.15]       Set environment variable(s): AMARTOOLS_ACTIVE_PROGRAM_ID, AMARTOOLS_ALLOW_VOTE&#xD;
+Starting ChromeDriver 154.0.8037.92 (334b65d254ccc35df4fca82706d1753227b01039-refs/branch-heads/8037@{#1589}) on port 53031&#xD;
+Only local connections are allowed.&#xD;
+Please see https://chromedriver.chromium.org/security-considerations for suggestions on keeping ChromeDriver safe.&#xD;
+ChromeDriver was started successfully on port 53031.&#xD;
+Test 'AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL08_FullFlow_RegisteredVoter_CastsVote_ReachesThankYou' was skipped in the test run.&#xD;
+[xUnit.net 00:00:03.83]       Set environment variable(s): AMARTOOLS_CLOSED_PROGRAM_ID&#xD;
+[xUnit.net 00:00:03.84]       Set environment variable(s): AMARTOOLS_ACTIVE_PROGRAM_ID&#xD;
+Test 'AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL03_VotePage_ClosedProgram_ShowsNotAvailablePage' was skipped in the test run.&#xD;
+Test 'AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL04_VotePage_ActiveProgram_Anonymous_ShowsSignInPrompt' was skipped in the test run.&#xD;
+[xUnit.net 00:00:20.78]   Finished:    AmarTools.Voting.Tests&#xD;
+</StdOut>
+    </Output>
+    <RunInfos>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-13T03:06:23.7242269+06:00">
+        <Text>[xUnit.net 00:00:01.15]     AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL08_FullFlow_RegisteredVoter_CastsVote_ReachesThankYou [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-13T03:06:26.4028116+06:00">
+        <Text>[xUnit.net 00:00:03.83]     AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL03_VotePage_ClosedProgram_ShowsNotAvailablePage [SKIP]</Text>
+      </RunInfo>
+      <RunInfo computerName="DESKTOP-B4GOMB6" outcome="Warning" timestamp="2026-10-13T03:06:26.4054824+06:00">
+        <Text>[xUnit.net 00:00:03.83]     AmarTools.Voting.Tests.VotingControllerSeleniumTests.SEL04_VotePage_ActiveProgram_Anonymous_ShowsSignInPrompt [SKIP]</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+</TestRun>

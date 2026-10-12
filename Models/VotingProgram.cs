@@ -94,11 +94,25 @@ namespace AmarTools.Voting.Models
             ? EndTime - DateTime.UtcNow
             : TimeSpan.Zero;
 
+        // Counts computed by the database for list pages, so the collections do not
+        // have to be loaded just to be counted. When null, the loaded collections are used.
         [NotMapped]
-        public int CandidateCount => Candidates?.Count ?? 0;
+        public int? LoadedCandidateCount { get; set; }
 
         [NotMapped]
-        public int TotalVotes => Votes?.Count ?? 0;
+        public int? LoadedVoteCount { get; set; }
+
+        [NotMapped]
+        public int? LoadedVoterCount { get; set; }
+
+        [NotMapped]
+        public int CandidateCount => LoadedCandidateCount ?? Candidates?.Count ?? 0;
+
+        [NotMapped]
+        public int TotalVotes => LoadedVoteCount ?? Votes?.Count ?? 0;
+
+        [NotMapped]
+        public int VoterCount => LoadedVoterCount ?? Voters?.Count ?? 0;
 
         // ── Helper Methods ────────────────────────────────────────────────────
         /// <summary>

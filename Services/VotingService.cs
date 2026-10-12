@@ -24,11 +24,8 @@ namespace AmarTools.Voting.Services
         {
             return await context.VotingPrograms
                 .AsNoTracking()
-                .Include(p => p.Candidates)
-                .Include(p => p.Votes)
-                .Include(p => p.Voters)
                 .OrderByDescending(p => p.CreatedAt)
-                .ToListAsync();
+                .ToListWithCountsAsync();
         }
 
         public async Task<VotingProgram?> GetProgramWithCandidatesAsync(int programId)
