@@ -186,7 +186,7 @@ All 69 paths are feasible and each one is executed by a passing xUnit test (run 
 
 ## Selenium coverage
 
-There are 12 browser tests in `ProgramOwnerSeleniumFlowTests.cs`. All 12 passed on 2026-10-13 (`Tests/TestResults/selenium-final.trx` (2026-10-13 03:06, app at https://localhost:7135; earlier pass: `selenium-retry.trx`, 02:47)); S01–S11 had also passed on 2026-10-09 (`selenium.trx`). The same run skipped 3 of the teammate's VotingController browser tests (SEL03, SEL04, SEL08) because their program-id environment variables were not set; they are outside this scope.
+There are 12 browser tests in `ProgramOwnerSeleniumFlowTests.cs`. All 12 passed on 2026-10-13 (`Tests/TestResults/Muskan_Binoy/selenium-final.trx` (2026-10-13 03:06, app at https://localhost:7135)); S01–S11 had also passed on 2026-10-09 (`selenium.trx`). The same run skipped 3 of the teammate's VotingController browser tests (SEL03, SEL04, SEL08) because their program-id environment variables were not set; they are outside this scope.
 
 | Test | Scenario | Last result |
 |---|---|---|
