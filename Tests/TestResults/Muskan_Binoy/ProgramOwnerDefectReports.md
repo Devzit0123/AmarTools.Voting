@@ -5,10 +5,10 @@
 | Run | Command | Result | Evidence |
 |---|---|---|---|
 | Run 1 (2026-10-09), before the fixes | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "Category=Defect"` | 24 tests: 18 failed, 6 passed | Recorded in the earlier version of this report |
-| Run 2 (2026-10-13), non-defect | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "(FullyQualifiedName~ProgramOwner\|FullyQualifiedName~TimeBehaviorTests\|FullyQualifiedName~VotePathTests)&Category!=Defect"` | **123 passed, 0 failed** (8 Selenium skipped) | `nondefect-output.txt`, `Tests/TestResults/nondefect.trx` |
-| Run 2 (2026-10-13), defect | same filter with `Category=Defect` | **34 passed, 0 failed** (4 Selenium skipped) | `defect-output.txt`, `Tests/TestResults/defect.trx` |
-| Selenium flows (2026-10-09) | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "FullyQualifiedName~ProgramOwnerSeleniumFlowTests"` | **11 passed** (app at `http://localhost:5256`) | `selenium-output.txt`, `Tests/TestResults/selenium.trx` |
-| Selenium flows (2026-10-13 03:06), after all fixes incl. D12/D34 | same command, app restarted on the new build | **12 passed**, including S12 (D30) | `Tests/TestResults/selenium-final.trx` |
+| Run 2 (2026-10-13), non-defect | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "(FullyQualifiedName~ProgramOwner\|FullyQualifiedName~TimeBehaviorTests\|FullyQualifiedName~VotePathTests)&Category!=Defect"` | **123 passed, 0 failed** (8 Selenium skipped) | `nondefect-output.txt`, `Tests/TestResults/Muskan_Binoy/nondefect.trx` |
+| Run 2 (2026-10-13), defect | same filter with `Category=Defect` | **34 passed, 0 failed** (4 Selenium skipped) | `defect-output.txt`, `Tests/TestResults/Muskan_Binoy/defect.trx` |
+| Selenium flows (2026-10-09) | `dotnet test Tests/AmarTools.Voting.Tests.csproj --filter "FullyQualifiedName~ProgramOwnerSeleniumFlowTests"` | **11 passed** (app at `http://localhost:5256`) | `selenium-output.txt`, `Tests/TestResults/Muskan_Binoy/selenium.trx` |
+| Selenium flows (2026-10-13 03:06), after all fixes incl. D12/D34 | same command, app restarted on the new build | **12 passed**, including S12 (D30) | `Tests/TestResults/Muskan_Binoy/selenium-final.trx` |
 
 In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equal/IsType` or the explicit D06 message), not exceptions, so each one confirmed a defect. Commit 4896cce (2026-10-09) fixed those defects in `ProgramOwnerController` and `VotingService`. The changes made on 2026-10-13 fixed D11 (RegisterVoter POST), D30 and the new D33, and added the defect tests for D29, D33 and the remaining D11 case. Every defect test now passes and acts as a regression test.
 
