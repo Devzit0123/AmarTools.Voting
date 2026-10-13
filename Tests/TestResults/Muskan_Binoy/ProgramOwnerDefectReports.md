@@ -479,7 +479,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ## Notes
 
-- Defects D01 to D14, D29, D33 and D34 were found by reading the code and confirmed with the defect tests in `ProgramOwnerBoundaryDefectTests.cs`. Each of those tests failed before its fix and passes now. Defects D12, D15 to D25, D27, D28, D31 and D32 come from code review of the services, `VotingController`, `BlockchainService`, Identity registration, Razor views and the data model.
+- Defects D01 to D14, D29, D33 and D34 were found by reading the code and confirmed with the defect tests in `ProgramOwnerDefectTests.cs`. Each of those tests failed before its fix and passes now. Defects D12, D15 to D25, D27, D28, D31 and D32 come from code review of the services, `VotingController`, `BlockchainService`, Identity registration, Razor views and the data model.
 - D16, D22, D24 and D27 are in code owned by the VotingController team member and were fixed in their commit 4896cce. Confirm with them before reporting them as this controller's defects.
 - D06 can only be reached by bypassing the page's client-side check, so the Selenium test checks the alert and the typed times, while the unit test confirms the server-side behaviour.
 

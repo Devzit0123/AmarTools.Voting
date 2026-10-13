@@ -25,15 +25,19 @@ Test project: `Tests/AmarTools.Voting.Tests.csproj` (xUnit, Moq, EF Core InMemor
 
 | Group | Tests | File(s) | Result (run 2) |
 |---|---:|---|---|
-| Controller tests | 53 | ProgramOwnerControllerTests.cs | 53 passed |
+| Controller tests | 39 | ProgramOwnerControllerTests.cs | 39 passed |
 | Time and vote-path tests | 9 | TimeBehaviorTests.cs, VotePathTests.cs | 9 passed |
-| BVA / ECT / basis-path unit tests | 61 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerBoundaryTests) | 61 passed |
+| BVA unit tests | 37 | ProgramOwnerBvaTests.cs | 37 passed |
+| ECT unit tests | 17 | ProgramOwnerEctTests.cs | 17 passed |
+| Basis-path unit tests | 21 | ProgramOwnerBasisPathTests.cs | 21 passed |
 | Selenium flows (non-defect) | 8 | ProgramOwnerSeleniumFlowTests.cs | 8 passed (browser run) |
 | **Non-defect total** | **131** |  | **131 passed** |
-| Defect unit tests | 34 | ProgramOwnerBoundaryDefectTests.cs (ProgramOwnerDefectTests) | 34 passed (all defects fixed) |
+| Defect unit tests | 34 | ProgramOwnerDefectTests.cs | 34 passed (all defects fixed) |
 | Defect Selenium tests | 4 | ProgramOwnerSeleniumFlowTests.cs (S03, S07, S08, S12) | 4 passed (browser run) |
 | **Defect total** | **38** |  | **38 passed** |
 | **Grand total** | **169** |  | **169 passed, 0 failed** |
+
+Each technique has its own file: BVA in `ProgramOwnerBvaTests.cs`, ECT in `ProgramOwnerEctTests.cs`, basis path in `ProgramOwnerBasisPathTests.cs`. Shared helpers are in `OwnerTestKit.cs`. The three files declare partial classes, so every test keeps the class name shown in the .trx files (`ProgramOwnerBoundaryTests`, or `ProgramOwnerControllerTests` for the ECT cases taken from the PO suite). BVA and ECT cases that confirmed a defect (BVA-09, BVA-12..15, ECT-09, ECT-13..20) are in `ProgramOwnerDefectTests.cs`.
 
 ## Designed test cases (60): BVA 20, ECT 20, basis path 20
 
@@ -106,7 +110,7 @@ Result totals for the 60 cases: 60 Pass, 0 Fail (first run 2026-10-09: 49 Pass, 
 
 ## Existing controller case matrix (PO-001 to PO-062)
 
-Every case has an automated test in the non-defect run. PO-008, PO-010, PO-015, PO-040 and PO-053 had no real test before 2026-10-13 (PO-008's test sent an unpublished model); the tests were added in `ProgramOwnerBoundaryDefectTests.cs`.
+Every case has an automated test in the non-defect run. PO-008, PO-010, PO-015, PO-040 and PO-053 had no real test before 2026-10-13 (PO-008's test sent an unpublished model); the tests were added in `ProgramOwnerBasisPathTests.cs`.
 
 | ID | Module | Class / equivalence | Expected result |
 |---:|---|---|---|

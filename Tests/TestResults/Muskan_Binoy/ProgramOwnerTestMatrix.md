@@ -1,6 +1,6 @@
 # ProgramOwnerController test matrix
 
-The executable suite is `ProgramOwnerControllerTests.cs`, `ProgramOwnerBoundaryDefectTests.cs`, `ProgramOwnerSeleniumFlowTests.cs`, `TimeBehaviorTests.cs` and `VotePathTests.cs`, using xUnit, Moq, EF Core InMemory and Selenium.
+The executable suite is `ProgramOwnerControllerTests.cs`, `ProgramOwnerBvaTests.cs`, `ProgramOwnerEctTests.cs`, `ProgramOwnerBasisPathTests.cs`, `ProgramOwnerDefectTests.cs`, `ProgramOwnerSeleniumFlowTests.cs`, `TimeBehaviorTests.cs` and `VotePathTests.cs`, using xUnit, Moq, EF Core InMemory and Selenium.
 
 Last updated 2026-10-13. Line numbers and paths refer to the current `Controllers/ProgramOwnerController.cs`, which includes the defect fixes from commit 4896cce and from 2026-10-13.
 
@@ -167,16 +167,18 @@ Within each function the listed paths are linearly independent (the rank of thei
 | Delete (POST) | P8 | 1 → 2(F) → 4(F) → 7(F) → 11(T) → 12 → End | votes recorded | Refused, program and votes kept | D05_Delete_EndedProgramWithVotes_IsNotHardDeleted |
 | Delete (POST) | P9 | 1 → 2(F) → 4(F) → 7(F) → 11(F) → 13 → 14(T) → 15 → End | SaveChanges throws DbUpdateException | Redirect with error | Delete_SaveFails_RedirectsWithError |
 
-All 69 paths are feasible and each one is executed by a passing xUnit test (run 2026-10-13). The `DbUpdateException` paths use `FailingSaveInterceptor` from `ProgramOwnerBoundaryDefectTests.cs`, which makes the next `SaveChangesAsync` throw after the test data is seeded. Image-URL paths reflect `Uri.TryCreate` on .NET 8 / Windows: `//host` and `/\host` parse as absolute `file:` URIs, while `/images/..` and `example.com/..` do not parse.
+All 69 paths are feasible and each one is executed by a passing xUnit test (run 2026-10-13). The `DbUpdateException` paths use `FailingSaveInterceptor` from `OwnerTestKit.cs`, which makes the next `SaveChangesAsync` throw after the test data is seeded. Image-URL paths reflect `Uri.TryCreate` on .NET 8 / Windows: `//host` and `/\host` parse as absolute `file:` URIs, while `/images/..` and `example.com/..` do not parse.
 
 ## Test counts
 
 | Category | Count | Result (2026-10-13) |
 |---|---:|---|
-| Controller tests (ProgramOwnerControllerTests.cs) | 53 | 53 passed |
+| Controller tests (ProgramOwnerControllerTests.cs) | 39 | 39 passed |
 | Time and vote-path tests (TimeBehaviorTests.cs, VotePathTests.cs) | 9 | 9 passed |
-| BVA / ECT / basis-path unit tests (ProgramOwnerBoundaryTests) | 61 | 61 passed |
-| Defect unit tests (ProgramOwnerDefectTests) | 34 | 34 passed |
+| BVA unit tests (ProgramOwnerBvaTests.cs) | 37 | 37 passed |
+| ECT unit tests (ProgramOwnerEctTests.cs) | 17 | 17 passed |
+| Basis-path unit tests (ProgramOwnerBasisPathTests.cs) | 21 | 21 passed |
+| Defect unit tests (ProgramOwnerDefectTests.cs) | 34 | 34 passed |
 | Selenium flows (ProgramOwnerSeleniumFlowTests) | 12 | 12 passed (selenium-final.trx). Re-run at 03:06 after the D12/D34 fix and an app restart: 12 passed again. |
 | **Total** | **169** | **169 passed, 0 failed** |
 
