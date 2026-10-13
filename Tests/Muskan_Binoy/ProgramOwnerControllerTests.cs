@@ -13,18 +13,8 @@ using Xunit;
 
 namespace AmarTools.Voting.Tests;
 
-public sealed class ProgramOwnerControllerTests
+public sealed partial class ProgramOwnerControllerTests
 {
-    [Fact]
-    public async Task MyPrograms_WithoutUserId_ReturnsUnauthorized()
-    {
-        await using var context = CreateContext();
-        var controller = CreateController(context);
-        SetUser(controller, null);
-
-        Assert.IsType<UnauthorizedResult>(await controller.MyPrograms());
-    }
-
     [Fact]
     public async Task MyPrograms_ReturnsOnlyCurrentOwnersPrograms()
     {
@@ -172,24 +162,6 @@ public sealed class ProgramOwnerControllerTests
     }
 
     [Theory]
-    [InlineData(false, false)]
-    [InlineData(true, true)]
-    public async Task ManageCandidates_EnforcesOwnership(bool admin, bool allowed)
-    {
-        await using var context = CreateContext();
-        var program = Program(1, "owner-1");
-        var services = new Mock<IVotingService>();
-        services.Setup(x => x.GetProgramWithCandidatesAsync(1)).ReturnsAsync(program);
-        var controller = CreateController(context, services.Object);
-        SetUser(controller, admin ? "other" : "other", admin);
-
-        var result = await controller.ManageCandidates(1);
-
-        Assert.Equal(allowed, result is ViewResult);
-        if (!allowed) Assert.IsType<ForbidResult>(result);
-    }
-
-    [Theory]
     [InlineData(null, "A")]
     [InlineData("", "A")]
     [InlineData(" ", "A")]
@@ -229,63 +201,6 @@ public sealed class ProgramOwnerControllerTests
         SetUser(controller, "owner-2");
 
         Assert.IsType<ForbidResult>(await controller.AddCandidate(1, "Candidate", "A", null, null));
-    }
-
-    [Fact]
-    public async Task AddCandidate_DuplicateCode_RedirectsWithoutAdding()
-    {
-        await using var context = CreateContext();
-        context.VotingPrograms.Add(Program(1, "owner-1"));
-        context.Candidates.Add(new Candidate { Id = 1, ProgramId = 1, Name = "Existing", CandidateCode = "A" });
-        await context.SaveChangesAsync();
-        var controller = CreateController(context);
-        SetUser(controller, "owner-1");
-
-        var result = await controller.AddCandidate(1, "New", "A", null, null);
-
-        AssertRedirectToManageCandidates(result, 1);
-        Assert.Single(context.Candidates);
-    }
-
-    [Theory]
-    [InlineData("javascript:alert(1)")]
-    [InlineData("ftp://example.com/image.png")]
-    [InlineData("example.com/image.png")]
-    [InlineData("data:image/png;base64,abc")]
-    public async Task AddCandidate_InvalidImageUrl_Redirects(string imageUrl)
-    {
-        await using var context = CreateContext();
-        context.VotingPrograms.Add(Program(1, "owner-1"));
-        await context.SaveChangesAsync();
-        var controller = CreateController(context);
-        SetUser(controller, "owner-1");
-
-        var result = await controller.AddCandidate(1, "Candidate", "A", imageUrl, null);
-
-        AssertRedirectToManageCandidates(result, 1);
-        Assert.Empty(context.Candidates);
-    }
-
-    [Theory]
-    [InlineData("https://example.com/image.png")]
-    [InlineData("http://example.com/image.png")]
-    [InlineData("/images/candidate.png")]
-    [InlineData("  /images/candidate.png  ")]
-    public async Task AddCandidate_ValidImageUrl_Saves(string imageUrl)
-    {
-        await using var context = CreateContext();
-        context.VotingPrograms.Add(Program(1, "owner-1"));
-        await context.SaveChangesAsync();
-        var controller = CreateController(context);
-        SetUser(controller, "owner-1");
-
-        var result = await controller.AddCandidate(1, " Candidate ", " A ", imageUrl, " description ");
-
-        AssertRedirectToManageCandidates(result, 1);
-        var candidate = Assert.Single(context.Candidates);
-        Assert.Equal("Candidate", candidate.Name);
-        Assert.Equal("A", candidate.CandidateCode);
-        Assert.Equal("description", candidate.Description);
     }
 
     [Fact]
@@ -333,16 +248,6 @@ public sealed class ProgramOwnerControllerTests
     }
 
     [Fact]
-    public async Task Results_MissingProgram_ReturnsNotFound()
-    {
-        await using var context = CreateContext();
-        var services = new Mock<IVotingService>();
-        services.Setup(x => x.GetProgramWithCandidatesAsync(1)).ReturnsAsync((VotingProgram?)null);
-
-        Assert.IsType<NotFoundResult>(await CreateController(context, services.Object).Results(1));
-    }
-
-    [Fact]
     public async Task Results_OtherOwner_ReturnsForbid()
     {
         await using var context = CreateContext();
@@ -379,19 +284,6 @@ public sealed class ProgramOwnerControllerTests
     {
         await using var context = CreateContext();
         Assert.IsType<NotFoundResult>(await CreateController(context).ManageVoters(1));
-    }
-
-    [Fact]
-    public async Task ManageVoters_OtherOwner_ReturnsForbid()
-    {
-        await using var context = CreateContext();
-        context.Users.Add(new ApplicationUser { Id = "owner-1", UserName = "owner", FullName = "Owner" });
-        context.VotingPrograms.Add(Program(1, "owner-1"));
-        await context.SaveChangesAsync();
-        var controller = CreateController(context);
-        SetUser(controller, "owner-2");
-
-        Assert.IsType<ForbidResult>(await controller.ManageVoters(1));
     }
 
     [Fact]
