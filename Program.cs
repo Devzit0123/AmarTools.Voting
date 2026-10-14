@@ -1,8 +1,10 @@
-using AmarTools.Voting.Data;
+﻿using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using AmarTools.Voting.Services;
 using AmarTools.Voting.Services.Background;
+using AmarTools.Voting.Services.Email;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.DataProtection;
@@ -56,7 +58,8 @@ builder.Services.AddDbContext<VotingDbContext>(options =>
 // ── Identity ───────────────────────────────────────────────────────────────
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
+    // D15: an account cannot sign in (or claim a voter slot) until its email is confirmed.
+    options.SignIn.RequireConfirmedAccount = true;
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
@@ -104,8 +107,26 @@ builder.Services.AddRateLimiter(options =>
         QueueLimit           = 10
     }));
 
+    // Forgot-password / resend-confirmation / reset pages: each POST can send an email.
+    options.AddPolicy("account", context =>
+        RateLimitPartition.GetFixedWindowLimiter(GetClientPartitionKey(context), _ => new FixedWindowRateLimiterOptions
+    {
+        PermitLimit          = 5,
+        Window               = TimeSpan.FromMinutes(15),
+        QueueLimit           = 0
+    }));
+
     options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 });
+
+// ── Email (confirmation + password reset) ─────────────────────────────────
+// Configure the "Email" section (SmtpHost, SmtpPort, Username, Password, FromAddress).
+// Without SmtpHost, emails are written to the log instead of being sent.
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection("Email"));
+builder.Services.AddTransient<IEmailSender, SmtpEmailSender>();
+
+// ── Health check (/health) ─────────────────────────────────────────────────
+builder.Services.AddHealthChecks().AddDbContextCheck<VotingDbContext>("database");
 
 // ── Custom Services ────────────────────────────────────────────────────────
 builder.Services.AddScoped<IVotingService, VotingService>();
@@ -149,6 +170,7 @@ static string GetClientPartitionKey(HttpContext context)
 }
 
 //app.UseHttpsRedirection(); // Render handles HTTPS at proxy level
+app.UseSecurityHeaders();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
@@ -160,6 +182,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+app.MapHealthChecks("/health");
 app.Run();
 
 

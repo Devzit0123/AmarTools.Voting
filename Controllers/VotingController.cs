@@ -20,6 +20,25 @@ namespace AmarTools.Voting.Controllers
         private readonly IBlockchainService       _blockchainService = blockchainService;
         private readonly IVoteBlockQueue          _voteBlockQueue    = voteBlockQueue;
 
+        // ── Custom URL slug (/v/{slug}) ───────────────────────────────────────
+        // Resolves a program's custom slug to its voting page. Unpublished
+        // programs return 404, the same as Vote/PublicResults.
+        [HttpGet("v/{slug}")]
+        public async Task<IActionResult> BySlug(string slug)
+        {
+            var normalized = slug?.Trim().ToLowerInvariant();
+            if (string.IsNullOrEmpty(normalized)) return NotFound();
+
+            var programId = await _context.VotingPrograms
+                .Where(p => p.Slug == normalized && p.IsPublished)
+                .Select(p => (int?)p.Id)
+                .FirstOrDefaultAsync();
+
+            return programId is null
+                ? NotFound()
+                : RedirectToAction(nameof(Vote), new { id = programId.Value });
+        }
+
         // ── Public voting page ────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> Vote(int id)
@@ -207,7 +226,7 @@ namespace AmarTools.Voting.Controllers
                     VoterId     = voter.Id,
                     VotedAt     = DateTime.UtcNow,
                     VoteSource  = "web",
-                    IpAddress   = HttpContext.Connection.RemoteIpAddress?.ToString(),
+                    // D17: the voter's IP address is no longer stored with the ballot.
                     UserAgent   = Request.Headers.UserAgent.ToString()[..Math.Min(Request.Headers.UserAgent.ToString().Length, 512)],
                 };
 

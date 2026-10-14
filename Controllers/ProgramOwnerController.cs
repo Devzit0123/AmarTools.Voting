@@ -1,4 +1,4 @@
-using AmarTools.Voting.Data;
+﻿using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using AmarTools.Voting.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -83,7 +83,7 @@ namespace AmarTools.Voting.Controllers
             }
 
             if (model.IsPublished)
-                TempData["PublishedLink"] = Url.Action("Vote", "Voting", new { id = model.Id }, Request.Scheme);
+                TempData["PublishedLink"] = PublicLink(model);
 
             TempData["Success"] = "Voting program created successfully.";
             return RedirectToAction(nameof(MyPrograms));
@@ -132,7 +132,7 @@ namespace AmarTools.Voting.Controllers
             }
 
             if (model.IsPublished)
-                TempData["PublishedLink"] = Url.Action("Vote", "Voting", new { id = model.Id }, Request.Scheme);
+                TempData["PublishedLink"] = PublicLink(model);
 
             TempData["Success"] = "Program updated successfully.";
             return RedirectToAction(nameof(MyPrograms));
@@ -310,6 +310,19 @@ namespace AmarTools.Voting.Controllers
             return View(ResultsView, program);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ExportResults(int id)
+        {
+            var program = await _votingService.GetProgramWithCandidatesAsync(id);
+            if (program is null) return NotFound();
+
+            if (program.OwnerId != CurrentUserId && !User.IsInRole("Admin"))
+                return Forbid();
+
+            var results = await _votingService.GetResultsAsync(id);
+            return File(ResultsCsv.Build(program, results), "text/csv", ResultsCsv.FileName(program));
+        }
+
         // ── Manage Voters ──────────────────────────────────────────────────────
         [HttpGet]
         public async Task<IActionResult> ManageVoters(int programId)
@@ -431,6 +444,12 @@ namespace AmarTools.Voting.Controllers
         }
 
         // ── Shared helpers ─────────────────────────────────────────────────────
+        // Shareable link: /v/{slug} when the program has a custom slug, otherwise /Voting/Vote/{id}.
+        private string? PublicLink(VotingProgram program) =>
+            string.IsNullOrEmpty(program.Slug)
+                ? Url.Action("Vote", "Voting", new { id = program.Id }, Request.Scheme)
+                : Url.Action("BySlug", "Voting", new { slug = program.Slug }, Request.Scheme);
+
         private void PrepareProgramModelForValidation()
         {
             ModelState.Remove(nameof(VotingProgram.OwnerId));

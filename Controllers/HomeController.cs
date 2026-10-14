@@ -28,11 +28,24 @@ namespace AmarTools.Voting.Controllers
                 return RedirectToAction("Index", "VotingAdmin");
             }
 
-            // ── Program Owners (and other authenticated users) go to their
-            //    one real dashboard — no separate duplicate view to keep in sync. ──
-            if (User.Identity?.IsAuthenticated == true)
+            // ── Program Owners go to their dashboard ───────────────────────────────
+            if (User.IsInRole("ProgramOwner"))
             {
                 return RedirectToAction("MyPrograms", "ProgramOwner");
+            }
+
+            // ── Voters (signed in, no role) see the programs they are registered in ─
+            if (User.Identity?.IsAuthenticated == true)
+            {
+                var userId = _userManager.GetUserId(User);
+                var registrations = await _context.Voters
+                    .Where(v => v.UserId == userId)
+                    .Include(v => v.VotingProgram)
+                    .Where(v => v.VotingProgram.IsPublished)
+                    .OrderByDescending(v => v.VotingProgram.StartTime)
+                    .AsNoTracking()
+                    .ToListAsync();
+                return View("MyElections", registrations);
             }
 
             // ── Not logged in → Show Landing Page ─────────────────────────────────

@@ -4,6 +4,7 @@ services:
     env: docker
     dockerfilePath: ./Dockerfile
     plan: free
+    healthCheckPath: /health
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
@@ -17,6 +18,17 @@ services:
         sync: false
       - key: Database__ApplyMigrations
         value: "true"
+      # SMTP for confirmation / password-reset emails (set the values in the Render dashboard)
+      - key: Email__SmtpHost
+        sync: false
+      - key: Email__SmtpPort
+        value: "587"
+      - key: Email__Username
+        sync: false
+      - key: Email__Password
+        sync: false
+      - key: Email__FromAddress
+        sync: false
 
 databases:
   - name: amartools-voting-db

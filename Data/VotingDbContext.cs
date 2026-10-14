@@ -75,6 +75,12 @@ namespace AmarTools.Voting.Data
                 .Property(p => p.Slug)
                 .HasMaxLength(150);
 
+            // Slugs are stored normalised (lowercase) by VotingService, so a plain unique
+            // index is case-insensitive in practice. PostgreSQL allows many NULLs.
+            modelBuilder.Entity<VotingProgram>()
+                .HasIndex(p => p.Slug)
+                .IsUnique();
+
             modelBuilder.Entity<Candidate>()
                 .Property(c => c.Name)
                 .HasMaxLength(150)

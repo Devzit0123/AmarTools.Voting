@@ -1,5 +1,6 @@
 ﻿using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
+using AmarTools.Voting.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -31,6 +32,10 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
 
         [TempData]
         public string? ErrorMessage { get; set; }
+
+        /// <summary>Set when the password was right but the email is not confirmed yet.</summary>
+        public bool EmailNotConfirmed { get; private set; }
+        public string? UnconfirmedEmail { get; private set; }
 
         public class InputModel
         {
@@ -83,7 +88,7 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                await LinkExistingVoterRegistrationsAsync(user);
+                await VoterLinking.LinkPendingRegistrationsAsync(_context, user);
 
                 // ✅ FIXED: Pass the ORIGINAL returnUrl (not the resolved ReturnUrl)
                 // This allows the role check to execute for Admins
@@ -101,31 +106,16 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
                 return RedirectToPage("./Lockout");
             }
 
+            // Correct password but the email is not confirmed yet (RequireConfirmedAccount).
+            if (result.IsNotAllowed && !user.EmailConfirmed)
+            {
+                EmailNotConfirmed = true;
+                UnconfirmedEmail = email;
+                return Page();
+            }
+
             ModelState.AddModelError(string.Empty, "Invalid email or password. Please try again.");
             return Page();
-        }
-
-        private async Task LinkExistingVoterRegistrationsAsync(ApplicationUser user)
-        {
-            var normalizedEmail = user.Email?.Trim().ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(normalizedEmail))
-            {
-                return;
-            }
-
-            var pendingVoters = await _context.Voters
-                .Where(v => v.Email != null && v.Email.ToLower() == normalizedEmail && v.UserId == null)
-                .ToListAsync();
-
-            foreach (var voter in pendingVoters)
-            {
-                voter.UserId = user.Id;
-            }
-
-            if (pendingVoters.Count > 0)
-            {
-                await _context.SaveChangesAsync();
-            }
         }
 
         private string ResolveDefaultReturnUrl(string? returnUrl)
@@ -135,7 +125,7 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
                 return returnUrl;
             }
 
-            return Url.Content("~/ProgramOwner/MyPrograms");
+            return Url.Content("~/");
         }
 
         private async Task<string> ResolveSuccessfulLoginRedirectAsync(ApplicationUser user, string? originalReturnUrl)
@@ -152,8 +142,13 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
                 return Url.Content("~/VotingAdmin/Index");
             }
 
-            // Default for ProgramOwner (and any other roles)
-            return Url.Content("~/ProgramOwner/MyPrograms");
+            if (await _userManager.IsInRoleAsync(user, "ProgramOwner"))
+            {
+                return Url.Content("~/ProgramOwner/MyPrograms");
+            }
+
+            // Voters (no role) go to their elections page.
+            return Url.Content("~/");
         }
     }
 }
