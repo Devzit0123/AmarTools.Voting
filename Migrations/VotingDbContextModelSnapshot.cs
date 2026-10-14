@@ -103,6 +103,9 @@ namespace AmarTools.Voting.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
+                    b.Property<int>("HashVersion")
+                        .HasColumnType("integer");
+
                     b.Property<string>("PreviousHash")
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
@@ -332,6 +335,9 @@ namespace AmarTools.Voting.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("OwnerId");
+
+                    b.HasIndex("Slug")
+                        .IsUnique();
 
                     b.ToTable("VotingPrograms");
                 });

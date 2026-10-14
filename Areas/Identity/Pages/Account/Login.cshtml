@@ -119,6 +119,20 @@
                     <p class="auth-subtitle">Sign in to your voting dashboard</p>
                 </div>
 
+                @if (Model.EmailNotConfirmed)
+                {
+                    <div class="alert alert-warning d-flex align-items-start gap-3 mb-6 border-0" role="alert">
+                        <i class="bi bi-envelope-exclamation-fill fs-5 flex-shrink-0"></i>
+                        <div>
+                            <strong>Please confirm your email first</strong>
+                            <div class="small mt-1">
+                                Open the link we emailed to you, or
+                                <a asp-page="./ResendEmailConfirmation" asp-route-email="@Model.UnconfirmedEmail">send a new link</a>.
+                            </div>
+                        </div>
+                    </div>
+                }
+
                 <form id="account" method="post" asp-route-returnUrl="@Model.ReturnUrl">
 
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger d-flex align-items-start gap-3 mb-6 border-0" role="alert">
@@ -153,11 +167,14 @@
                         <span asp-validation-for="Input.Password" class="text-danger small mt-2 d-block"></span>
                     </div>
 
-                    <div class="form-check mb-6">
-                        <input asp-for="Input.RememberMe" class="form-check-input" id="rememberMe" />
-                        <label asp-for="Input.RememberMe" class="form-check-label" for="rememberMe">
-                            Keep me signed in on this device
-                        </label>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-6">
+                        <div class="form-check m-0">
+                            <input asp-for="Input.RememberMe" class="form-check-input" id="rememberMe" />
+                            <label asp-for="Input.RememberMe" class="form-check-label" for="rememberMe">
+                                Keep me signed in on this device
+                            </label>
+                        </div>
+                        <a asp-page="./ForgotPassword" class="small fw-bold">Forgot password?</a>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-base">

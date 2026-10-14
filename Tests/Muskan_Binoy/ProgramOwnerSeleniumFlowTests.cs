@@ -58,23 +58,53 @@ public sealed class OwnerBrowserFixture : IDisposable
         BaseUrl = baseUrl.TrimEnd('/');
 
         var options = new ChromeOptions();
-        options.AddArgument("--headless=new");
+        // Set AMARTOOLS_HEADED=1 to watch the browser; headless otherwise.
+        if (Environment.GetEnvironmentVariable("AMARTOOLS_HEADED") != "1")
+            options.AddArgument("--headless=new");
         options.AddArgument("--no-sandbox");
         options.AddArgument("--disable-dev-shm-usage");
         options.AddArgument("--ignore-certificate-errors");
         options.AddArgument("--window-size=1400,1000");
         Driver = new ChromeDriver(options);
         Driver.Manage().Timeouts().ImplicitWait = TimeSpan.Zero;
+        if (Environment.GetEnvironmentVariable("AMARTOOLS_HEADED") == "1")
+            Driver.Manage().Window.Maximize();
 
         Driver.Navigate().GoToUrl($"{BaseUrl}/Identity/Account/Login");
         Driver.FindElement(By.Name("Input.Email")).SendKeys(email);
         Driver.FindElement(By.Name("Input.Password")).SendKeys(password);
-        Driver.FindElement(By.CssSelector("button[type='submit']")).Click();
+        Click(Driver.FindElement(By.CssSelector("button[type='submit']")));
         Wait(d => !d.Url.Contains("/Login", StringComparison.OrdinalIgnoreCase));
     }
 
     public void Wait(Func<IWebDriver, bool> condition, int seconds = 10) =>
         new WebDriverWait(Driver!, TimeSpan.FromSeconds(seconds)).Until(condition);
+
+    /// <summary>
+    /// Scrolls the element to the middle of the viewport before clicking. A visible window
+    /// can be smaller than the headless 1400x1000 one, leaving buttons at the bottom edge
+    /// under another element (ElementClickInterceptedException).
+    /// </summary>
+    public void Click(IWebElement element)
+    {
+        var js = (IJavaScriptExecutor)Driver!;
+        // 'instant': Bootstrap sets scroll-behavior: smooth, so a default scroll is still
+        // animating when the click is sent.
+        js.ExecuteScript("arguments[0].scrollIntoView({ block: 'center', inline: 'center', behavior: 'instant' });", element);
+        try
+        {
+            element.Click();
+        }
+        catch (ElementClickInterceptedException ex)
+        {
+            var blocker = js.ExecuteScript(
+                "const r = arguments[0].getBoundingClientRect();" +
+                "const e = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);" +
+                "return (e ? e.outerHTML.slice(0, 300) : 'none') + ' | viewport ' + innerWidth + 'x' + innerHeight;",
+                element);
+            throw new ElementClickInterceptedException($"{ex.Message}\nCovered by: {blocker}", ex);
+        }
+    }
 
     public void Open(string path) => Driver!.Navigate().GoToUrl($"{BaseUrl}{path}");
 
@@ -139,10 +169,10 @@ public sealed class OwnerBrowserFixture : IDisposable
         {
             var box = Driver!.FindElements(By.CssSelector("#programForm input[type='checkbox'][name='IsPublished']"))
                 .FirstOrDefault();
-            if (box is { Selected: false }) box.Click();
+            if (box is { Selected: false }) Click(box);
         }
 
-        Driver!.FindElement(By.CssSelector("#programForm [type='submit']")).Click();
+        Click(Driver!.FindElement(By.CssSelector("#programForm [type='submit']")));
 
         try
         {
@@ -170,7 +200,7 @@ public sealed class OwnerBrowserFixture : IDisposable
         if (description is not null) SetInput(form + "textarea[name='description']", description);
         if (imageUrl is not null) SetInput(form + "input[name='imageUrl']", imageUrl);
         var formElement = Driver!.FindElement(By.CssSelector(form.Trim()));
-        Driver.FindElement(By.CssSelector(form + "button[type='submit']")).Click();
+        Click(Driver.FindElement(By.CssSelector(form + "button[type='submit']")));
 
         // The page is already on ManageCandidates before the click, so the URL alone cannot
         // tell us the POST-redirect-GET finished. Wait for the old form to go stale (the page
@@ -179,6 +209,8 @@ public sealed class OwnerBrowserFixture : IDisposable
         {
             try { _ = formElement.Enabled; return false; }
             catch (StaleElementReferenceException) { return true; }
+            // Mid-navigation Chrome can report the detached node this way instead.
+            catch (WebDriverException ex) when (ex.Message.Contains("does not belong to the document")) { return true; }
         });
         Wait(d => d.Url.Contains("ManageCandidates", StringComparison.OrdinalIgnoreCase) &&
                   d.FindElements(By.CssSelector(form.Trim())).Count > 0);
@@ -190,7 +222,7 @@ public sealed class OwnerBrowserFixture : IDisposable
         Wait(d => d.FindElements(By.CssSelector("input[name='email']")).Count > 0);
         SetInput("input[name='name']", name);
         SetInput("input[name='email']", email);
-        Driver!.FindElement(By.CssSelector("form[action*='RegisterVoter'] button[type='submit']")).Click();
+        Click(Driver!.FindElement(By.CssSelector("form[action*='RegisterVoter'] button[type='submit']")));
         Wait(d => d.Url.Contains("ManageVoters", StringComparison.OrdinalIgnoreCase));
     }
 
@@ -238,7 +270,7 @@ public sealed class ProgramOwnerSeleniumFlowTests : IClassFixture<OwnerBrowserFi
         _ui.SetDateTimeLocal("StartTime", start);
         _ui.SetDateTimeLocal("EndTime", end);
 
-        _ui.Driver!.FindElement(By.CssSelector("#programForm [type='submit']")).Click();
+        _ui.Click(_ui.Driver!.FindElement(By.CssSelector("#programForm [type='submit']")));
 
         // The 5-minute rule is enforced by a JavaScript alert, not by text in the page.
         var alert = _ui.WaitForAlert();
@@ -339,7 +371,7 @@ public sealed class ProgramOwnerSeleniumFlowTests : IClassFixture<OwnerBrowserFi
         var name = Unique("Delete");
         var id = _ui.CreateProgram(name);
 
-        _ui.Driver!.FindElement(By.CssSelector($"form[action*='/ProgramOwner/Delete/{id}'] button[type='submit']")).Click();
+        _ui.Click(_ui.Driver!.FindElement(By.CssSelector($"form[action*='/ProgramOwner/Delete/{id}'] button[type='submit']")));
         _ui.Driver.SwitchTo().Alert().Accept();   // the page asks for confirmation
         _ui.Wait(d => d.PageSource.Contains("Program deleted", StringComparison.OrdinalIgnoreCase));
 
@@ -356,7 +388,7 @@ public sealed class ProgramOwnerSeleniumFlowTests : IClassFixture<OwnerBrowserFi
         var id = _ui.CreateProgram(Unique("Xss"));
         _ui.AddCandidate(id, hostileName, "X1");
 
-        _ui.Driver!.FindElement(By.CssSelector("form[action*='DeleteCandidate'] button[type='submit']")).Click();
+        _ui.Click(_ui.Driver!.FindElement(By.CssSelector("form[action*='DeleteCandidate'] button[type='submit']")));
         var alert = _ui.WaitForAlert();
         var text = alert.Text;
         alert.Dismiss();   // cancel: the candidate must stay

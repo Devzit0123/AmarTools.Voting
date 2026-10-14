@@ -1,4 +1,4 @@
-# ProgramOwnerController and codebase defect report
+﻿# ProgramOwnerController and codebase defect report
 
 ## Execution evidence
 
@@ -18,8 +18,9 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 | Status | Count | Meaning |
 |---|---|---|
-| Fixed | 24 | Fixed in the code. Verified by a passing test, by the build (D27), or by the file being removed (D28). D30 is verified in the browser by Selenium test S12. |
-| Open | 10 | Found by code review; not fixed. All of them are outside ProgramOwnerController (services, blockchain, Identity, data model). |
+| Fixed | 30 | Fixed in the code. Verified by a passing test, by the build (D27), or by the file being removed (D28). D30 is verified in the browser by Selenium test S12. |
+| Partly fixed | 1 | D17: the IP address is no longer stored; the vote row still references the voter. |
+| Open | 3 | D23, D25, D32. Found by code review; not fixed. |
 
 | Severity | Count |
 |---|---|
@@ -46,13 +47,13 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 | D12 | Medium | Fixed | MyPrograms and the dashboard load every vote, voter and candidate |
 | D13 | Low | Fixed | Create does not trim Description (Edit does); invalid-slug message is unreachable |
 | D14 | Medium | Fixed | Voter registration has no email-format check and ignores the election window |
-| D15 | Critical | Open | Anyone can take over a pre-registered voter's slot by registering with that email |
+| D15 | Critical | Fixed | Anyone can take over a pre-registered voter's slot by registering with that email |
 | D16 | High | Fixed | Any signed-in user can self-register as a voter in any published program |
-| D17 | High | Open | Ballot secrecy is not preserved |
-| D18 | High | Open | Hash chain does not cover the vote's content |
-| D19 | Medium | Open | Chain validation cannot detect missing or truncated blocks |
-| D20 | Medium | Open | Block queue is in memory, drops writes when full, and is lost on restart |
-| D21 | Low | Open | Retry delays block the single queue reader |
+| D17 | High | Partly fixed | Ballot secrecy is not preserved |
+| D18 | High | Fixed | Hash chain does not cover the vote's content |
+| D19 | Medium | Fixed | Chain validation cannot detect missing or truncated blocks |
+| D20 | Medium | Fixed | Block queue is in memory, drops writes when full, and is lost on restart |
+| D21 | Low | Fixed | Retry delays block the single queue reader |
 | D22 | High | Fixed | Search orders by an unmapped property and may return HTTP 500 |
 | D23 | Medium | Open | Live tallies are visible to voters while voting is still open |
 | D24 | Low | Fixed | Unpublished (draft) programs can be opened by id |
@@ -62,7 +63,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 | D28 | Low | Fixed | A real Data Protection key file is present in the project folder |
 | D29 | Low | Fixed | Voter name length is not validated on registration (model rule 2..150) |
 | D30 | High | Fixed | Stored XSS / attribute injection through the candidate name in the delete confirmation |
-| D31 | Medium | Open | Custom URL slug is collected but never used, and its uniqueness is not enforced by the database |
+| D31 | Medium | Fixed | Custom URL slug is collected but never used, and its uniqueness is not enforced by the database |
 | D32 | Low | Open | Verification fields are never set or read (Vote.IsVerified, Vote.VerifiedAt, Vote.BlockchainReference, Voter.IsVerified, Voter.VerifiedAt) |
 | D33 | Low | Fixed | Delete tells the owner to "unpublish first" for an active program, which the D01 fix made impossible |
 | D34 | Low | Fixed | ManageCandidates header always shows "0 vote(s)" |
@@ -239,7 +240,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D15: Anyone can take over a pre-registered voter's slot by registering with that email
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. `RequireConfirmedAccount = true`; Register creates the account unconfirmed, sends a confirmation email and does not sign in; voter slots are linked only in ConfirmEmail / Login for confirmed accounts (Services/VoterLinking.cs). Verified by H04_LinkPendingRegistrations_OnlyForConfirmedEmail and by an end-to-end run (sign-in refused before confirmation, allowed after).
 - **Severity / priority:** Critical / P1
 - **Location:** Areas/Identity/Pages/Account/Register.cshtml.cs (EmailConfirmed = true; LinkExistingVoterRegistrationsAsync); Program.cs (RequireConfirmedAccount = false)
 - **Preconditions:** Owner registered victim@example.com as a voter; victim has no account yet
@@ -263,7 +264,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D17: Ballot secrecy is not preserved
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Partly fixed on 2026-10-14. CastVote no longer stores the IP address and migration AddBlockHashVersion clears stored addresses. Still open: Vote.VoterId links the ballot to the voter (it enforces one vote per voter through a unique index), so full ballot secrecy needs a separate voted-ledger design.
 - **Severity / priority:** High / P1
 - **Location:** Models/Vote.cs (VoterId + CandidateId + IpAddress + UserAgent)
 - **Preconditions:** Database or admin access
@@ -275,7 +276,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D18: Hash chain does not cover the vote's content
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. Blocks use hash version 2, which covers VoteId, ProgramId, CandidateId, VoterId and VotedAt; legacy v1 blocks still validate with the old formula (BlockchainVote.HashVersion). Verified by H01_TamperedCandidateInDatabase_IsDetectedByChainCheck and H01_ChangingAnyVoteField_InvalidatesTheBlock.
 - **Severity / priority:** High / P1
 - **Location:** BlockchainVote.GenerateHash / BlockchainService.IsChainValidForProgramAsync
 - **Preconditions:** Program with blocks
@@ -287,7 +288,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D19: Chain validation cannot detect missing or truncated blocks
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. IsChainValidForProgramAsync reports invalid when a vote older than 5 minutes has no block or a vote has two blocks. Verified by H02_DeletedNewestBlock_IsDetected and H02_OldVoteWithoutBlock_MakesChainInvalid.
 - **Severity / priority:** Medium / P2
 - **Location:** BlockchainService.IsChainValidForProgramAsync
 - **Preconditions:** Votes exist without blocks, or last blocks deleted
@@ -299,7 +300,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D20: Block queue is in memory, drops writes when full, and is lost on restart
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. BlockchainBackgroundService sweeps at startup and every 2 minutes and queues votes without a block; CreateBlockForVoteAsync skips votes that already have one. Verified by H03_Sweep_QueuesOnlyVotesWithoutABlock and H01_CreateBlock_ChainsBlocksAndIsIdempotent.
 - **Severity / priority:** Medium / P2
 - **Location:** VoteBlockQueue (BoundedChannelFullMode.DropWrite), BlockchainBackgroundService
 - **Preconditions:** Restart the app right after votes are cast
@@ -311,7 +312,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D21: Retry delays block the single queue reader
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. Retry delays reduced to 0.5 s, 1 s, 2 s (3.5 s in total instead of 14 s); argument errors are not retried.
 - **Severity / priority:** Low / P3
 - **Location:** BlockchainService retry policy (2 s, 4 s, 8 s) with a single-reader channel
 - **Preconditions:** A vote whose block keeps failing
@@ -431,7 +432,7 @@ In run 1, all 18 failures were assertion failures (`Assert.True/False/Single/Equ
 
 ### D31: Custom URL slug is collected but never used, and its uniqueness is not enforced by the database
 
-- **Status:** Open: from code review; not yet reproduced by a test run.
+- **Status:** Fixed on 2026-10-14. `/v/{slug}` (VotingController.BySlug) opens the published program, the published link uses the slug, and migration AddUniqueSlugIndex adds a unique index. Verified by the F01 and F04 tests in FunctionalityTests.cs.
 - **Severity / priority:** Medium / P2
 - **Location:** CreateProgram.cshtml (Slug input); VotingService.ValidateProgramAsync; VotingDbContext / Initialcreate migration (no unique index on Slug)
 - **Preconditions:** Program created with a slug

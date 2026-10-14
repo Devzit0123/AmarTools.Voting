@@ -1,0 +1,44 @@
+@* Shared card layout for the small account pages (confirm email, forgot/reset password).
+   Model: AuthCardModel. The page body is passed as the partial's content via ViewData["Body"]. *@
+@model AmarTools.Voting.Areas.Identity.Pages.Account.AuthCardModel
+
+<style>
+    .auth-card { border: 2px solid var(--color-border); box-shadow: var(--shadow-lg); }
+    .auth-icon {
+        display: inline-flex; align-items: center; justify-content: center;
+        width: 70px; height: 70px; border-radius: var(--radius-lg); font-size: 2.5rem;
+        background: linear-gradient(135deg, var(--color-primary-100) 0%, var(--color-primary-50) 100%);
+        color: var(--color-primary-600); margin-bottom: var(--spacing-4);
+    }
+    .auth-icon.is-success { background: #dcfce7; color: #15803d; }
+    .auth-icon.is-danger { background: #fee2e2; color: #b91c1c; }
+    .auth-title { font-family: var(--font-family-display); font-size: var(--font-size-3xl); font-weight: 700; margin-bottom: var(--spacing-2); }
+    .auth-subtitle { color: var(--color-text-secondary); margin-bottom: var(--spacing-6); }
+    .auth-card .form-label { font-weight: 700; font-size: var(--font-size-sm); }
+    .auth-card .form-control { border: 2px solid var(--color-border); }
+    .auth-card .form-control:focus { border-color: var(--color-primary-600); box-shadow: 0 0 0 4px rgba(59, 91, 219, 0.12); }
+    .auth-footer { text-align: center; margin-top: var(--spacing-6); padding-top: var(--spacing-6); border-top: 1px solid var(--color-border); }
+</style>
+
+<div class="row justify-content-center align-items-center min-vh-100 py-5">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-5 col-xl-4">
+        <div class="card auth-card border-0 rounded-xl">
+            <div class="card-body p-8">
+                <div class="text-center">
+                    <div class="auth-icon @Model.IconClass" aria-hidden="true"><i class="bi @Model.Icon"></i></div>
+                    <h1 class="auth-title">@Model.Title</h1>
+                    @if (!string.IsNullOrEmpty(Model.Subtitle))
+                    {
+                        <p class="auth-subtitle">@Model.Subtitle</p>
+                    }
+                </div>
+                @Model.Body
+                <div class="auth-footer">
+                    <a asp-area="Identity" asp-page="/Account/Login" class="fw-bold">
+                        <i class="bi bi-arrow-left me-1"></i> Back to sign in
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+@page
+@model AmarTools.Voting.Areas.Identity.Pages.Account.RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Check your email";
+    Layout = "/Views/Shared/_AuthLayout.cshtml";
+    Func<object?, object> body = @<div>
+        <p class="text-center">
+            We sent a confirmation link to <strong>@(Model.Email ?? "your email address")</strong>.
+            Click it to activate your account, then sign in.
+        </p>
+        <p class="text-center small text-muted mb-0">
+            Didn't get it? Check your spam folder or
+            <a asp-page="./ResendEmailConfirmation" asp-route-email="@Model.Email">send it again</a>.
+        </p>
+    </div>;
+    var card = new AuthCardModel
+    {
+        Title = "Check your email",
+        Icon = "bi-envelope-paper",
+        Body = (Microsoft.AspNetCore.Html.IHtmlContent)body(null)
+    };
+}
+<partial name="_AuthCard" model="card" />

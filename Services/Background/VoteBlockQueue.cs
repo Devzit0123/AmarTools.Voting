@@ -36,7 +36,7 @@ namespace AmarTools.Voting.Services.Background
                 _logger.LogWarning(
                     "Blockchain queue is full (capacity reached). " +
                     "Vote {VoteId} was not enqueued. " +
-                    "The blockchain block will be missing until a sweep is run.",
+                    "The periodic sweep in BlockchainBackgroundService will queue it again.",
                     voteId);
             }
 

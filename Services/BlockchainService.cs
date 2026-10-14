@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using AmarTools.Voting.Data;
 using AmarTools.Voting.Models;
 using Microsoft.Extensions.Logging;
@@ -11,6 +11,12 @@ namespace AmarTools.Voting.Services
 {
     public class BlockchainService : IBlockchainService
     {
+        /// <summary>
+        /// A vote this old without a block counts as a broken chain (D19). Younger votes
+        /// may still be waiting in the background queue.
+        /// </summary>
+        public static readonly TimeSpan MissingBlockGracePeriod = TimeSpan.FromMinutes(5);
+
         private readonly AsyncRetryPolicy _retryPolicy;
         private readonly ILogger<BlockchainService> _logger;
 
@@ -18,21 +24,23 @@ namespace AmarTools.Voting.Services
         {
             _logger = logger;
 
-            // Retry policy: 3 attempts with exponential backoff
+            // 3 retries: 0.5 s, 1 s, 2 s. The queue has a single reader, so long delays
+            // would hold up every vote behind a failing one (D21).
             _retryPolicy = Policy
-                .Handle<Exception>()
+                .Handle<Exception>(ex => ex is not ArgumentException)
                 .WaitAndRetryAsync(
                     retryCount: 3,
-                    sleepDurationProvider: attempt => TimeSpan.FromSeconds(Math.Pow(2, attempt)), // 2s, 4s, 8s
+                    sleepDurationProvider: attempt => TimeSpan.FromMilliseconds(500 * Math.Pow(2, attempt - 1)),
                     onRetry: (exception, timeSpan, retryCount, context) =>
                     {
-                        // Use structured logging
                         _logger.LogWarning(exception, "Blockchain retry {RetryCount} after {DelaySeconds}s due to: {Message}", retryCount, timeSpan.TotalSeconds, exception.Message);
                     });
         }
 
         /// <summary>
-        /// Verifies the integrity of the blockchain for a given program.
+        /// Verifies the program's chain: every block links to the previous one, every
+        /// block's hash matches its vote's current content (D18), and no vote older than
+        /// <see cref="MissingBlockGracePeriod"/> is missing its block (D19).
         /// </summary>
         public async Task<bool> IsChainValidForProgramAsync(VotingDbContext context, int programId)
         {
@@ -43,26 +51,40 @@ namespace AmarTools.Voting.Services
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (blocks.Count == 0) return true;
-
             string previousHash = "0";
-
             foreach (var block in blocks)
             {
-                string recomputed = BlockchainVote.ComputeHash(
-                    $"{block.VoteId}{previousHash}{block.Timestamp:yyyy-MM-ddTHH:mm:ss.fffZ}");
-
-                if (block.Hash != recomputed || block.PreviousHash != previousHash)
+                if (!block.IsValid(block.Vote, previousHash))
+                {
+                    _logger.LogWarning("Blockchain check failed for program {ProgramId} at block {BlockId} (vote {VoteId}).",
+                        programId, block.Id, block.VoteId);
                     return false;
-
+                }
                 previousHash = block.Hash;
+            }
+
+            // Two blocks for one vote means the chain was tampered with or replayed.
+            if (blocks.Select(b => b.VoteId).Distinct().Count() != blocks.Count)
+                return false;
+
+            var cutoff = DateTime.UtcNow - MissingBlockGracePeriod;
+            bool votesWithoutBlock = await context.Votes
+                .Where(v => v.ProgramId == programId && v.VotedAt < cutoff)
+                .AnyAsync(v => !context.BlockchainVotes.Any(b => b.VoteId == v.Id));
+            if (votesWithoutBlock)
+            {
+                _logger.LogWarning("Program {ProgramId} has votes older than {Minutes} minutes without a blockchain block.",
+                    programId, MissingBlockGracePeriod.TotalMinutes);
+                return false;
             }
 
             return true;
         }
 
         /// <summary>
-        /// Creates a blockchain block for a vote with retry logic.
+        /// Creates the block for a vote, with retries. If the vote already has a block
+        /// (for example it was queued by both CastVote and the sweep), that block is
+        /// returned instead of adding a second one.
         /// </summary>
         public async Task<BlockchainVote> CreateBlockForVoteAsync(VotingDbContext context, Vote vote)
         {
@@ -76,16 +98,21 @@ namespace AmarTools.Voting.Services
 
                 try
                 {
-                    // Get the last block's hash for this program
+                    var existing = await context.BlockchainVotes.FirstOrDefaultAsync(b => b.VoteId == vote.Id);
+                    if (existing is not null)
+                    {
+                        await transaction.CommitAsync();
+                        return existing;
+                    }
+
                     string previousHash = await context.BlockchainVotes
-                        .Include(b => b.Vote)
                         .Where(b => b.Vote.ProgramId == vote.ProgramId)
                         .OrderByDescending(b => b.Id)
                         .Select(b => b.Hash)
                         .FirstOrDefaultAsync() ?? "0";
 
                     var block = new BlockchainVote { VoteId = vote.Id };
-                    block.GenerateHash(previousHash);
+                    block.GenerateHash(vote, previousHash);
 
                     context.BlockchainVotes.Add(block);
                     await context.SaveChangesAsync();
@@ -97,6 +124,10 @@ namespace AmarTools.Voting.Services
                 catch
                 {
                     await transaction.RollbackAsync();
+                    // A failed SaveChanges leaves the block tracked; detach it so the retry starts clean.
+                    foreach (var entry in context.ChangeTracker.Entries<BlockchainVote>()
+                                 .Where(e => e.State == EntityState.Added).ToList())
+                        entry.State = EntityState.Detached;
                     throw;
                 }
             });

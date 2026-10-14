@@ -1,10 +1,10 @@
-using AmarTools.Voting.Data;
-using AmarTools.Voting.Models;
+﻿using AmarTools.Voting.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using AmarTools.Voting.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace AmarTools.Voting.Areas.Identity.Pages.Account
@@ -14,19 +14,16 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly VotingDbContext _context;
+        private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
-            VotingDbContext context)
+            IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _roleManager = roleManager;
-            _context = context;
+            _emailSender = emailSender;
         }
 
         [BindProperty]
@@ -75,23 +72,21 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
                 UserName = email,
                 Email = email,
                 FullName = Input.FullName.Trim(),
-                EmailConfirmed = true
+                // D15: the account stays unconfirmed (and cannot sign in, see
+                // RequireConfirmedAccount in Program.cs) until the owner of the email
+                // clicks the link. Voter slots are linked in ConfirmEmail, not here.
+                EmailConfirmed = false
             };
 
             var result = await _userManager.CreateAsync(user, Input.Password);
 
             if (result.Succeeded)
             {
-                if (!await _roleManager.RoleExistsAsync("ProgramOwner"))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole("ProgramOwner"));
-                }
+                // New accounts are voters. An admin grants the ProgramOwner role
+                // (VotingAdmin/Users), so not every visitor can create elections.
+                await AccountEmails.SendConfirmationAsync(_userManager, _emailSender, Url, Request.Scheme, user, ReturnUrl);
 
-                await _userManager.AddToRoleAsync(user, "ProgramOwner");
-                await LinkExistingVoterRegistrationsAsync(user);
-                await _signInManager.SignInAsync(user, isPersistent: false);
-
-                return LocalRedirect(ReturnUrl);
+                return RedirectToPage("./RegisterConfirmation", new { email });
             }
 
             foreach (var error in result.Errors)
@@ -102,29 +97,6 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
             return Page();
         }
 
-        private async Task LinkExistingVoterRegistrationsAsync(ApplicationUser user)
-        {
-            var normalizedEmail = user.Email?.Trim().ToLowerInvariant();
-            if (string.IsNullOrWhiteSpace(normalizedEmail))
-            {
-                return;
-            }
-
-            var pendingVoters = await _context.Voters
-                .Where(v => v.Email != null && v.Email.ToLower() == normalizedEmail && v.UserId == null)
-                .ToListAsync();
-
-            foreach (var voter in pendingVoters)
-            {
-                voter.UserId = user.Id;
-            }
-
-            if (pendingVoters.Count > 0)
-            {
-                await _context.SaveChangesAsync();
-            }
-        }
-
         private string ResolvePostAuthRedirect(string? returnUrl)
         {
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
@@ -132,7 +104,7 @@ namespace AmarTools.Voting.Areas.Identity.Pages.Account
                 return returnUrl;
             }
 
-            return Url.Content("~/ProgramOwner/MyPrograms");
+            return Url.Content("~/");
         }
     }
 }
